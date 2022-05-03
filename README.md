@@ -13,7 +13,6 @@ Run `notebooks/jupyter.ipynb` under the current Python environment.
 #### CLI
 
 ```
-cd demo
 mlflow pipelines --help
 mlflow pipelines clean
 mlflow pipelines ingest
