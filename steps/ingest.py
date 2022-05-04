@@ -1,3 +1,8 @@
+import logging
+
+_logger = logging.getLogger(__name__)
+
+
 def load_file_as_dataframe(file_path, file_format):
     """
     Load content from the specified dataset file as a Pandas DataFrame.
@@ -13,6 +18,8 @@ def load_file_as_dataframe(file_path, file_format):
     """
 
     if file_format == "csv":
+        import pandas
+
         _logger.warning(
             "Loading dataset CSV using `pandas.read_csv()` with default arguments, which may not"
             " produce the desired schema. If the schema is not correct, you can adjust it by"
