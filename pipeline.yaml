@@ -1,0 +1,10 @@
+data:
+  # Dataset locations on the local filesystem are supported, as well as any remote 
+  # locations resolvable by MLflow, such as those listed in
+  # https://mlflow.org/docs/latest/tracking.html#artifact-stores 
+  location: ./datasets/autos.parquet
+  # The `spark_table` and `delta` formats are also supported on Databricks.
+  # Other formats, including `csv`, can be supported by implementing and
+  # specifying a `loader_method`
+  format: parquet
+  # loader_method: steps.ingest.load_file_as_dataframe 
