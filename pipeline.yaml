@@ -7,4 +7,4 @@ data:
   # Other formats, including `csv`, can be supported by implementing and
   # specifying a `loader_method`
   format: parquet
-  # loader_method: steps.ingest.load_file_as_dataframe
+  # custom_loader_method: steps.ingest.load_file_as_dataframe

@@ -27,4 +27,4 @@ def load_file_as_dataframe(file_path, file_format):
         )
         return pandas.read_csv(file_path)
     else:
-        raise NotImplemented
+        raise NotImplementedError
