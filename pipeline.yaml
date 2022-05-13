@@ -1,1 +1,5 @@
 template: "regression/v1"
+target_col: "price"
+steps:
+  split:
+    split_ratios: [0.75, 0.125, 0.125] # Train/validation/test split ratio
