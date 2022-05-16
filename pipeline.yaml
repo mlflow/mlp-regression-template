@@ -3,3 +3,15 @@ target_col: "price"
 steps:
   split:
     split_ratios: [0.75, 0.125, 0.125] # Train/validation/test split ratio
+  evaluate:
+    - metric: mae
+      threshold: 0.75
+    - metric: quartile_loss
+      threshold: 50
+    - metric: always_one
+      threshold: 0.5
+metrics:
+  - custom:
+    name: always_one
+    function: always_one_fn
+    greater_is_better: True
