@@ -9,10 +9,10 @@ steps:
         threshold: 0.75
       - metric: mean_absolute_error
         threshold: 50
-      - metric: always_one
+      - metric: weighted_mean_squared_error
         threshold: 0.5
 metrics:
   custom:
-    - name: always_one
-      function: always_one_fn
-      greater_is_better: True
+    - name: weighted_mean_squared_error
+      function: weighted_mean_squared_error
+      greater_is_better: False
