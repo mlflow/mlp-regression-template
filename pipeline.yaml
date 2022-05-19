@@ -1,8 +1,8 @@
 template: "regression/v1"
 # Specifies the dataset to use for model development
 data:
-  # Dataset locations on the local filesystem are supported, as well as any remote
-  # locations resolvable by MLflow, such as those listed in
+  # Dataset locations on the local filesystem are supported, as well as HTTP(S) URLs and
+  # any other remote locations resolvable by MLflow, such as those listed in
   # https://mlflow.org/docs/latest/tracking.html#artifact-stores
   location: ./datasets/autos.parquet
   # The `spark_sql` and `delta` formats are also natively supported for use with Spark
