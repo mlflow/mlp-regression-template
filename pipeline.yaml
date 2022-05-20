@@ -17,3 +17,16 @@ target_col: "price"
 steps:
   split:
     split_ratios: [0.75, 0.125, 0.125] # Train/validation/test split ratio
+  evaluate:
+    validation_criteria:
+      - metric: root_mean_squared_error
+        threshold: 0.75
+      - metric: mean_absolute_error
+        threshold: 50
+      - metric: weighted_mean_squared_error
+        threshold: 0.5
+metrics:
+  custom:
+    - name: weighted_mean_squared_error
+      function: weighted_mean_squared_error
+      greater_is_better: False
