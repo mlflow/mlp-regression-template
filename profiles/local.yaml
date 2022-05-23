@@ -1,2 +1,4 @@
 experiment:
   name: "local experiment"
+  tracking_uri: "sqlite:////metadata/mlflow/mlruns.db"
+  artifact_root: "./metadata/mlflow/mlartifacts"
