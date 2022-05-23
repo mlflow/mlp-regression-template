@@ -1,8 +1,35 @@
 template: "regression/v1"
+# Specifies the dataset to use for model development
+data:
+  # Dataset locations on the local filesystem are supported, as well as HTTP(S) URLs and
+  # any other remote locations resolvable by MLflow, such as those listed in
+  # https://mlflow.org/docs/latest/tracking.html#artifact-stores
+  location: ./datasets/autos.parquet
+  # The `spark_sql` and `delta` formats are also natively supported for use with Spark
+  format: parquet
+  # Datasets with other formats, including `csv`, can be used by implementing and
+  # specifying a `custom_loader_method`
+  custom_loader_method: steps.ingest.load_file_as_dataframe
+  # If the `spark_sql` `format` is specified, the `sql` entry is used to specify a SparkSQL
+  # statement that identifies the dataset to use
+  # sql: "SELECT col1, col2, col3 FROM my_spark_table"
 target_col: "price"
 steps:
   split:
     split_ratios: [0.75, 0.125, 0.125] # Train/validation/test split ratio
+  evaluate:
+    validation_criteria:
+      - metric: root_mean_squared_error
+        threshold: 0.75
+      - metric: mean_absolute_error
+        threshold: 50
+      - metric: weighted_mean_squared_error
+        threshold: 0.5
   register:
     name: "price_regression"
     allow_non_validated_model: true
+metrics:
+  custom:
+    - name: weighted_mean_squared_error
+      function: weighted_mean_squared_error
+      greater_is_better: False
