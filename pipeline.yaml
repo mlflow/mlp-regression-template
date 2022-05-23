@@ -3,3 +3,6 @@ target_col: "price"
 steps:
   split:
     split_ratios: [0.75, 0.125, 0.125] # Train/validation/test split ratio
+  register:
+    name: "price_regression"
+    allow_non_validated_model: true
