@@ -17,6 +17,7 @@ target_col: "fare_amount"
 steps:
   split:
     split_ratios: [0.75, 0.125, 0.125] # Train/validation/test split ratio
+    split_method: steps.split.split_fn
   evaluate:
     validation_criteria:
       - metric: root_mean_squared_error
