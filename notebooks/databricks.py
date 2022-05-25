@@ -1,29 +1,37 @@
 # Databricks notebook source
 
-import mlflow.pipelines
+from mlflow.pipelines import Pipeline
 
-help(mlflow.pipelines)
-
-# COMMAND ----------
-
-mlflow.pipelines.clean()
+p = Pipeline()
 
 # COMMAND ----------
 
-mlflow.pipelines.ingest()
+p.clean()
 
 # COMMAND ----------
 
-mlflow.pipelines.split()
+p.inspect()
 
 # COMMAND ----------
 
-mlflow.pipelines.transform()
+p.run("ingest")
 
 # COMMAND ----------
 
-mlflow.pipelines.train()
+p.run("split")
 
 # COMMAND ----------
 
-mlflow.pipelines.evaluate()
+p.run("transform")
+
+# COMMAND ----------
+
+p.run("train")
+
+# COMMAND ----------
+
+p.run("evaluate")
+
+# COMMAND ----------
+
+p.inspect("train")
