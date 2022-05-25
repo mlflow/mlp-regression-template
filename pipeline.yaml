@@ -26,7 +26,7 @@ steps:
       - metric: weighted_mean_squared_error
         threshold: 0.5
   register:
-    name: "price_regression"
+    model_name: "price_regression"
     allow_non_validated_model: true
 metrics:
   custom:
