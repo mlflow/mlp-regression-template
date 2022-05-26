@@ -17,6 +17,7 @@ target_col: "price"
 steps:
   split:
     split_ratios: [0.75, 0.125, 0.125] # Train/validation/test split ratio
+    post_split_method: steps.split.process_splits
   evaluate:
     validation_criteria:
       - metric: root_mean_squared_error
