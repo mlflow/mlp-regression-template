@@ -1,6 +1,6 @@
 from pandas import DataFrame
 
-def split_fn(train_df: DataFrame, validation_df: DataFrame, test_df: DataFrame) -> (DataFrame, DataFrame, DataFrame):
+def process_splits(train_df: DataFrame, validation_df: DataFrame, test_df: DataFrame) -> (DataFrame, DataFrame, DataFrame):
     """
     Perform additional processing on the split datasets.
     """
