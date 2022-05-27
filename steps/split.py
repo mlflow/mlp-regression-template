@@ -1,4 +1,12 @@
-def split_fn(train, validation, test):
+from pandas import DataFrame
+
+
+def process_splits(
+    train_df: DataFrame, validation_df: DataFrame, test_df: DataFrame
+) -> (DataFrame, DataFrame, DataFrame):
+    """
+    Perform additional processing on the split datasets.
+    """
     def process(ds):
         # Drop invalid data points
         cleaned = ds.dropna()
@@ -10,4 +18,5 @@ def split_fn(train, validation, test):
         cleaned = cleaned[(cleaned["PULocationID"] < 264) & (cleaned["DOLocationID"] < 264)]
 
         return cleaned
-    return (process(train), process(validation), process(test))
+    return process(train_df), process(validation_df), process(test_df)
+
