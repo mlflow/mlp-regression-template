@@ -1,4 +1,9 @@
 experiment:
-  name: "local experiment"
+  name: "sklearn_regression_experiment"
   tracking_uri: "sqlite:///metadata/mlflow/mlruns.db"
   artifact_location: "./metadata/mlflow/mlartifacts"
+
+INGEST_DATA_LOCATION: ./datasets/autos.parquet
+# Set the INGEST_DATA_FORMAT corresponding to the data_set to correctly ingest the data.
+# INGEST_DATA_FORMAT: parquet
+SPLIT_RATIOS: [0.80, 0.10, 0.10]

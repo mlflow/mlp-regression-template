@@ -4,9 +4,9 @@ data:
   # Dataset locations on the local filesystem are supported, as well as HTTP(S) URLs and
   # any other remote locations resolvable by MLflow, such as those listed in
   # https://mlflow.org/docs/latest/tracking.html#artifact-stores
-  location: ./datasets/autos.parquet
+  location: {{INGEST_DATA_LOCATION}}
   # The `spark_sql` and `delta` formats are also natively supported for use with Spark
-  format: parquet
+  format: {{INGEST_DATA_FORMAT|default('parquet')}}
   # Datasets with other formats, including `csv`, can be used by implementing and
   # specifying a `custom_loader_method`
   custom_loader_method: steps.ingest.load_file_as_dataframe
@@ -16,7 +16,8 @@ data:
 target_col: "price"
 steps:
   split:
-    split_ratios: [0.75, 0.125, 0.125] # Train/validation/test split ratio
+    # Train/validation/test split ratio
+    split_ratios: {{SPLIT_RATIOS|default([0.75, 0.125, 0.125])}}
     post_split_method: steps.split.process_splits
   evaluate:
     validation_criteria:
