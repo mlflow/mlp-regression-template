@@ -15,7 +15,7 @@ data:
   # statement that identifies the dataset to use
   # sql: "SELECT col1, col2, col3 FROM my_spark_table"
   # If the `delta` `format` is specified, you can also configure the Delta table `version` to read
-  # or the `timestamp` from which to read data
+  # or the `timestamp` at which to read data
   # version: 2
   # timestamp: 2022-06-01T00:00:00.000Z
 target_col: "price"
