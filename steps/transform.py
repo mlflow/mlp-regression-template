@@ -20,5 +20,5 @@ def transform_fn():
                 ('hour_encoder', OneHotEncoder(categories='auto', sparse=False), ["pickup_hour"]),
                 ('day_encoder', OneHotEncoder(categories='auto', sparse=False), ["pickup_dow"]),
                 ('std_scaler', StandardScaler(), ["trip_distance", "trip_duration_min"])])
-             )
+             ),
         ])

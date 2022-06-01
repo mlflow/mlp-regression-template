@@ -24,6 +24,6 @@ def process_splits(
 
         # Large dataset. Take first 10%
         length = ds.size
-        return cleaned.head(length/10)
+        return cleaned.head(int(length/10))
     return process(train_df), process(validation_df), process(test_df)
 
