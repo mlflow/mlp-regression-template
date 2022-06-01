@@ -3,7 +3,7 @@
 # experiment:
   # name: "/Shared/sklearn_regression_experiment"
 
-INGEST_DATA_LOCATION: https://nyc-tlc.s3.amazonaws.com/trip+data/yellow_tripdata_2022-01.parquet
+INGEST_DATA_LOCATION: "https://nyc-tlc.s3.amazonaws.com/trip+data/yellow_tripdata_2022-01.parquet"
 # Set the INGEST_DATA_FORMAT corresponding to the data_set to correctly ingest the data.
 # INGEST_DATA_FORMAT: parquet
 # Override the default split ratio by changing the Train/validation/test ratio respectively
