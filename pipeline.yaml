@@ -5,7 +5,8 @@ data:
   # any other remote locations resolvable by MLflow, such as those listed in
   # https://mlflow.org/docs/latest/tracking.html#artifact-stores
   location: {{INGEST_DATA_LOCATION}}
-  # The `spark_sql` and `delta` formats are also natively supported for use with Spark
+  # Beyond `parquet` datasets, the `spark_sql` and `delta` formats are also natively supported for
+  # use with Spark
   format: {{INGEST_DATA_FORMAT|default('parquet')}}
   # Datasets with other formats, including `csv`, can be used by implementing and
   # specifying a `custom_loader_method`
@@ -13,6 +14,10 @@ data:
   # If the `spark_sql` `format` is specified, the `sql` entry is used to specify a SparkSQL
   # statement that identifies the dataset to use
   # sql: "SELECT col1, col2, col3 FROM my_spark_table"
+  # If the `delta` `format` is specified, you can also configure the Delta table `version` to read
+  # or the `timestamp` from which to read data
+  # version: 2
+  # timestamp: 2022-06-01T00:00:00.000Z
 target_col: "price"
 steps:
   split:
