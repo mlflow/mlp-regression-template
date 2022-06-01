@@ -7,12 +7,19 @@ def process_splits(
     """
     Perform additional processing on the split datasets.
     """
+
     def process(df: DataFrame):
         # Drop invalid data points
         cleaned = df.dropna()
         # Filter out invalid fare amounts, trip distance, tip amounts, passenger counts
-        cleaned = cleaned[(cleaned["fare_amount"] > 0) & (cleaned["trip_distance"] < 400) & (cleaned["trip_distance"] > 0) &
-                      (cleaned["tip_amount"] >= 0) & (cleaned["passenger_count"] > 0) & (cleaned["fare_amount"] < 1000)]
+        cleaned = cleaned[
+            (cleaned["fare_amount"] > 0)
+            & (cleaned["trip_distance"] < 400)
+            & (cleaned["trip_distance"] > 0)
+            & (cleaned["tip_amount"] >= 0)
+            & (cleaned["passenger_count"] > 0)
+            & (cleaned["fare_amount"] < 1000)
+        ]
 
         # Locations 264 and 265 map to unknown. Filter them out
         cleaned = cleaned[(cleaned["PULocationID"] < 264) & (cleaned["DOLocationID"] < 264)]
@@ -24,6 +31,6 @@ def process_splits(
 
         # Large dataset. Take first 10%
         length = df.size
-        return cleaned.head(int(length/10))
-    return process(train_df), process(validation_df), process(test_df)
+        return cleaned.head(int(length / 10))
 
+    return process(train_df), process(validation_df), process(test_df)

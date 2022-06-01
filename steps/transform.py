@@ -15,10 +15,24 @@ def compute_features(df: DataFrame):
 def transform_fn():
     return Pipeline(
         steps=[
-            ('extra_features', FunctionTransformer(compute_features, validate=False)),
-            ('encoder', ColumnTransformer(transformers=[
-                ('hour_encoder', OneHotEncoder(categories='auto', sparse=False), ["pickup_hour"]),
-                ('day_encoder', OneHotEncoder(categories='auto', sparse=False), ["pickup_dow"]),
-                ('std_scaler', StandardScaler(), ["trip_distance", "trip_duration_min"])])
-             ),
-        ])
+            ("extra_features", FunctionTransformer(compute_features, validate=False)),
+            (
+                "encoder",
+                ColumnTransformer(
+                    transformers=[
+                        (
+                            "hour_encoder",
+                            OneHotEncoder(categories="auto", sparse=False),
+                            ["pickup_hour"],
+                        ),
+                        (
+                            "day_encoder",
+                            OneHotEncoder(categories="auto", sparse=False),
+                            ["pickup_dow"],
+                        ),
+                        ("std_scaler", StandardScaler(), ["trip_distance", "trip_duration_min"]),
+                    ]
+                ),
+            ),
+        ]
+    )
