@@ -20,50 +20,26 @@ python --version
 pip install --upgrade pip wheel
 pip --version
 
-if [[ "$MLFLOW_SKINNY" == "true" ]]; then
-  pip install . --upgrade
-else
-  pip install .[extras] --upgrade
-fi
-export MLFLOW_HOME=$(pwd)
+pip install -e . --upgrade
+export MLFLOW_PIPELINE_EXAMPLE=$(pwd)
 
 req_files=""
 # Install Python test dependencies only if we're running Python tests
-if [[ "$INSTALL_SMALL_PYTHON_DEPS" == "true" ]]; then
+if [[ "$INSTALL_SKLEARN_PIPELINE_DEPS" == "true" ]]; then
   # When downloading large packages from PyPI, the connection is sometimes aborted by the
   # remote host. See https://github.com/pypa/pip/issues/8510.
   # As a workaround, we retry installation of large packages.
-  req_files+=" -r requirements/small-requirements.txt"
-fi
-if [[ "$INSTALL_SKINNY_PYTHON_DEPS" == "true" ]]; then
-  req_files+=" -r requirements/skinny-requirements.txt"
-fi
-if [[ "$INSTALL_LARGE_PYTHON_DEPS" == "true" ]]; then
-  req_files+=" -r requirements/large-requirements.txt"
-
-  # Install prophet's dependencies beforehand, otherwise pip would fail to build a wheel for prophet
-  if [[ -z "$(pip cache list prophet --format abspath)" ]]; then
-    tmp_dir=$(mktemp -d)
-    pip download --no-deps --dest $tmp_dir --no-cache-dir prophet
-    tar -zxvf $tmp_dir/*.tar.gz -C $tmp_dir
-    pip install -r $(find $tmp_dir -name requirements.txt)
-    rm -rf $tmp_dir
-  fi
-
-  req_files+=" -r requirements/extra-ml-requirements.txt"
+  req_files+=" -r sklearn_regression/requirements.txt"
 fi
 
 if [[ ! -z $req_files ]]; then
   retry-with-backoff pip install $req_files
 fi
 
-# Install `mlflow-test-plugin` without dependencies
-pip install --no-dependencies tests/resources/mlflow-test-plugin
-
 # Print current environment info
-python dev/show_package_release_dates.py
+python .github/workflows/scripts/show_package_release_dates.py
 which mlflow
-echo $MLFLOW_HOME
+echo $MLFLOW_PIPELINE_EXAMPLE
 
 # Print mlflow version
 mlflow --version

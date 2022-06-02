@@ -1,4 +1,4 @@
-# from examples.pipelines.sklearn_regression.steps.split import process_splits
+# from sklearn_regression.steps.split import process_splits
 # from pandas import DataFrame
 
 # TODO(apurva-koti): uncomment these asap and update to match new split process fn state

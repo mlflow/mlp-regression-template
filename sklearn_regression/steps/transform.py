@@ -8,9 +8,7 @@ def compute_features(df: DataFrame):
     df.loc[:, "pickup_dow"] = df["tpep_pickup_datetime"].dt.dayofweek
     df.loc[:, "pickup_hour"] = df["tpep_pickup_datetime"].dt.hour
     trip_duration = df["tpep_dropoff_datetime"] - df["tpep_pickup_datetime"]
-    df.loc[:, "trip_duration_min"] = trip_duration.map(
-        lambda x: x.total_seconds() / 60.0
-    )
+    df.loc[:, "trip_duration_min"] = trip_duration.map(lambda x: x.total_seconds() / 60.0)
     return df
 
 
@@ -32,11 +30,7 @@ def transform_fn():
                             OneHotEncoder(categories="auto", sparse=False),
                             ["pickup_dow"],
                         ),
-                        (
-                            "std_scaler",
-                            StandardScaler(),
-                            ["trip_distance", "trip_duration_min"],
-                        ),
+                        ("std_scaler", StandardScaler(), ["trip_distance", "trip_duration_min"]),
                     ]
                 ),
             ),
