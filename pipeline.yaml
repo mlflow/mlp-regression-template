@@ -24,6 +24,10 @@ steps:
     # Train/validation/test split ratio
     split_ratios: {{SPLIT_RATIOS|default([0.75, 0.125, 0.125])}}
     post_split_method: steps.split.process_splits
+  transform:
+    transform_method: steps.transform.transform_fn
+  train:
+    train_method: steps.train.train_fn
   evaluate:
     validation_criteria:
       - metric: root_mean_squared_error
