@@ -1,5 +1,5 @@
-from examples.pipelines.sklearn_regression.steps.split import process_splits
-from pandas import DataFrame
+# from examples.pipelines.sklearn_regression.steps.split import process_splits
+# from pandas import DataFrame
 
 # TODO(apurva-koti): uncomment these asap and update to match new split process fn state
 # def test_post_split_fn_returns_datasets_with_correct_spec():
