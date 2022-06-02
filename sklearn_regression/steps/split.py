@@ -22,15 +22,11 @@ def process_splits(
         ]
 
         # Locations 264 and 265 map to unknown. Filter them out
-        cleaned = cleaned[
-            (cleaned["PULocationID"] < 264) & (cleaned["DOLocationID"] < 264)
-        ]
+        cleaned = cleaned[(cleaned["PULocationID"] < 264) & (cleaned["DOLocationID"] < 264)]
 
         cleaned["pickup_dow"] = cleaned["tpep_pickup_datetime"].dt.dayofweek
         cleaned["pickup_hour"] = cleaned["tpep_pickup_datetime"].dt.hour
-        trip_duration = (
-            cleaned["tpep_dropoff_datetime"] - cleaned["tpep_pickup_datetime"]
-        )
+        trip_duration = cleaned["tpep_dropoff_datetime"] - cleaned["tpep_pickup_datetime"]
         cleaned["trip_duration"] = trip_duration.map(lambda x: x.total_seconds() / 60)
 
         # Large dataset. Take first 10%

@@ -1,4 +1,4 @@
-# MLflow Pipelines Demo
+# MLflow sklearn_regression pipeline demo
 
 ### Play with the demo
 
@@ -16,11 +16,7 @@ Run `notebooks/jupyter.ipynb` under the current Python environment.
 mlflow pipelines --help
 mlflow pipelines clean
 mlflow pipelines ingest
-mlflow pipelines split
-mlflow pipelines transform
-mlflow pipelines train
-mlflow pipelines evaluate
-mlflow pipelines inspect
+mlflow pipelines run --step step_name --profile profile_name
 ```
 
 Check MLflow UI
@@ -29,15 +25,3 @@ Check MLflow UI
 cd /tmp/mlruns
 mlflow ui
 ```
-
-Modify `train.py` and run
-
-```
-mlflow pipelines evaluate
-```
-
-## Apparent gaps
-
-* The `autos.yaml` is not actually used.
-* The mlflow experiment folder is hardcoded to `file:/tmp/mlruns`.
-* MLflow integration doesn't work on Databricks.
