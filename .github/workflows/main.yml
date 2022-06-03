@@ -62,32 +62,21 @@ jobs:
           export MLFLOW_PIPELINE_EXAMPLE=$(pwd)
           pytest sklearn_regression/tests
 
-  # # Temporarily create a separate job for MLflow pipelines on Windows to facilitate
-  # # ease of debugging while quickly iterating on the implementation
-  # pipelines-windows:
-  #   runs-on: windows-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-python@v3
-  #       with:
-  #         python-version: "3.7"
-  #     - name: Initialize submodules
-  #       run: |
-  #         # Start Windows SSH agent and add private deploy key for
-  #         # mlflow-pipelines-example-private submodule
-  #         eval `ssh-agent.exe`
-  #         ssh-add - <<< "${{ secrets.REPO_PRIVATE_SSH_KEY }}"
-  #         # Add github.com to known hosts
-  #         mkdir -p ~/.ssh
-  #         ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts
-  #         # Initialize submodules
-  #         git submodule update --init
-  #     - name: Install python dependencies
-  #       run: |
-  #         pip install -r requirements/small-requirements.txt
-  #         pip install --no-dependencies tests/resources/mlflow-test-plugin
-  #         pip install -e .[extras]
-  #     - name: Run tests
-  #       run: |
-  #         export MLFLOW_PIPELINE_EXAMPLE=$(pwd)
-  #         pytest tests/pipelines
+  sklearn_regression_pipelines-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.7"
+      - name: Install dependencies
+        env:
+          INSTALL_SKLEARN_PIPELINE_DEPS: true
+        run: |
+          pip install -e .
+          pip install -r sklearn_regression/requirements.txt
+          pip install -r .github/workflows/scripts/test-requirements.txt
+      - name: Run tests
+        run: |
+          export MLFLOW_PIPELINE_EXAMPLE=$(pwd)
+          pytest sklearn_regression/tests
