@@ -12,7 +12,7 @@ black --check .
 if [ $? -ne 0 ]; then
   echo '
 To apply black foramtting, do one of the following:
-- Run `pip install $(cat requirements/lint-requirements.txt | grep "^black==") && black .`
+- Run `pip install $(cat .github/workflows/scripts/lint-requirements.txt | grep "^black==") && black .`
 - Comment `autoformat` on the PR'
 fi
 
