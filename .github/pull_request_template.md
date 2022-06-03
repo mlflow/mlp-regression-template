@@ -6,7 +6,6 @@
 
 (Details)
 
-
 ## Release Notes
 
 ### Is this a user-facing change?
