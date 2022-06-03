@@ -101,3 +101,6 @@ travis_wait*.log
 
 # Pytorch logs
 lightning_logs
+
+# tox logs
+*.tox
