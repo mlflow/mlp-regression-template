@@ -33,8 +33,6 @@ def process_splits(
         )
         cleaned["trip_duration"] = trip_duration.map(lambda x: x.total_seconds() / 60)
 
-        # Large dataset. Take first 10%
-        length = df.size
-        return cleaned.head(int(length / 10))
+        return cleaned
 
     return process(train_df), process(validation_df), process(test_df)
