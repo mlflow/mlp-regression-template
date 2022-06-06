@@ -3,7 +3,8 @@ experiment:
   tracking_uri: "sqlite:///metadata/mlflow/mlruns.db"
   artifact_location: "./metadata/mlflow/mlartifacts"
 
-INGEST_DATA_LOCATION: "https://nyc-tlc.s3.amazonaws.com/trip+data/yellow_tripdata_2022-01.parquet"
+#INGEST_DATA_LOCATION: "https://nyc-tlc.s3.amazonaws.com/trip+data/yellow_tripdata_2022-01.parquet"
+INGEST_DATA_LOCATION: "./data/sample.parquet"
 # Set the INGEST_DATA_FORMAT corresponding to the data_set to correctly ingest the data.
 # INGEST_DATA_FORMAT: parquet
 SPLIT_RATIOS: [0.80, 0.10, 0.10]
