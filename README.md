@@ -1,5 +1,27 @@
-# MLflow Pipeline Examples
-Example repo to kickstart integration with mlflow pipelines.
+# MLflow sklearn_regression pipeline demo
 
 ### Play with the demo
-Choose one of the example pipeline according to your requirement as a starting point to integrate with MLflow Pipelines
+
+#### Databricks
+
+[Sync](https://docs.databricks.com/repos.html) this repo and run `notebooks/databricks` on an MLR 10.3+ cluster with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
+
+#### Jupyter
+
+Run `notebooks/jupyter.ipynb` under the current Python environment.
+
+#### CLI
+
+```
+mlflow pipelines --help
+mlflow pipelines clean
+mlflow pipelines ingest
+mlflow pipelines run --step step_name --profile profile_name
+```
+
+Check MLflow UI
+
+```
+cd /tmp/mlruns
+mlflow ui
+```
