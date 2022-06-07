@@ -1,4 +1,4 @@
-from sklearn_regression.steps.train import train_fn
+from steps.train import train_fn
 from sklearn.utils.estimator_checks import check_estimator
 
 

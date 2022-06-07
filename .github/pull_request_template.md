@@ -17,7 +17,7 @@
 
 ### What component(s), interfaces, languages, and integrations does this PR affect?
 Components
-- [ ] `area/sklearn_regression`: Sklearn regression pipeline example
+- [ ] `area/regression`: Sklearn regression pipeline example
 - [ ] `area/build`: Build and test infrastructure for MLflow pipeline example
 
 <!--

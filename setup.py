@@ -1,12 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="mlflow-pipeline-examples",
+    name="mlflow-pipelines-regression-template",
     version="1.0",
-    description="Example repo to kickstart integration with mlflow pipelines.",
+    description="An example use of MLflow pipeline based on a regression model.",
     author="Databricks",
     url="https://mlflow.org/",
-    packages=find_packages(include=["sklearn_regression", "sklearn_regression.*"]),
+    packages=find_packages(),
+    install_requires=["mlflow", "scikit-learn", "pandas"],
     license="Apache License 2.0",
     python_requires=">=3.7",
 )

@@ -44,7 +44,7 @@ jobs:
       run: |
         .github/workflows/scripts/lint.sh
 
-  sklearn_regression_pipelines:
+  regression_pipelines:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -60,9 +60,9 @@ jobs:
       - name: Run tests
         run: |
           export MLFLOW_PIPELINE_EXAMPLE=$(pwd)
-          pytest sklearn_regression/tests
+          pytest tests
 
-  sklearn_regression_pipelines-windows:
+  regression_pipelines-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -74,9 +74,9 @@ jobs:
           INSTALL_SKLEARN_PIPELINE_DEPS: true
         run: |
           pip install -e .
-          pip install -r sklearn_regression/requirements.txt
+          pip install -r requirements.txt
           pip install -r .github/workflows/scripts/test-requirements.txt
       - name: Run tests
         run: |
           export MLFLOW_PIPELINE_EXAMPLE=$(pwd)
-          pytest sklearn_regression/tests
+          pytest tests
