@@ -29,7 +29,7 @@ if [[ "$INSTALL_SKLEARN_PIPELINE_DEPS" == "true" ]]; then
   # When downloading large packages from PyPI, the connection is sometimes aborted by the
   # remote host. See https://github.com/pypa/pip/issues/8510.
   # As a workaround, we retry installation of large packages.
-  req_files+=" -r sklearn_regression/requirements.txt"
+  req_files+=" -r requirements.txt"
 fi
 
 if [[ ! -z $req_files ]]; then
