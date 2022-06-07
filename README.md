@@ -1,4 +1,4 @@
-# MLflow sklearn_regression pipeline demo
+# MLflow Pipelines Regression Template
 
 ### Play with the demo
 

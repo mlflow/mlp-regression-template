@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="mlflow-pipeline-regression-example",
+    name="mlflow-pipelines-regression-template",
     version="1.0",
     description="An example use of MLflow pipeline based on a regression model.",
     author="Databricks",
