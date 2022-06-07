@@ -1,5 +1,9 @@
 # Databricks notebook source
 
+sc.getLocalProperty("spark.databricks.notebook.id")
+
+# COMMAND ----------
+
 from mlflow.pipelines import Pipeline
 
 p = Pipeline()
