@@ -31,11 +31,11 @@ steps:
   evaluate:
     validation_criteria:
       - metric: root_mean_squared_error
-        threshold: 0.75
+        threshold: 10
       - metric: mean_absolute_error
         threshold: 50
       - metric: weighted_mean_squared_error
-        threshold: 0.5
+        threshold: 20
   register:
     model_name: "taxi_fare_regressor"
     allow_non_validated_model: true
