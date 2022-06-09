@@ -6,6 +6,10 @@ p = Pipeline()
 
 # COMMAND ----------
 
+p.clean()
+
+# COMMAND ----------
+
 p.inspect()
 
 # COMMAND ----------
@@ -40,7 +44,3 @@ p.inspect("train")
 
 test_data = p.get_artifact("test_data")
 test_data.describe()
-
-# COMMAND ----------
-
-p.clean()
