@@ -13,7 +13,7 @@ data:
   custom_loader_method: steps.ingest.load_file_as_dataframe
   # If the `spark_sql` `format` is specified, the `sql` entry is used to specify a SparkSQL
   # statement that identifies the dataset to use
-  # sql: "SELECT col1, col2, col3 FROM my_spark_table"
+  sql: "SELECT * FROM nyc_yellow_taxi_with_zips"
   # If the `delta` `format` is specified, you can also configure the Delta table `version` to read
   # or the `timestamp` at which to read data
   # version: 2
