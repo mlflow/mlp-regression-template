@@ -1,3 +1,4 @@
 mlflow
 pandas
 scikit-learn
+ipykernel
