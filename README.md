@@ -19,6 +19,9 @@ Open `notebooks/jupyter.ipynb` under the current Python environment.
 ### CommandLine Interface (CLI)
 
 First `cd` to the template root directory. Then try the following MLflow commands to get started.
+Note that `step_name` is optional:
+running pipeline commands without specifying the `step_name` parameter will act on the entire pipeline.
+
 ```
 mlflow pipelines --help
 mlflow pipelines inspect --step step_name
