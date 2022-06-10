@@ -38,3 +38,8 @@ If you are using a developer version of mlflow, additional steps need to be take
 For details, see
 [how to install mlflow developer version locally](https://github.com/mlflow/mlflow/blob/master/CONTRIBUTING.rst#developing-and-testing-mlflow)
 and specifically on [how to access local MLflow tracking server via UI](https://github.com/mlflow/mlflow/blob/master/CONTRIBUTING.rst#javascript-and-ui).
+
+## Log to designated MLflow Experiment
+To log pipeline runs to a particular MLflow experiment, 
+1. Open profiles/databricks.yaml or profiles/local.yaml, depending on your running environment.
+2. Uncomment the `experiment` section, specify the name of the experiment.
