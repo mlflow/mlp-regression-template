@@ -11,9 +11,9 @@
 Launch Jupyter Lab via command `jupyter-lab`
 Open `notebooks/jupyter.ipynb` under the current Python environment.
 
-### CLI
+### CommandLine Interface (CLI)
 
-Try the following MLflow commands.
+First `cd` to the template root directory. Then try the following MLflow commands to get started.
 ```
 mlflow pipelines --help
 mlflow pipelines inspect --step step_name
@@ -21,8 +21,12 @@ mlflow pipelines run --step step_name
 mlflow pipelines clean --step step_name
 ```
 
-If you develop locally, to check MLflow experiment and runs from pipelines, try the following command from the template root directory.
+To check MLflow experiment and runs from pipelines, try the following command from the template root directory.
 
 ```
 mlflow ui --backend-store-uri sqlite:///metadata/mlflow/mlruns.db --default-artifact-root ./metadata/mlflow/mlartifacts --host localhost
 ```
+If you are using a developer version of mlflow, additional steps need to be taken to launch the MLflow UI.
+For details, see
+[how to install mlflow developer version locally](https://github.com/mlflow/mlflow/blob/master/CONTRIBUTING.rst#developing-and-testing-mlflow)
+and specifically on [how to access local MLflow tracking server via UI](https://github.com/mlflow/mlflow/blob/master/CONTRIBUTING.rst#javascript-and-ui).
