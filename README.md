@@ -6,6 +6,11 @@
 
 [Sync](https://docs.databricks.com/repos.html) this repo and run `notebooks/databricks` on an MLR 10.3+ cluster with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
 
+**Note** We recommend to open at least **3 browser tabs** to facilitate easier development:
+- One tab for pipeline.yaml
+- One tab for changing step function defined in steps/{step}.py
+- One tab for the driver notebook (notebooks/databricks)
+
 ### Jupyter
 
 Launch Jupyter Lab via command `jupyter-lab`
