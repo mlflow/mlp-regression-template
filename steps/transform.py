@@ -14,7 +14,10 @@ def compute_features(df: DataFrame):
     return df
 
 
-def transform_fn():
+def transformer_fn():
+    """Returns an UNFITTED transformer with fit() and transform() methods.
+       Their input and output signatures should be compatible with sklearn transformers.
+    """
     return Pipeline(
         steps=[
             ("extra_features", FunctionTransformer(compute_features, validate=False)),
