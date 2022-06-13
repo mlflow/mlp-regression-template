@@ -16,7 +16,7 @@ def compute_features(df: DataFrame):
 
 def transformer_fn():
     """Returns an UNFITTED transformer with fit() and transform() methods.
-       Their input and output signatures should be compatible with sklearn transformers.
+    Their input and output signatures should be compatible with sklearn transformers.
     """
     return Pipeline(
         steps=[
