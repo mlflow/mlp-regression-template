@@ -1,3 +1,15 @@
+# `pipeline.yaml` serves as the single source of truth defining an MLflow Pipeline.
+# All parameters should be either defined directly in this file, or defined as a variable,
+# such as {{INGEST_DATA_LOCATION }}.
+
+# Variables must be dereferenced in a profile YAML file, located under `profiles/`.
+# See `profiles/local.yaml` for example usage. One may switch among profiles quickly by
+# providing a profile name such as `local` in the Pipeline object constructor:
+# `p = Pipeline(profile="local")`
+#
+# NOTE: YAML does not support tabs for indentation. Please use spaces and ensure all YAML
+# files are properly formated.
+
 template: "regression/v1"
 # Specifies the dataset to use for model development
 data:
