@@ -56,3 +56,4 @@ metrics:
     - name: weighted_mean_squared_error
       function: weighted_mean_squared_error
       greater_is_better: False
+  primary: "root_mean_squared_error"
