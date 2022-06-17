@@ -1,6 +1,6 @@
 def estimator_fn():
     """
-    Returns an *unfit* estimator that defines ``fit()`` and ``predict()`` methods.
+    Returns an *unfitted* estimator that defines ``fit()`` and ``predict()`` methods.
     The estimator's input and output signatures should be compatible with scikit-learn
     estimators.
     """

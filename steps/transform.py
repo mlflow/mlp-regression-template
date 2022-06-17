@@ -14,7 +14,7 @@ def compute_features(df: DataFrame):
 
 def transformer_fn():
     """
-    Returns an *unfit* transformer that defines ``fit()`` and ``transform()`` methods.
+    Returns an *unfitted* transformer that defines ``fit()`` and ``transform()`` methods.
     The transformer's input and output signatures should be compatible with scikit-learn
     transformers.
     """
