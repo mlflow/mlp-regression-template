@@ -8,9 +8,7 @@ from steps.ingest import load_file_as_dataframe
 
 @pytest.fixture
 def sample_data():
-    return pd.read_parquet(
-        os.path.join(os.path.dirname(__file__), "test_sample.parquet")
-    )
+    return pd.read_parquet(os.path.join(os.path.dirname(__file__), "test_sample.parquet"))
 
 
 def test_ingest_function_reads_csv_correctly(sample_data):
