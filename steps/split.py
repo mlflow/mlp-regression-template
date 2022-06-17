@@ -11,19 +11,12 @@ def process_splits(
     def process(df: DataFrame):
         # Drop invalid data points
         cleaned = df.dropna()
-        # Filter out invalid fare amounts, trip distance, tip amounts, passenger counts
+        # Filter out invalid fare amounts and trip distance
         cleaned = cleaned[
             (cleaned["fare_amount"] > 0)
             & (cleaned["trip_distance"] < 400)
             & (cleaned["trip_distance"] > 0)
-            & (cleaned["tip_amount"] >= 0)
-            & (cleaned["passenger_count"] > 0)
             & (cleaned["fare_amount"] < 1000)
-        ]
-
-        # Locations 264 and 265 map to unknown. Filter them out
-        cleaned = cleaned[
-            (cleaned["PULocationID"] < 264) & (cleaned["DOLocationID"] < 264)
         ]
 
         cleaned["pickup_dow"] = cleaned["tpep_pickup_datetime"].dt.dayofweek
