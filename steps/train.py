@@ -1,6 +1,8 @@
 def estimator_fn():
-    """Returns an UNFITTED estimator that contains fit() and predict() method.
-    Their input and output signatures should be compatible with sklearn estimators.
+    """
+    Returns an *unfit* estimator that defines ``fit()`` and ``predict()`` methods.
+    The estimator's input and output signatures should be compatible with scikit-learn
+    estimators.
     """
     from sklearn.linear_model import SGDRegressor
 

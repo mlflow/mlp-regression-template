@@ -29,11 +29,7 @@ def get_release_date(package, version):
     if not resp.ok:
         return ""
 
-    matched = [
-        dist_files
-        for ver, dist_files in resp.json()["releases"].items()
-        if ver == version
-    ]
+    matched = [dist_files for ver, dist_files in resp.json()["releases"].items() if ver == version]
     if (not matched) or (not matched[0]):
         return ""
 
@@ -56,18 +52,14 @@ def safe_result(future, if_error=""):
 def main():
     distributions = get_distributions()
     with ThreadPoolExecutor(max_workers=min(32, os.cpu_count() + 4)) as executor:
-        futures = [
-            executor.submit(get_release_date, pkg, ver) for pkg, ver in distributions
-        ]
+        futures = [executor.submit(get_release_date, pkg, ver) for pkg, ver in distributions]
         release_dates = [safe_result(f) for f in futures]
 
     packages, versions = list(zip(*distributions))
     package_legnth = get_longest_string_length(packages)
     version_length = get_longest_string_length(versions)
     release_date_length = len("Release Date")
-    print(
-        "Package".ljust(package_legnth), "Version".ljust(version_length), "Release Date"
-    )
+    print("Package".ljust(package_legnth), "Version".ljust(version_length), "Release Date")
     print("-" * (package_legnth + version_length + release_date_length + 2))
     for package, version, release_date in sorted(
         zip(packages, versions, release_dates),

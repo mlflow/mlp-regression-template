@@ -8,15 +8,15 @@ def compute_features(df: DataFrame):
     df.loc[:, "pickup_dow"] = df["tpep_pickup_datetime"].dt.dayofweek
     df.loc[:, "pickup_hour"] = df["tpep_pickup_datetime"].dt.hour
     trip_duration = df["tpep_dropoff_datetime"] - df["tpep_pickup_datetime"]
-    df.loc[:, "trip_duration_min"] = trip_duration.map(
-        lambda x: x.total_seconds() / 60.0
-    )
+    df.loc[:, "trip_duration_min"] = trip_duration.map(lambda x: x.total_seconds() / 60.0)
     return df
 
 
 def transformer_fn():
-    """Returns an UNFITTED transformer with fit() and transform() methods.
-    Their input and output signatures should be compatible with sklearn transformers.
+    """
+    Returns an *unfit* transformer that defines ``fit()`` and ``transform()`` methods.
+    The transformer's input and output signatures should be compatible with scikit-learn
+    transformers.
     """
     return Pipeline(
         steps=[

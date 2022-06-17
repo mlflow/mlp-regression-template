@@ -6,6 +6,12 @@ def process_splits(
 ) -> (DataFrame, DataFrame, DataFrame):
     """
     Perform additional processing on the split datasets.
+
+    :param train_df: The training dataset.
+    :param validation_df: The validation dataset.
+    :param test_df: The test dataset.
+    :return: A tuple of containing, in order, the processed training dataset,
+             the processed validation dataset, and the processed test dataset.
     """
 
     def process(df: DataFrame):
@@ -22,15 +28,11 @@ def process_splits(
         ]
 
         # Locations 264 and 265 map to unknown. Filter them out
-        cleaned = cleaned[
-            (cleaned["PULocationID"] < 264) & (cleaned["DOLocationID"] < 264)
-        ]
+        cleaned = cleaned[(cleaned["PULocationID"] < 264) & (cleaned["DOLocationID"] < 264)]
 
         cleaned["pickup_dow"] = cleaned["tpep_pickup_datetime"].dt.dayofweek
         cleaned["pickup_hour"] = cleaned["tpep_pickup_datetime"].dt.hour
-        trip_duration = (
-            cleaned["tpep_dropoff_datetime"] - cleaned["tpep_pickup_datetime"]
-        )
+        trip_duration = cleaned["tpep_dropoff_datetime"] - cleaned["tpep_pickup_datetime"]
         cleaned["trip_duration"] = trip_duration.map(lambda x: x.total_seconds() / 60)
 
         return cleaned
