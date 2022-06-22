@@ -1,7 +1,6 @@
-from pandas import DataFrame
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler, FunctionTransformer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
 def transformer_fn():
