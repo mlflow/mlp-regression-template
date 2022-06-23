@@ -7,7 +7,9 @@ from steps.split import process_splits
 
 @pytest.fixture
 def sample_data():
-    return pd.read_parquet(os.path.join(os.path.dirname(__file__), "test_sample.parquet"))
+    return pd.read_parquet(
+        os.path.join(os.path.dirname(__file__), "test_sample.parquet")
+    )
 
 
 def test_post_split_fn_returns_datasets_with_correct_spec(sample_data):
