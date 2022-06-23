@@ -1,9 +1,18 @@
+"""
+This module defines the following routines used by the 'ingest' step of the regression pipeline:
+
+- ``load_file_as_dataframe``: Defines customizable logic for parsing dataset formats that are not
+  natively parsed by MLflow Pipelines (i.e. formats other than Parquet, Delta, and Spark SQL).
+"""
+
 import logging
+
+from pandas import DataFrame
 
 _logger = logging.getLogger(__name__)
 
 
-def load_file_as_dataframe(file_path, file_format):
+def load_file_as_dataframe(file_path: str, file_format: str) -> DataFrame:
     """
     Load content from the specified dataset file as a Pandas DataFrame.
 
