@@ -16,12 +16,12 @@ section in ``pipeline.yaml``, for example:
 
 from typing import Dict
 
-import pandas as pd
+from pandas import DataFrame
 from sklearn.metrics import mean_squared_error
 
 
 def weighted_mean_squared_error(
-    eval_df: pd.DataFrame, builtin_metrics: Dict[str, int]
+    eval_df: DataFrame, builtin_metrics: Dict[str, int]
 ) -> Dict[str, int]:  # pylint: disable=unused-argument
     """
     Computes the weighted mean squared error (MSE) metric.
