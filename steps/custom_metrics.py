@@ -36,7 +36,7 @@ def weighted_mean_squared_error(
                             metrics and the values are the scalar values of the metrics. For more
                             information, see
                             https://mlflow.org/docs/latest/python_api/mlflow.html#mlflow.evaluate.
-    :return: A single-entry dictionary containing the MSE metric. The key is the metric names and
+    :return: A single-entry dictionary containing the MSE metric. The key is the metric name and
              the value is the scalar metric value. Note that custom metric functions can return
              dictionaries with multiple metric entries as well.
     """
