@@ -14,11 +14,11 @@ def process_splits(
     """
     Perform additional processing on the split datasets.
 
-    :param train_df: The training dataset.
-    :param validation_df: The validation dataset.
-    :param test_df: The test dataset.
-    :return: A tuple of containing, in order, the processed training dataset,
-             the processed validation dataset, and the processed test dataset.
+    :param train_df: The training dataset produced by the data splitting procedure.
+    :param validation_df: The validation dataset produced by the data splitting procedure.
+    :param test_df: The test dataset produced by the data splitting procedure.
+    :return: A tuple containing, in order: the processed training dataset, the processed
+             validation dataset, and the processed test dataset.
     """
 
     def process(df: DataFrame):
