@@ -1,3 +1,19 @@
+"""
+This module defines custom metric functions that are invoked during the 'train' and 'evaluate'
+steps to provide model performance insights. Custom metric functions defined in this module are
+referenced by the ``function`` attributes of entries in the ``custom`` subsection of the ``metrics``
+section in ``pipeline.yaml``, for example:
+
+.. code-block:: yaml
+    :caption: Example custom metrics definition in ``pipeline.yaml``
+
+    metrics:
+      custom:
+        - name: weighted_mean_squared_error
+          function: weighted_mean_squared_error
+          greater_is_better: False
+"""
+
 from typing import Dict
 
 import pandas as pd

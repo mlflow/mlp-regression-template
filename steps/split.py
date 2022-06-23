@@ -1,3 +1,10 @@
+"""
+This module defines the following routines used by the 'split' step of the regression pipeline:
+
+- ``process_splits``: Defines customizable logic for processing & cleaning the training, validation,
+  and test datasets produced by the data splitting procedure.
+"""
+
 from pandas import DataFrame
 
 
@@ -17,18 +24,13 @@ def process_splits(
     def process(df: DataFrame):
         # Drop invalid data points
         cleaned = df.dropna()
-        # Filter out invalid fare amounts, trip distance, tip amounts, passenger counts
+        # Filter out invalid fare amounts and trip distance
         cleaned = cleaned[
             (cleaned["fare_amount"] > 0)
             & (cleaned["trip_distance"] < 400)
             & (cleaned["trip_distance"] > 0)
-            & (cleaned["tip_amount"] >= 0)
-            & (cleaned["passenger_count"] > 0)
             & (cleaned["fare_amount"] < 1000)
         ]
-
-        # Locations 264 and 265 map to unknown. Filter them out
-        cleaned = cleaned[(cleaned["PULocationID"] < 264) & (cleaned["DOLocationID"] < 264)]
 
         cleaned["pickup_dow"] = cleaned["tpep_pickup_datetime"].dt.dayofweek
         cleaned["pickup_hour"] = cleaned["tpep_pickup_datetime"].dt.hour
