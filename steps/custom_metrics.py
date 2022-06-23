@@ -20,7 +20,8 @@ from sklearn.metrics import mean_squared_error
 
 
 def weighted_mean_squared_error(
-    eval_df: DataFrame, builtin_metrics: Dict[str, int]  # pylint: disable=unused-argument
+    eval_df: DataFrame,
+    builtin_metrics: Dict[str, int],  # pylint: disable=unused-argument
 ) -> Dict[str, int]:
     """
     Computes the weighted mean squared error (MSE) metric.
