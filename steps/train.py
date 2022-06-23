@@ -1,3 +1,10 @@
+"""
+This module defines the following routines used by the 'train' step of the regression pipeline:
+
+- ``estimator_fn``: Defines the customizable estimator architecture and parameters that are used
+  during training to produce a model pipeline.
+"""
+
 def estimator_fn():
     """
     Returns an *unfitted* estimator that defines ``fit()`` and ``predict()`` methods.
@@ -6,4 +13,4 @@ def estimator_fn():
     """
     from sklearn.linear_model import SGDRegressor
 
-    return SGDRegressor()
+    return SGDRegressor(random_state=42)
