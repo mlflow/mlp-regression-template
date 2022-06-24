@@ -43,11 +43,14 @@ mlflow pipelines clean --step step_name
 ```
 
 ### Accessing MLflow Pipeline Runs
-To check MLflow experiment and runs from pipeline execution, try the following command from the template root directory.
+To check MLflow experiment and runs from pipeline execution, 
+first enter the root of the template directory `cd mlp-regression-template`.
+Then try the following command from the template root directory.
 
 ```
 mlflow ui --backend-store-uri sqlite:///metadata/mlflow/mlruns.db --default-artifact-root ./metadata/mlflow/mlartifacts --host localhost -p 5001
 ```
+
 Then open a browser tab pointing to [http://127.0.0.1:5001](http://127.0.0.1:5001)
 
 
