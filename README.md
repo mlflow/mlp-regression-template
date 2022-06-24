@@ -52,6 +52,6 @@ Then try the following command from the template root directory.
 mlflow ui --backend-store-uri sqlite:///metadata/mlflow/mlruns.db --default-artifact-root ./metadata/mlflow/mlartifacts --host localhost
 ```
 
-Then open a browser tab pointing to [http://127.0.0.1:5001](http://127.0.0.1:5001)
+Then open a browser tab pointing to [http://127.0.0.1:3000](http://127.0.0.1:3000)
 
 
