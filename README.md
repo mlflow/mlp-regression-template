@@ -2,8 +2,9 @@
 
 ## Installation instructions
 1. Clone the MLflow Pipelines template repo locally: `git clone https://github.com/mlflow/mlp-regression-template.git`.
-2. Enter the root of the template: `cd mlp-regression-template`.
-3. Install required packages: `pip install mlflow-1.24.1.dev0-py3-none-any.whl && pip install -r requirements.txt`
+2. Install the latest MLflow: `git clone https://github.com/mlflow/mlflow.git`
+3. Install pipeline related requirements in MLflow. `cd mlflow && pip install -e .[pipeline]`
+4. Enter the root of the template: `cd mlp-regression-template`
 
 ## Log to designated MLflow Experiment
 To log pipeline runs to a particular MLflow experiment, 
@@ -11,13 +12,12 @@ To log pipeline runs to a particular MLflow experiment,
 2. Uncomment the `experiment` section, specify the name of the experiment.
 
 ## Development Environment -- Databricks
-
 [Sync](https://docs.databricks.com/repos.html) this repo and run `notebooks/databricks` on an DBR 11.x cluster with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
 
 **Note** We recommend to open at least **3 browser tabs** to facilitate easier development:
-- One tab for pipeline.yaml
-- One tab for changing step function defined in steps/{step}.py
-- One tab for the driver notebook (notebooks/databricks)
+- One tab for `pipeline.yaml`
+- One tab for changing step function defined in `steps/{step}.py`
+- One tab for the driver notebook (`notebooks/databricks`)
 
 ### Accessing MLflow Pipeline Runs
 You should be able to find experiments and runs on the Databricks ML Experiments page.
@@ -25,16 +25,17 @@ You should be able to find experiments and runs on the Databricks ML Experiments
 ## Development Environment -- Local machine
 ### Jupyter
 
-Launch Jupyter Lab via command `jupyter-lab`
+Launch Jupyter Notebook via command `jupyter notebook`
 Open `notebooks/jupyter.ipynb` under the current Python environment.
 
 ### CommandLine Interface (CLI)
 
 First `cd` to the template root directory. Then try the following MLflow commands to get started.
-Note that `step_name` is optional:
+Note that `step_name` is optional --
 running pipeline commands without specifying the `step_name` parameter will act on the entire pipeline.
 
 ```
+export MLFLOW_PIPELINES_PROFILE=local
 mlflow pipelines --help
 mlflow pipelines inspect --step step_name
 mlflow pipelines run --step step_name
