@@ -2,10 +2,8 @@
 
 ## Installation instructions
 1. Clone the MLflow Pipelines template repo locally: `git clone https://github.com/mlflow/mlp-regression-template.git`.
-2. Checkout the latest MLflow: `git clone https://github.com/mlflow/mlflow.git`
-3. Install pipeline related requirements in MLflow. `cd mlflow && pip install -e .[pipelines]`
-4. Enter the root of the template: `cd mlp-regression-template`
-5. Install template dendencies: `pip install -r requirements.txt`
+2. Enter the root of the template: `cd mlp-regression-template`
+3. Install template dendencies: `pip install -r requirements.txt`
 
 ## Log to designated MLflow Experiment
 To log pipeline runs to a particular MLflow experiment, 
@@ -15,7 +13,14 @@ To log pipeline runs to a particular MLflow experiment,
 ## Development Environment -- Databricks
 [Sync](https://docs.databricks.com/repos.html) this repo and run `notebooks/databricks` on an DBR 11.x cluster with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
 
-**Note** We recommend to open at least **3 browser tabs** to facilitate easier development:
+**Note** When making changes to pipelines on Databricks,
+it is recommended that you either edit files on your local machine and
+use dbx to sync them to Databricks Repos, as demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage),
+or edit files in Databricks Repos by opening separate browser tabs
+for each YAML file or Python code module that you wish to modify.
+
+For the later approach,
+we recommend to open at least **3 browser tabs** to facilitate easier development:
 - One tab for `pipeline.yaml`
 - One tab for changing step function defined in `steps/{step}.py`
 - One tab for the driver notebook (`notebooks/databricks`)
