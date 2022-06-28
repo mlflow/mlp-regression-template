@@ -54,7 +54,7 @@ You can find MLflow Experiments and MLflow Runs for the pipeline on the
 
 First, enter the template root directory via `cd mlp-regression-template`. Then, try running the
 following [MLflow CLI](https://mlflow.org/docs/latest/cli.html) commands to get started. Note that
-the `step_name` argument is optional; pipeline commands that are run without a `step_name` act on
+the `--step` argument is optional; pipeline commands that are run without a `--step` act on
 the entire pipeline.
 
 ```
