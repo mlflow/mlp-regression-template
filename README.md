@@ -1,4 +1,10 @@
 # MLflow Pipelines Regression Template
+The MLflow Regression Pipeline is an [MLflow Pipeline](https://mlflow.org/docs/latest/pipelines.html)
+for developing high-quality regression models. It is designed for developing models using scikit-learn
+and frameworks that integrate with scikit-learn, such as the ``XGBRegressor`` API from XGBoost.
+For more information about the MLflow Regression Pipeline, check out the documentation at
+https://mlflow.org/docs/latest/python_api/mlflow.pipelines.html#module-mlflow.pipelines.regression.v1.pipeline.
+For more information about MLflow Pipelines, see https://mlflow.org/docs/latest/pipelines.html.
 
 ## Installation instructions
 1. Clone the MLflow Pipelines template repo locally: `git clone https://github.com/mlflow/mlp-regression-template.git`.
@@ -7,7 +13,7 @@
 4. Install template dendencies: `pip install -r requirements.txt`
 
 ## Log to designated MLflow Experiment
-To log pipeline runs to a particular MLflow experiment, 
+To log pipeline runs to a particular MLflow experiment,
 1. Open `profiles/databricks.yaml` or `profiles/local.yaml`, depending on your running environment.
 2. Uncomment the `experiment` section, specify the name of the experiment.
 
@@ -60,5 +66,3 @@ mlflow ui --backend-store-uri sqlite:///metadata/mlflow/mlruns.db --default-arti
 ```
 
 Then open a browser tab pointing to [http://127.0.0.1:3000](http://127.0.0.1:3000)
-
-
