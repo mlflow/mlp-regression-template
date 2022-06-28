@@ -23,7 +23,7 @@ To log pipeline runs to a particular MLflow experiment:
 ## Development Environment -- Databricks
 [Sync](https://docs.databricks.com/repos.html) this repo and run `notebooks/databricks` on a DBR 11.x cluster with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
 
-**Note** When making changes to pipelines on Databricks,
+**Note**: When making changes to pipelines on Databricks,
 it is recommended that you either edit files on your local machine and
 use dbx to sync them to Databricks Repos, as demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage),
 or edit files in Databricks Repos by opening separate browser tabs
@@ -59,7 +59,7 @@ mlflow pipelines clean --step step_name
 ```
 
 ### Accessing MLflow Pipeline Runs
-To check MLflow experiment and runs from pipeline execution:
+To view MLflow Experiments and MLflow Runs from pipeline execution:
 
 1. Enter the template root directory
 
