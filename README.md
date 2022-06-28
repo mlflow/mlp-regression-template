@@ -49,7 +49,7 @@ You can find MLflow Experiments and MLflow Runs for the pipeline on the
 ### Jupyter
 
 1. Launch the Jupyter Notebook environment via the `jupyter notebook` command.
-2. Open `notebooks/jupyter.ipynb` in the Jupyter Notebook environment.
+2. Open and run the `notebooks/jupyter.ipynb` Notebook in the Jupyter environment.
 
 ### Command-Line Interface (CLI)
 
