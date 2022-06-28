@@ -1,11 +1,12 @@
 # MLflow Pipelines Regression Template
-The MLflow Regression Pipeline is an [MLflow Pipeline](https://mlflow.org/docs/latest/pipelines.html)
-for developing high-quality regression models. It is designed for developing models using scikit-learn
-and frameworks that integrate with scikit-learn, such as the ``XGBRegressor`` API from XGBoost.
+The [MLflow Regression Pipeline](https://mlflow.org/docs/latest/pipelines.html#regression-pipeline)
+is an [MLflow Pipeline](https://mlflow.org/docs/latest/pipelines.html) for developing high-quality
+regression models. It is designed for developing models using scikit-learn and frameworks that
+integrate with scikit-learn, such as the ``XGBRegressor`` API from XGBoost.
 
 For more information about the MLflow Regression Pipeline, check out the documentation at
-https://mlflow.org/docs/latest/python_api/mlflow.pipelines.html#module-mlflow.pipelines.regression.v1.pipeline.
-For more information about MLflow Pipelines, see https://mlflow.org/docs/latest/pipelines.html.
+https://mlflow.org/docs/latest/pipelines.html#regression-pipeline. For more information about MLflow
+Pipelines, see https://mlflow.org/docs/latest/pipelines.html.
 
 ## Installation instructions
 1. Clone the MLflow Pipelines template repo locally: `git clone https://github.com/mlflow/mlp-regression-template.git`.
