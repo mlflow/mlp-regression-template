@@ -2,8 +2,9 @@
 
 ## Installation instructions
 1. Clone the MLflow Pipelines template repo locally: `git clone https://github.com/mlflow/mlp-regression-template.git`.
-2. Enter the root of the template: `cd mlp-regression-template`
-3. Install template dendencies: `pip install -r requirements.txt`
+2. Install MLflow Pipelines via `pip install mlflow[pipelines]`
+3. Enter the root of the template: `cd mlp-regression-template`
+4. Install template dendencies: `pip install -r requirements.txt`
 
 ## Log to designated MLflow Experiment
 To log pipeline runs to a particular MLflow experiment, 
@@ -19,7 +20,7 @@ use dbx to sync them to Databricks Repos, as demonstrated [here](https://mlflow.
 or edit files in Databricks Repos by opening separate browser tabs
 for each YAML file or Python code module that you wish to modify.
 
-For the later approach,
+For the latter approach,
 we recommend to open at least **3 browser tabs** to facilitate easier development:
 - One tab for `pipeline.yaml`
 - One tab for changing step function defined in `steps/{step}.py`
