@@ -10,6 +10,10 @@
 
 # COMMAND ----------
 
+# MAGIC %pip install mlflow[pipelines]
+
+# COMMAND ----------
+
 from mlflow.pipelines import Pipeline
 
 p = Pipeline(profile="databricks")
