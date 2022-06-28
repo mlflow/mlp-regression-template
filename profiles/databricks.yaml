@@ -3,6 +3,7 @@
 # experiment:
   # name: "/Shared/sklearn_regression_experiment"
 
+# A section of the TLC Trip Record Dataset (https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
 INGEST_DATA_LOCATION: dbfs:/databricks-datasets/nyctaxi-with-zipcodes/subsampled
 # Specify the format of the dataset
 INGEST_DATA_FORMAT: spark_sql
