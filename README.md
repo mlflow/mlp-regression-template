@@ -9,45 +9,59 @@ https://mlflow.org/docs/latest/pipelines.html#regression-pipeline. For more info
 Pipelines, see https://mlflow.org/docs/latest/pipelines.html.
 
 ## Installation instructions
-1. Clone the MLflow Pipelines template repo locally: `git clone https://github.com/mlflow/mlp-regression-template.git`.
-2. Install MLflow Pipelines via `pip install mlflow[pipelines]`
-3. Enter the root of the template: `cd mlp-regression-template`
-4. Install template dendencies: `pip install -r requirements.txt`
+1. Install MLflow Pipelines: `pip install mlflow[pipelines]`
+2. Clone the MLflow Regression Pipeline template repository locally:
 
-## Log to designated MLflow Experiment
-To log pipeline runs to a particular MLflow experiment,
-1. Open `profiles/databricks.yaml` or `profiles/local.yaml`, depending on your running environment.
-2. Uncomment the `experiment` section, specify the name of the experiment.
+```
+git clone https://github.com/mlflow/mlp-regression-template.git.
+```
+
+3. Enter the root directory of the MLflow Regression Pipeline template: `cd mlp-regression-template`
+4. Install MLflow Regression Pipeline dependencies: `pip install -r requirements.txt`
+
+## Log to the designated MLflow Experiment
+To log pipeline runs to a particular MLflow experiment:
+1. Open `profiles/databricks.yaml` or `profiles/local.yaml`, depending on your environment.
+2. Edit (and uncomment, if necessary) the `experiment` section, specifying the name of the
+   desired experiment for logging.
 
 ## Development Environment -- Databricks
-[Sync](https://docs.databricks.com/repos.html) this repo and run `notebooks/databricks` on a DBR 11.x cluster with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
+[Sync](https://docs.databricks.com/repos.html) this repository with
+[Databricks Repos](https://docs.databricks.com/repos.html) and run the `notebooks/databricks`
+notebook on a Databricks Cluster running version 11.0 or greater of the
+[Databricks Runtime](https://docs.databricks.com/runtime/dbr.html) or the
+[Databricks Runtime for Machine Learning](https://docs.databricks.com/runtime/mlruntime.html)
+with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
 
-**Note** When making changes to pipelines on Databricks,
+**Note**: When making changes to pipelines on Databricks,
 it is recommended that you either edit files on your local machine and
-use dbx to sync them to Databricks Repos, as demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage),
-or edit files in Databricks Repos by opening separate browser tabs
-for each YAML file or Python code module that you wish to modify.
+use [dbx](https://docs.databricks.com/dev-tools/dbx.html) to sync them to Databricks Repos, as
+demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage), or edit files in
+Databricks Repos by opening separate browser tabs for each YAML file or Python code module that you
+wish to modify.
 
-For the latter approach,
-we recommend to open at least **3 browser tabs** to facilitate easier development:
-- One tab for `pipeline.yaml`
-- One tab for changing step function defined in `steps/{step}.py`
-- One tab for the driver notebook (`notebooks/databricks`)
+For the latter approach, we recommend opening at least **3 browser tabs** to
+facilitate easier development:
+- One tab for modifying configurations in `pipeline.yaml` and / or `profiles/{profile}.yaml`
+- One tab for modifying step function(s) defined in `steps/{step}.py`
+- One tab for modifying and running the driver notebook (`notebooks/databricks`)
 
 ### Accessing MLflow Pipeline Runs
-You should be able to find experiments and runs on the Databricks ML Experiments page.
+You can find MLflow Experiments and MLflow Runs created by the pipeline on the
+[Databricks ML Experiments page](https://docs.databricks.com/applications/machine-learning/experiments-page.html#experiments).
 
 ## Development Environment -- Local machine
 ### Jupyter
 
-Launch Jupyter Notebook via command `jupyter notebook`
-Open `notebooks/jupyter.ipynb` under the current Python environment.
+1. Launch the Jupyter Notebook environment via the `jupyter notebook` command.
+2. Open and run the `notebooks/jupyter.ipynb` notebook in the Jupyter environment.
 
-### CommandLine Interface (CLI)
+### Command-Line Interface (CLI)
 
-First `cd` to the template root directory. Then try the following MLflow commands to get started.
-Note that `step_name` is optional --
-running pipeline commands without specifying the `step_name` parameter will act on the entire pipeline.
+First, enter the template root directory via `cd mlp-regression-template`. Then, try running the
+following [MLflow CLI](https://mlflow.org/docs/latest/cli.html) commands to get started. Note that
+the `--step` argument is optional; pipeline commands that are run without a `--step` act on
+the entire pipeline.
 
 ```
 export MLFLOW_PIPELINES_PROFILE=local
@@ -58,13 +72,17 @@ mlflow pipelines clean --step step_name
 ```
 
 ### Accessing MLflow Pipeline Runs
-To check MLflow experiment and runs from pipeline execution,
-1. follow the [Running the Javascript Dev Server](https://github.com/mlflow/mlflow/blob/master/CONTRIBUTING.rst#running-the-javascript-dev-server) section
-2. enter the root of the template directory `cd mlp-regression-template`.
-Then try the following command from the template root directory.
+To view MLflow Experiments and MLflow Runs created by the pipeline:
 
-```
-mlflow ui --backend-store-uri sqlite:///metadata/mlflow/mlruns.db --default-artifact-root ./metadata/mlflow/mlartifacts --host localhost
+1. Enter the template root directory: `cd mlp-regression-template`
+
+2. Start the MLflow UI
+
+```sh
+mlflow ui \
+   --backend-store-uri sqlite:///metadata/mlflow/mlruns.db \
+   --default-artifact-root ./metadata/mlflow/mlartifacts \
+   --host localhost
 ```
 
-Then open a browser tab pointing to [http://127.0.0.1:3000](http://127.0.0.1:3000)
+3. Open a browser tab pointing to [http://127.0.0.1:5000](http://127.0.0.1:5000)
