@@ -23,7 +23,7 @@ To log pipeline runs to a particular MLflow experiment:
 ## Development Environment -- Databricks
 [Sync](https://docs.databricks.com/repos.html) this repository with
 [Databricks Repos](https://docs.databricks.com/repos.html) and run the `notebooks/databricks`
-Notebook on a Databricks Cluster running version 11.0 or greater of the
+notebook on a Databricks Cluster running version 11.0 or greater of the
 [Databricks Runtime](https://docs.databricks.com/runtime/dbr.html) or the
 [Databricks Runtime for Machine Learning](https://docs.databricks.com/runtime/mlruntime.html)
 with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
@@ -49,7 +49,7 @@ You can find MLflow Experiments and MLflow Runs for the pipeline on the
 ### Jupyter
 
 1. Launch the Jupyter Notebook environment via the `jupyter notebook` command.
-2. Open and run the `notebooks/jupyter.ipynb` Notebook in the Jupyter environment.
+2. Open and run the `notebooks/jupyter.ipynb` notebook in the Jupyter environment.
 
 ### Command-Line Interface (CLI)
 
