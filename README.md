@@ -40,8 +40,7 @@ demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage), or edi
 Databricks Repos by opening separate browser tabs for each YAML file or Python code module that you
 wish to modify.
 
-For the latter approach,
-we recommend to open at least **3 browser tabs** to facilitate easier development:
+For the latter approach, we opening at least **3 browser tabs** to facilitate easier development:
 - One tab for `pipeline.yaml`
 - One tab for changing step function defined in `steps/{step}.py`
 - One tab for the driver notebook (`notebooks/databricks`)
