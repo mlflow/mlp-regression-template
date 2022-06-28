@@ -25,7 +25,7 @@ To log pipeline runs to a particular MLflow experiment:
 [Databricks Repos](https://docs.databricks.com/repos.html) and run the `notebooks/databricks`
 Notebook on a Databricks Cluster running version 11.0 or greater of the
 [Databricks Runtime](https://docs.databricks.com/runtime/dbr.html) or the
-Databricks Runtime for [Machine Learning](https://docs.databricks.com/runtime/mlruntime.html)
+[Databricks Runtime for Machine Learning](https://docs.databricks.com/runtime/mlruntime.html)
 with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
 
 **Note**: When making changes to pipelines on Databricks,
