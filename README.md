@@ -42,14 +42,15 @@ You can find MLflow Experiments and MLflow Runs for the pipeline on the
 ## Development Environment -- Local machine
 ### Jupyter
 
-Launch Jupyter Notebook via command `jupyter notebook`
-Open `notebooks/jupyter.ipynb` under the current Python environment.
+1. Launch the Jupyter Notebook environment via the `jupyter notebook` command.
+2. Open `notebooks/jupyter.ipynb` in the Jupyter Notebook environment.
 
-### CommandLine Interface (CLI)
+### Command-Line Interface (CLI)
 
-First `cd` to the template root directory. Then try the following MLflow commands to get started.
-Note that `step_name` is optional --
-running pipeline commands without specifying the `step_name` parameter will act on the entire pipeline.
+First, enter the template root directory via ``cd mlp-regression-template`. Then, try running the
+following [MLflow CLI](https://mlflow.org/docs/latest/cli.html) commands to get started. Note that
+the `step_name` argument is optional; pipeline commands that are run without a `step_name` act on
+the entire pipeline.
 
 ```
 export MLFLOW_PIPELINES_PROFILE=local
