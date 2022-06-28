@@ -36,7 +36,8 @@ we recommend to open at least **3 browser tabs** to facilitate easier developmen
 - One tab for the driver notebook (`notebooks/databricks`)
 
 ### Accessing MLflow Pipeline Runs
-You should be able to find experiments and runs on the Databricks ML Experiments page.
+You can find MLflow Experiments and MLflow Runs for the pipeline on the
+[Databricks ML Experiments page](https://docs.databricks.com/applications/machine-learning/experiments-page.html#experiments).
 
 ## Development Environment -- Local machine
 ### Jupyter
