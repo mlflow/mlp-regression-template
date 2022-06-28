@@ -74,16 +74,15 @@ mlflow pipelines clean --step step_name
 ### Accessing MLflow Pipeline Runs
 To view MLflow Experiments and MLflow Runs created by the pipeline:
 
-1. Enter the template root directory
-
-```
-cd mlp-regression-template
-```
+1. Enter the template root directory: `cd mlp-regression-template`
 
 2. Start the MLflow UI
 
-```
-mlflow ui --backend-store-uri sqlite:///metadata/mlflow/mlruns.db --default-artifact-root ./metadata/mlflow/mlartifacts --host localhost
+```sh
+mlflow ui \
+   --backend-store-uri sqlite:///metadata/mlflow/mlruns.db \
+   --default-artifact-root ./metadata/mlflow/mlartifacts \
+   --host localhost
 ```
 
 3. Open a browser tab pointing to [http://127.0.0.1:5000](http://127.0.0.1:5000)
