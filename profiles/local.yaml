@@ -4,6 +4,7 @@ experiment:
   artifact_location: "./metadata/mlflow/mlartifacts"
 
 # A small sample from the TLC Trip Record Dataset for exploring the MLflow Regression Pipeline
+# (https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
 INGEST_DATA_LOCATION: "./data/sample.parquet"
 # A larger section of the TLC Trip Record Dataset for training higher-fidelity models
 # INGEST_DATA_LOCATION: "https://nyc-tlc.s3.amazonaws.com/trip+data/yellow_tripdata_2022-01.parquet"
