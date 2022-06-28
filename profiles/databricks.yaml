@@ -3,10 +3,10 @@
 # experiment:
   # name: "/Shared/sklearn_regression_experiment"
 
-#INGEST_DATA_LOCATION: "https://nyc-tlc.s3.amazonaws.com/trip+data/yellow_tripdata_2022-01.parquet"
-# INGEST_DATA_LOCATION: "./data/sample.parquet"
-# Set the INGEST_DATA_FORMAT corresponding to the data_set to correctly ingest the data.
+# Use a section of the TLC Trip Record Dataset for model development
+# (https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
 INGEST_DATA_LOCATION: dbfs:/databricks-datasets/nyctaxi-with-zipcodes/subsampled
+# Specify the format of the dataset
 INGEST_DATA_FORMAT: spark_sql
-# Override the default split ratio by changing the Train/validation/test ratio respectively
-# SPLIT_RATIOS: [0.75, 0.125, 0.125]
+# Override the default train / validation / test dataset split ratios
+SPLIT_RATIOS: [0.75, 0.125, 0.125]
