@@ -72,7 +72,7 @@ mlflow pipelines clean --step step_name
 ```
 
 ### Accessing MLflow Pipeline Runs
-To view MLflow Experiments and MLflow Runs created by the pipeline:
+To view MLflow Experiments and MLflow Runs for the pipeline:
 
 1. Enter the template root directory
 
