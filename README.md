@@ -42,7 +42,7 @@ wish to modify.
 
 For the latter approach, we recommend opening at least **3 browser tabs** to
 facilitate easier development:
-- One tab for modifying `pipeline.yaml`
+- One tab for modifying configurations in `pipeline.yaml` and / or `profiles/{profile}.yaml`
 - One tab for modifying step function(s) defined in `steps/{step}.py`
 - One tab for modifying and running the driver notebook (`notebooks/databricks`)
 
