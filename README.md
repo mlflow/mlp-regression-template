@@ -16,7 +16,7 @@ Pipelines, see https://mlflow.org/docs/latest/pipelines.html.
 
 ## Log to the designated MLflow Experiment
 To log pipeline runs to a particular MLflow experiment:
-1. Open `profiles/databricks.yaml` or `profiles/local.yaml`, depending on your running environment.
+1. Open `profiles/databricks.yaml` or `profiles/local.yaml`, depending on your environment.
 2. Edit (and uncomment, if necessary) the `experiment` section, specifying the name of the
    desired experiment for logging.
 
