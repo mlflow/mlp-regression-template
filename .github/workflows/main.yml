@@ -52,10 +52,8 @@ jobs:
         with:
           python-version: "3.7"
       - name: Install dependencies
-        env:
-          INSTALL_SKLEARN_PIPELINE_DEPS: true
         run: |
-          source ./.github/workflows/scripts/install-common-deps.sh
+          pip install -r requirements.txt
           pip install -r .github/workflows/scripts/test-requirements.txt
       - name: Run tests
         run: |
@@ -70,10 +68,7 @@ jobs:
         with:
           python-version: "3.7"
       - name: Install dependencies
-        env:
-          INSTALL_SKLEARN_PIPELINE_DEPS: true
         run: |
-          pip install -e .
           pip install -r requirements.txt
           pip install -r .github/workflows/scripts/test-requirements.txt
       - name: Run tests
