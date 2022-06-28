@@ -20,7 +20,7 @@ To log pipeline runs to a particular MLflow experiment,
 2. Uncomment the `experiment` section, specify the name of the experiment.
 
 ## Development Environment -- Databricks
-[Sync](https://docs.databricks.com/repos.html) this repo and run `notebooks/databricks` on an DBR 11.x cluster with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
+[Sync](https://docs.databricks.com/repos.html) this repo and run `notebooks/databricks` on a DBR 11.x cluster with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
 
 **Note** When making changes to pipelines on Databricks,
 it is recommended that you either edit files on your local machine and
