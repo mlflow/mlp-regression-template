@@ -1,5 +1,5 @@
-# `pipeline.yaml` serves as the main configuration file for an MLflow Pipeline.
-# Required pipeline parameters should be defined in this file using either concrete values or
+# `pipeline.yaml` is the main configuration file for an MLflow Pipeline.
+# Required pipeline parameters should be defined in this file with either concrete values or
 # variables such as {{ INGEST_DATA_LOCATION }}.
 
 # Variables must be dereferenced in a profile YAML file, located under `profiles/`.
