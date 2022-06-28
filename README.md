@@ -14,10 +14,11 @@ Pipelines, see https://mlflow.org/docs/latest/pipelines.html.
 3. Enter the root of the template: `cd mlp-regression-template`
 4. Install template dendencies: `pip install -r requirements.txt`
 
-## Log to designated MLflow Experiment
-To log pipeline runs to a particular MLflow experiment,
+## Log to the designated MLflow Experiment
+To log pipeline runs to a particular MLflow experiment:
 1. Open `profiles/databricks.yaml` or `profiles/local.yaml`, depending on your running environment.
-2. Uncomment the `experiment` section, specify the name of the experiment.
+2. Edit (and uncomment, if necessary) the `experiment` section, specifying the name of the
+   desired experiment for logging.
 
 ## Development Environment -- Databricks
 [Sync](https://docs.databricks.com/repos.html) this repo and run `notebooks/databricks` on a DBR 11.x cluster with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
@@ -58,13 +59,18 @@ mlflow pipelines clean --step step_name
 ```
 
 ### Accessing MLflow Pipeline Runs
-To check MLflow experiment and runs from pipeline execution,
-1. follow the [Running the Javascript Dev Server](https://github.com/mlflow/mlflow/blob/master/CONTRIBUTING.rst#running-the-javascript-dev-server) section
-2. enter the root of the template directory `cd mlp-regression-template`.
-Then try the following command from the template root directory.
+To check MLflow experiment and runs from pipeline execution:
+
+1. Enter the template root directory
+
+```
+cd mlp-regression-template
+```
+
+2. Start the MLflow UI
 
 ```
 mlflow ui --backend-store-uri sqlite:///metadata/mlflow/mlruns.db --default-artifact-root ./metadata/mlflow/mlartifacts --host localhost
 ```
 
-Then open a browser tab pointing to [http://127.0.0.1:3000](http://127.0.0.1:3000)
+3. Open a browser tab pointing to [http://127.0.0.1:5000](http://127.0.0.1:5000)
