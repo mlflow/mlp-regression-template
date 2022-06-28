@@ -47,7 +47,7 @@ facilitate easier development:
 - One tab for modifying and running the driver notebook (`notebooks/databricks`)
 
 ### Accessing MLflow Pipeline Runs
-You can find MLflow Experiments and MLflow Runs for the pipeline on the
+You can find MLflow Experiments and MLflow Runs created by the pipeline on the
 [Databricks ML Experiments page](https://docs.databricks.com/applications/machine-learning/experiments-page.html#experiments).
 
 ## Development Environment -- Local machine
@@ -72,7 +72,7 @@ mlflow pipelines clean --step step_name
 ```
 
 ### Accessing MLflow Pipeline Runs
-To view MLflow Experiments and MLflow Runs for the pipeline:
+To view MLflow Experiments and MLflow Runs created by the pipeline:
 
 1. Enter the template root directory
 
