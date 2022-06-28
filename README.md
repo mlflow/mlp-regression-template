@@ -30,9 +30,10 @@ with [workspace files support enabled](https://docs.databricks.com/repos.html#wo
 
 **Note**: When making changes to pipelines on Databricks,
 it is recommended that you either edit files on your local machine and
-use dbx to sync them to Databricks Repos, as demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage),
-or edit files in Databricks Repos by opening separate browser tabs
-for each YAML file or Python code module that you wish to modify.
+use [dbx](https://docs.databricks.com/dev-tools/dbx.html) to sync them to Databricks Repos, as
+demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage), or edit files in
+Databricks Repos by opening separate browser tabs for each YAML file or Python code module that you
+wish to modify.
 
 For the latter approach,
 we recommend to open at least **3 browser tabs** to facilitate easier development:
