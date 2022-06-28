@@ -42,9 +42,9 @@ wish to modify.
 
 For the latter approach, we recommend opening at least **3 browser tabs** to
 facilitate easier development:
-- One tab for `pipeline.yaml`
-- One tab for changing step function defined in `steps/{step}.py`
-- One tab for the driver notebook (`notebooks/databricks`)
+- One tab for modifying `pipeline.yaml`
+- One tab for modifying step function(s) defined in `steps/{step}.py`
+- One tab for modifying and running the driver notebook (`notebooks/databricks`)
 
 ### Accessing MLflow Pipeline Runs
 You can find MLflow Experiments and MLflow Runs for the pipeline on the
