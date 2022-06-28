@@ -10,7 +10,7 @@ Pipelines, see https://mlflow.org/docs/latest/pipelines.html.
 
 ## Installation instructions
 1. Clone the MLflow Pipelines template repo locally: `git clone https://github.com/mlflow/mlp-regression-template.git`.
-2. Install MLflow Pipelines via `pip install mlflow[pipelines]`
+2. Install MLflow Pipelines: `pip install mlflow[pipelines]`
 3. Enter the root of the template: `cd mlp-regression-template`
 4. Install template dendencies: `pip install -r requirements.txt`
 
