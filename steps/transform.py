@@ -9,6 +9,29 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
+def std_scaler():
+    """
+    Returns an *unfitted* transformer that defines ``fit()`` and ``transform()`` methods.
+    The transformer's input and output signatures should be compatible with scikit-learn
+    transformers.
+    """
+    return Pipeline(
+        steps=[
+            (
+                "scaler",
+                ColumnTransformer(
+                    transformers=[
+                        (
+                            "std_scaler",
+                            StandardScaler(),
+                            ["trip_distance", "trip_duration"],
+                        ),
+                    ]
+                ),
+            ),
+        ]
+    )
+
 
 def transformer_fn():
     """
