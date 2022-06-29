@@ -83,9 +83,12 @@ export MLFLOW_PIPELINES_PROFILE=local
 ```
 
 Then, try running the
-following [MLflow CLI](https://mlflow.org/docs/latest/cli.html) commands to get started. Note that
-the `--step` argument is optional; pipeline commands that are run without a `--step` act on
-the entire pipeline.
+following [MLflow Pipelines CLI](https://mlflow.org/docs/latest/cli.html#mlflow-pipelines)
+commands to get started. 
+Note that the `--step` argument is optional.
+Pipeline commands without a `--step` specified act on the entire pipeline instead.
+
+Available step names are: `ingest`, `split`, `transform`, `train`, `evaluate` and `register`.
 
 - Display the help message:
 ```
@@ -105,6 +108,13 @@ mlflow pipelines inspect --step step_name
 - Clean a step cache or all step caches:
 ```
 mlflow pipelines clean --step step_name
+```
+
+**Note**: a short cut to `mlflow pipelines` is installed as `mlp`.
+For example, to run the ingest step,
+instead of issuing `mlflow pipelines run --step ingest`, you may type
+```
+mlp -s ingest
 ```
 
 ### Accessing MLflow Pipeline Runs
