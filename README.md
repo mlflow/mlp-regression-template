@@ -10,6 +10,11 @@ For more information about the general framework of MLflow Pipelines,
 check out the documentation [here](https://mlflow.org/docs/latest/pipelines.html).
 
 ## Installation instructions
+(Optional) Create a clean Python environment either via 
+[virtualenv](https://pypi.org/project/virtualenv) or 
+[conda](https://pypi.org/project/conda) for the best experience.
+Python 3.7 or higher is required.
+
 1. Install the latest MLflow with Pipelines:
 ```
 pip install mlflow[pipelines]
