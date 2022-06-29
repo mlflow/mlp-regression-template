@@ -10,13 +10,25 @@ For more information about the general framework of MLflow Pipelines,
 check out the documentation [here](https://mlflow.org/docs/latest/pipelines.html).
 
 ## Installation instructions
-1. Install the latest MLflow with Pipelines: `pip install mlflow[pipelines]`
+1. Install the latest MLflow with Pipelines:
+```
+pip install mlflow[pipelines]
+```
+
 2. Clone this MLflow Regression Pipeline template repository locally:
 ```
 git clone https://github.com/mlflow/mlp-regression-template.git
 ```
-3. Enter the root directory of the cloned pipeline template: `cd mlp-regression-template`
-4. Install the template dependencies: `pip install -r requirements.txt`
+
+3. Enter the root directory of the cloned pipeline template:
+```
+cd mlp-regression-template
+```
+
+4. Install the template dependencies:
+```
+pip install -r requirements.txt
+```
 
 ## Log to the designated MLflow Experiment
 To log pipeline runs to a particular MLflow experiment:
@@ -57,16 +69,34 @@ You can find MLflow Experiments and MLflow Runs created by the pipeline on the
 
 ### Command-Line Interface (CLI)
 
-First, enter the template root directory via `cd mlp-regression-template`. Then, try running the
+First, enter the template root directory and set the profile via environment variable
+```
+cd mlp-regression-template
+export MLFLOW_PIPELINES_PROFILE=local
+```
+
+Then, try running the
 following [MLflow CLI](https://mlflow.org/docs/latest/cli.html) commands to get started. Note that
 the `--step` argument is optional; pipeline commands that are run without a `--step` act on
 the entire pipeline.
 
+- Display the help message:
 ```
-export MLFLOW_PIPELINES_PROFILE=local
 mlflow pipelines --help
-mlflow pipelines inspect --step step_name
+```
+
+- Run a pipeline step or the entire pipeline:
+```
 mlflow pipelines run --step step_name
+```
+
+- Inspect a step card:
+```
+mlflow pipelines inspect --step step_name
+```
+
+- Clean a step cache or all step caches:
+```
 mlflow pipelines clean --step step_name
 ```
 
