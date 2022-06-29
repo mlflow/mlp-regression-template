@@ -1,24 +1,22 @@
 # MLflow Pipelines Regression Template
-The [MLflow Regression Pipeline](https://mlflow.org/docs/latest/pipelines.html#regression-pipeline)
-is an [MLflow Pipeline](https://mlflow.org/docs/latest/pipelines.html) for developing high-quality
-production-ready regression models.
-It is designed for developing models using scikit-learn and frameworks that
+This repository serves as a customizable template for the
+[MLflow Regression Pipeline](https://mlflow.org/docs/latest/pipelines.html#regression-pipeline)
+to develop high-quality production-ready regression models.
+
+Currently supported ML models are limited to scikit-learn and frameworks that
 integrate with scikit-learn, such as the ``XGBRegressor`` API from XGBoost.
 
-For more information about the MLflow Regression Pipeline, check out the documentation at
-https://mlflow.org/docs/latest/pipelines.html#regression-pipeline. For more information about MLflow
-Pipelines, see https://mlflow.org/docs/latest/pipelines.html.
+For more information about the general framework of MLflow Pipelines,
+check out the documentation [here](https://mlflow.org/docs/latest/pipelines.html).
 
 ## Installation instructions
-1. Install MLflow Pipelines: `pip install mlflow[pipelines]`
-2. Clone the MLflow Regression Pipeline template repository locally:
-
+1. Install the latest MLflow with Pipelines: `pip install mlflow[pipelines]`
+2. Clone this MLflow Regression Pipeline template repository locally:
 ```
 git clone https://github.com/mlflow/mlp-regression-template.git
 ```
-
-3. Enter the root directory of the MLflow Regression Pipeline template: `cd mlp-regression-template`
-4. Install MLflow Regression Pipeline dependencies: `pip install -r requirements.txt`
+3. Enter the root directory of the cloned pipeline template: `cd mlp-regression-template`
+4. Install the template dependencies: `pip install -r requirements.txt`
 
 ## Log to the designated MLflow Experiment
 To log pipeline runs to a particular MLflow experiment:
