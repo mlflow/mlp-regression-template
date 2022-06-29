@@ -77,6 +77,8 @@ You can find MLflow Experiments and MLflow Runs created by the pipeline on the
 First, enter the template root directory and set the profile via environment variable
 ```
 cd mlp-regression-template
+```
+```
 export MLFLOW_PIPELINES_PROFILE=local
 ```
 
@@ -95,7 +97,7 @@ mlflow pipelines --help
 mlflow pipelines run --step step_name
 ```
 
-- Inspect a step card:
+- Inspect a step card or the pipeline dependency graph:
 ```
 mlflow pipelines inspect --step step_name
 ```
