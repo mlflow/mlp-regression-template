@@ -6,8 +6,13 @@ to develop high-quality production-ready regression models.
 Currently supported ML models are limited to scikit-learn and frameworks that
 integrate with scikit-learn, such as the ``XGBRegressor`` API from XGBoost.
 
-For more information about the general framework of MLflow Pipelines,
-check out the documentation [here](https://mlflow.org/docs/latest/pipelines.html).
+**Note**: [MLflow Pipelines](https://mlflow.org/docs/latest/pipelines.html)
+is an experimental feature in [MLflow](https://mlflow.org).
+If you observe any issues,
+please report them [here](https://github.com/mlflow/mlflow/issues).
+For suggestions on improvements,
+please file a discussion topic [here](https://github.com/mlflow/mlflow/discussions).
+Your contribution to MLflow Pipelines is greatly appreciated by the community!
 
 ## Installation instructions
 (Optional) Create a clean Python environment either via 
