@@ -16,4 +16,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint ./steps
+        pylint ./steps --fail-under=6
