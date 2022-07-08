@@ -1,4 +1,0 @@
-pylint==2.11.1
-black==22.3.0
-sklearn
-pandas

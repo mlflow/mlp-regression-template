@@ -4,7 +4,8 @@
 name: Python application
 
 on:
-
+  push
+  
 permissions:
   contents: read
 
@@ -20,13 +21,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run a databricks notebook
       uses: databricks/run-notebook@v0
       with:
-       local-notebook-path: path/to/my/databricks_notebook.py
-       databricks-host: https://adb-XXXX.XX.dev.azuredatabricks.net
+       local-notebook-path: .github/integration_test/notebook.py
+       databricks-host: https://e2-dogfood.staging.cloud.databricks.com
        databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
-       git-commit: ${{ github.event.pull_request.head.sha }}
-       existing-cluster-id: 
+       git-commit: ${{ github.sha }}
+       existing-cluster-id: "0819-204509-hill72"
 
