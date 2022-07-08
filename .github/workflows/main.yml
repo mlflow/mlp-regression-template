@@ -1,6 +1,7 @@
 name: MLflow Pipelines Example Tests
 
 on:
+  [pull_request]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref == 'refs/heads/main' && github.run_number || github.ref }}
