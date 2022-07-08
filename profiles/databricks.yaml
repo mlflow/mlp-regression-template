@@ -1,7 +1,7 @@
 # [Recommended] Uncomment fields below to set an MLflow experiment to track the pipeline execution.
 # If unset, a default experiment based on runtime context will be created.
-# experiment:
-  # name: "/Shared/sklearn_regression_experiment"
+experiment:
+  name: "/Repos/ahmed.bilal@databricks.com/mlp-regression-template/notebooks/databricks"
 
 # Use a section of the TLC Trip Record Dataset for model development
 # (https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
