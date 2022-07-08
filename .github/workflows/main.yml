@@ -1,14 +1,6 @@
 name: MLflow Pipelines Example Tests
 
 on:
-  push:
-    branches:
-      - main
-      - branch-[0-9]+.[0-9]+
-  pull_request:
-    branches:
-      - main
-      - branch-[0-9]+.[0-9]+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref == 'refs/heads/main' && github.run_number || github.ref }}
