@@ -32,7 +32,7 @@ jobs:
       run: |
         pytest
   integration-test:
-    needs: [unit-test]
+    needs: [unit-test,lint]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
