@@ -5,7 +5,7 @@ name: Python application
 
 on:
   push
-  
+
 permissions:
   contents: read
 
@@ -28,5 +28,5 @@ jobs:
        databricks-host: https://e2-dogfood.staging.cloud.databricks.com
        databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
        git-commit: ${{ github.sha }}
-       existing-cluster-id: "0819-204509-hill72"
+       existing-cluster-id: "1118-013127-82wynr8t"
 
