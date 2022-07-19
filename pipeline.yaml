@@ -61,9 +61,6 @@ steps:
     # Indicates whether or not a model that fails to meet performance thresholds should still
     # be registered to the MLflow Model Registry
     allow_non_validated_model: true
-    # Set the registry server URI. This property is especially useful if you have a registry
-    # server that’s different from the tracking server.
-    # registry_uri: {{REGISTRY_URI}}
 metrics:
   # Defines custom performance metrics to compute during model training and evaluation
   custom:
