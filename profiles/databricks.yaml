@@ -3,6 +3,12 @@
 # experiment:
   # name: "/Shared/sklearn_regression_experiment"
 
+# Set the registry server URI. This property is especially useful if you have a registry
+# server that’s different from the tracking server.
+# Profile could be created using https://github.com/databricks/databricks-cli#installation
+# model_registry:
+#   uri: "databricks://PROFILE_NAME"
+
 # Use a section of the TLC Trip Record Dataset for model development
 # (https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
 INGEST_DATA_LOCATION: dbfs:/databricks-datasets/nyctaxi-with-zipcodes/subsampled
@@ -10,5 +16,3 @@ INGEST_DATA_LOCATION: dbfs:/databricks-datasets/nyctaxi-with-zipcodes/subsampled
 INGEST_DATA_FORMAT: spark_sql
 # Override the default train / validation / test dataset split ratios
 SPLIT_RATIOS: [0.75, 0.125, 0.125]
-# Specify the registry_uri if required
-# REGISTRY_URI: sqlite:////tmp/registry.db
