@@ -1,6 +1,6 @@
 name: pull request comment
 on:
-  issue_comment:                                     
+  pull_request_review_comment:                                     
     types: [created, edited, deleted]
 
 jobs:
