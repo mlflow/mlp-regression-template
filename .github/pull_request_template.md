@@ -6,6 +6,9 @@
 
 (Details)
 
+We require adding a link to the [workflow](https://github.com/mlflow/mlflow/actions/workflows/pipeline-template.yml) for testing the [mlflow/mlp-regression-template](https://github.com/mlflow/mlp-regression-template) code path.
+
+Run the workflow with repository name: `mlflow/mlp-regression-template` and the branch`(Example:<user-name>:feature)` that you are working with.
 ## Release Notes
 
 ### Is this a user-facing change?
