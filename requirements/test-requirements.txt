@@ -1,3 +1,2 @@
 ## Test-only dependencies
 pytest
-pyarrow==7.0.*
