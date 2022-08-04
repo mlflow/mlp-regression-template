@@ -11,7 +11,7 @@
 # files are properly formatted.
 
 template: "regression/v1"
-# Specifies the dataset to use for model development
+# Specifies the datasets to use for model development and batch scoring
 data:
   # Dataset locations on the local filesystem are supported, as well as HTTP(S) URLs and
   # any other remote locations resolvable by MLflow, such as those listed in
@@ -30,6 +30,12 @@ data:
   # or the `timestamp` at which to read data
   # version: 2
   # timestamp: 2022-06-01T00:00:00.000Z
+# specify the dataset to use for batch scoring.  All params serve the same function as in `data`
+data_scoring:
+  location: {{INGEST_SCORING_DATA_LOCATION}}
+  format: {{INGEST_SCORING_DATA_FORMAT|default('parquet')}}
+  custom_loader_method: steps.ingest.load_file_as_dataframe
+  sql: SELECT * FROM delta.`{{INGEST_SCORING_DATA_LOCATION}}`
 # Specifies the name of the column containing targets / labels for model training and evaluation
 target_col: "fare_amount"
 steps:
@@ -61,6 +67,13 @@ steps:
     # Indicates whether or not a model that fails to meet performance thresholds should still
     # be registered to the MLflow Model Registry
     allow_non_validated_model: true
+  predict:
+    # Specify the model URI to use for batch scoring
+    model_uri: "models/model.pkl"
+    # Specify the output path of the scored data from predict
+    output_location: {{SCORED_OUTPUT_DATA_LOCATION}}
+    # Specify the output format of the scored data from predict
+    output_format: {{SCORED_OUTPUT_DATA_FORMAT|default('parquet')}}
 metrics:
   # Defines custom performance metrics to compute during model training and evaluation
   custom:
