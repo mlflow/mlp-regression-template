@@ -22,6 +22,6 @@ INGEST_SCORING_DATA_FORMAT: spark_sql
 # Override the default train / validation / test dataset split ratios
 SPLIT_RATIOS: [0.75, 0.125, 0.125]
 # Specify the output location of the batch scoring predict step
-OUTPUT_DATA_LOCATION: "dbfs:/temp/batch_scoring/sample_output.parquet"
+SCORED_OUTPUT_DATA_LOCATION: "dbfs:/temp/batch_scoring/sample_output.parquet"
 # Specify the output format of the batch scoring predict step
-OUTPUT_DATA_FORMAT: parquet
+SCORED_OUTPUT_DATA_FORMAT: parquet

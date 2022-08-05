@@ -11,7 +11,7 @@
 # files are properly formatted.
 
 template: "regression/v1"
-# Specifies the datasets to use for model development and batch scoring
+# Specifies the dataset to use for model development
 data:
   # Dataset locations on the local filesystem are supported, as well as HTTP(S) URLs and
   # any other remote locations resolvable by MLflow, such as those listed in
