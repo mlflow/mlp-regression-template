@@ -15,5 +15,17 @@ INGEST_DATA_LOCATION: "./data/sample.parquet"
 # INGEST_DATA_LOCATION: "https://nyc-tlc.s3.amazonaws.com/trip+data/yellow_tripdata_2022-01.parquet"
 # Specify the format of the dataset
 INGEST_DATA_FORMAT: parquet
+# Use a small sample from the TLC Trip Record Dataset for exploring the batch scoring feature of the
+# MLflow Regression Pipeline
+# (https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
+INGEST_SCORING_DATA_LOCATION: "./data/sample.parquet"
+# Use a larger section of the TLC Trip Record Dataset for the batch scoring feature
+# INGEST_SCORING_DATA_LOCATION: "https://nyc-tlc.s3.amazonaws.com/trip+data/yellow_tripdata_2022-01.parquet"
+# Specify the format of the dataset
+INGEST_SCORING_DATA_FORMAT: parquet
 # Override the default train / validation / test dataset split ratios
 SPLIT_RATIOS: [0.80, 0.10, 0.10]
+# Specify the output location of the batch scoring predict step
+SCORED_OUTPUT_DATA_LOCATION: "./data/sample_output.parquet"
+# Specify the output format of the batch scoring predict step
+SCORED_OUTPUT_DATA_FORMAT: parquet
