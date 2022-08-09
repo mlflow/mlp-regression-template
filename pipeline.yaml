@@ -68,8 +68,9 @@ steps:
     # be registered to the MLflow Model Registry
     allow_non_validated_model: true
   predict:
-    # Specify the model URI to use for batch scoring
-    model_uri: "models/model.pkl"
+    # Specifically define the model URI to use in batch scoring here or use the latest model
+    # registered from the training DAG
+    # model_uri: "models/model.pkl"
     # Specify the output path of the scored data from predict
     output_location: {{SCORED_OUTPUT_DATA_LOCATION}}
     # Specify the output format of the scored data from predict
