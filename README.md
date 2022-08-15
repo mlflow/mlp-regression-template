@@ -15,8 +15,8 @@ please file a discussion topic [here](https://github.com/mlflow/mlflow/discussio
 Your contribution to MLflow Pipelines is greatly appreciated by the community!
 
 ## Installation instructions
-(Optional) Create a clean Python environment either via 
-[virtualenv](https://pypi.org/project/virtualenv) or 
+(Optional) Create a clean Python environment either via
+[virtualenv](https://pypi.org/project/virtualenv) or
 [conda](https://pypi.org/project/conda) for the best experience.
 Python 3.7 or higher is required.
 
@@ -55,17 +55,9 @@ notebook on a Databricks Cluster running version 11.0 or greater of the
 with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
 
 **Note**: When making changes to pipelines on Databricks,
-it is recommended that you either edit files on your local machine and
+it is recommended that you edit files on your local machine and
 use [dbx](https://docs.databricks.com/dev-tools/dbx.html) to sync them to Databricks Repos, as
-demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage), or edit files in
-Databricks Repos by opening separate browser tabs for each YAML file or Python code module that you
-wish to modify.
-
-For the latter approach, we recommend opening at least **3 browser tabs** to
-facilitate easier development:
-- One tab for modifying configurations in `pipeline.yaml` and / or `profiles/{profile}.yaml`
-- One tab for modifying step function(s) defined in `steps/{step}.py`
-- One tab for modifying and running the driver notebook (`notebooks/databricks`)
+demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage)
 
 ### Accessing MLflow Pipeline Runs
 You can find MLflow Experiments and MLflow Runs created by the pipeline on the
@@ -89,7 +81,7 @@ export MLFLOW_PIPELINES_PROFILE=local
 
 Then, try running the
 following [MLflow Pipelines CLI](https://mlflow.org/docs/latest/cli.html#mlflow-pipelines)
-commands to get started. 
+commands to get started.
 Note that the `--step` argument is optional.
 Pipeline commands without a `--step` specified act on the entire pipeline instead.
 
