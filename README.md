@@ -22,7 +22,8 @@ Python 3.7 or higher is required.
 
 1. Install the latest MLflow with Pipelines:
 ```
-pip install "mlflow[pipelines]"
+pip install "mlflow[pipelines]"  # for pip
+conda install -c conda-forge mlflow-pipelines  # for conda
 ```
 
 2. Clone this MLflow Regression Pipeline template repository locally:
