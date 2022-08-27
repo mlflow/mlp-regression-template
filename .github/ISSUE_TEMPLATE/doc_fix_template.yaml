@@ -1,0 +1,10 @@
+name: Documentation Fix
+description: Use this template for proposing documentation fixes/improvements.
+labels: 'area/docs'
+title: '[DOC-FIX]'
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We encourage submitting an issue directly to [MLFlow](https://github.com/mlflow/mlflow/issues/new?assignees=&labels=area%2Fdocs&template=doc_fix_template.yaml&title=%5BDOC-FIX%5D)

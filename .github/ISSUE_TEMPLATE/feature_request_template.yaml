@@ -1,0 +1,10 @@
+name: Feature Request
+description: Use this template for feature and enhancement proposals.
+labels: 'enhancement'
+title: '[FR]'
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We encourage submitting an issue directly to [MLFlow](https://github.com/mlflow/mlflow/issues/new?assignees=&labels=enhancement&template=feature_request_template.yaml&title=%5BFR%5D)

@@ -1,0 +1,10 @@
+name: Bug Report
+description: Create a report to help us reproduce and correct the bug
+labels: 'bug'
+title: '[BUG]'
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We encourage submitting an issue directly to [MLFlow](https://github.com/mlflow/mlflow/issues/new?assignees=&labels=bug&template=bug_report_template.yaml&title=%5BBUG%5D)
