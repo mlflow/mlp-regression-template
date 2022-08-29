@@ -48,6 +48,7 @@ steps:
     # Specifies the method that defines the data transformations to apply during model inference
     transformer_method: steps.transform.transformer_fn
   train:
+    using: estimator_spec
     # Specifies the method that defines the estimator type and parameters to use for model training
     estimator_method: steps.train.estimator_fn
   evaluate:
