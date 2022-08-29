@@ -48,15 +48,6 @@ steps:
     # Specifies the method that defines the data transformations to apply during model inference
     transformer_method: steps.transform.transformer_fn
   train:
-    # Specifies whether to use automl to find and fit an estimator
-    # or train an estimator specified by the user.
-    # The remaining confs in this section are interpreted based on
-    # on the value specified here. For example, if
-    # using: estimator_spec, the remainder of the “train” section 
-    # should define confs for the estimator method, parameters,
-    # and tuning search space (if desired). If using: automl,
-    # the remainder of the “train” section should define a 
-    # budget for AutoML, e.g. budget: 10 mins
     using: estimator_spec
     # Specifies the method that defines the estimator type and parameters to use for model training
     estimator_method: steps.train.estimator_fn
