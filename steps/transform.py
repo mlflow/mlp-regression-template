@@ -12,22 +12,19 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler, FunctionTransfo
 
 
 def calculate_features(df: DataFrame):
+    """
+    Calculate pickup day of week and hour and trip duration and
+    extend the input dataframe. Drop the now-unneeded pickup datetime
+    and dropoff datetime columns.
+    """
     df["pickup_dow"] = df["tpep_pickup_datetime"].dt.dayofweek
     df["pickup_hour"] = df["tpep_pickup_datetime"].dt.hour
     trip_duration = (
             df["tpep_dropoff_datetime"] - df["tpep_pickup_datetime"]
     )
     df["trip_duration"] = trip_duration.map(lambda x: x.total_seconds() / 60)
-    # Drop unneeded columns after feature engineering
-    df = df.drop(columns=["tpep_pickup_datetime", "tpep_dropoff_datetime"])
+    df.drop(columns=["tpep_pickup_datetime", "tpep_dropoff_datetime"], inplace=True)
     return df
-
-
-# pylint: disable=unused-argument
-def feature_names(self: FunctionTransformer, input_features):
-    input_features = input_features[input_features != "tpep_pickup_datetime"]
-    input_features = input_features[input_features != "tpep_dropoff_datetime"]
-    return input_features
 
 
 def transformer_fn():
@@ -40,7 +37,7 @@ def transformer_fn():
         steps=[
             (
                 "feature_engineering",
-                FunctionTransformer(calculate_features, feature_names_out=feature_names),
+                FunctionTransformer(calculate_features, feature_names_out="one-to-one"),
             ),
             (
                 "encoder",
