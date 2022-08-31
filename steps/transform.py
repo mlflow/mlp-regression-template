@@ -4,10 +4,29 @@ This module defines the following routines used by the 'transform' step of the r
 - ``transformer_fn``: Defines customizable logic for transforming input data before it is passed
   to the estimator during model inference.
 """
-
+from pandas import DataFrame
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, FunctionTransformer
+
+
+def calculate_features(df: DataFrame):
+    df["pickup_dow"] = df["tpep_pickup_datetime"].dt.dayofweek
+    df["pickup_hour"] = df["tpep_pickup_datetime"].dt.hour
+    trip_duration = (
+            df["tpep_dropoff_datetime"] - df["tpep_pickup_datetime"]
+    )
+    df["trip_duration"] = trip_duration.map(lambda x: x.total_seconds() / 60)
+    # Drop unneeded columns after feature engineering
+    df = df.drop(columns=["tpep_pickup_datetime", "tpep_dropoff_datetime"])
+    return df
+
+
+# pylint: disable=unused-argument
+def feature_names(self: FunctionTransformer, input_features):
+    input_features = input_features[input_features != "tpep_pickup_datetime"]
+    input_features = input_features[input_features != "tpep_dropoff_datetime"]
+    return input_features
 
 
 def transformer_fn():
@@ -18,6 +37,10 @@ def transformer_fn():
     """
     return Pipeline(
         steps=[
+            (
+                "feature_engineering",
+                FunctionTransformer(calculate_features, feature_names_out=feature_names),
+            ),
             (
                 "encoder",
                 ColumnTransformer(

@@ -32,13 +32,6 @@ def process_splits(
             & (cleaned["fare_amount"] < 1000)
         ]
 
-        cleaned["pickup_dow"] = cleaned["tpep_pickup_datetime"].dt.dayofweek
-        cleaned["pickup_hour"] = cleaned["tpep_pickup_datetime"].dt.hour
-        trip_duration = (
-            cleaned["tpep_dropoff_datetime"] - cleaned["tpep_pickup_datetime"]
-        )
-        cleaned["trip_duration"] = trip_duration.map(lambda x: x.total_seconds() / 60)
-
         return cleaned
 
     return process(train_df), process(validation_df), process(test_df)
