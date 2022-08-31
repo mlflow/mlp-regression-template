@@ -13,9 +13,8 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler, FunctionTransfo
 
 def calculate_features(df: DataFrame):
     """
-    Calculate pickup day of week and hour and trip duration and
-    extend the input dataframe. Drop the now-unneeded pickup datetime
-    and dropoff datetime columns.
+    Extend the input dataframe with pickup day of week and hour, and trip duration.
+    Drop the now-unneeded pickup datetime and dropoff datetime columns.
     """
     df["pickup_dow"] = df["tpep_pickup_datetime"].dt.dayofweek
     df["pickup_hour"] = df["tpep_pickup_datetime"].dt.hour
@@ -36,7 +35,7 @@ def transformer_fn():
     return Pipeline(
         steps=[
             (
-                "feature_engineering",
+                "calculate_time_and_duration_features",
                 FunctionTransformer(calculate_features, feature_names_out="one-to-one"),
             ),
             (
