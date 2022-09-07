@@ -6,7 +6,7 @@ This module defines the following routines used by the 'train' step of the regre
 """
 
 
-def estimator_fn(estimator_params):
+def estimator_fn(estimator_params={}):
     """
     Returns an *unfitted* estimator that defines ``fit()`` and ``predict()`` methods.
     The estimator's input and output signatures should be compatible with scikit-learn
