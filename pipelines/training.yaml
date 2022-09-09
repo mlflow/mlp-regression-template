@@ -1,0 +1,33 @@
+data:
+  location: {{INGEST_DATA_LOCATION}}
+  format: {{INGEST_DATA_FORMAT|default('parquet')}}
+target_col: "fare_amount"
+steps:
+  ingest:
+    using: steps.ingest.MyIngestStep
+  split:
+    using: steps.split.MySplitStep
+    split_ratios: {{SPLIT_RATIOS|default([0.75, 0.125, 0.125])}}
+  transform:
+    using: docker::/my_ml_project/MyTransform
+  train:
+    using: mlflow.pipelines.steps.AutoMLFlaml  # steps.train.MyTrainStep
+    time_budget_secs: 600
+  evaluate:
+    using: mlflow.pipelines.steps.EvaluateStep
+    validation_criteria:
+      - metric: root_mean_squared_error
+        threshold: 10
+      - metric: mean_absolute_error
+        threshold: 50
+      - metric: weighted_mean_squared_error
+        threshold: 20
+  register:
+    using: mlflow.pipelines.steps.RegisterStep
+    model_name: "taxi_fare_regressor"
+    allow_non_validated_model: true
+metrics:
+  primary: "root_mean_squared_error"
+  custom:
+    using: steps.custom_metrics
+    - name: weighted_mean_squared_error

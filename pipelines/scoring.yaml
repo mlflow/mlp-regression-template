@@ -1,0 +1,8 @@
+data:
+  location: {{INGEST_SCORING_DATA_LOCATION}}
+  format: {{INGEST_SCORING_DATA_FORMAT|default('parquet')}}
+target_col: "fare_amount"
+steps:
+  predict:
+    output_location: {{SCORED_OUTPUT_DATA_LOCATION}}
+    output_format: {{SCORED_OUTPUT_DATA_FORMAT|default('parquet')}}
