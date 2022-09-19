@@ -51,14 +51,19 @@ steps:
     using: estimator_spec
     # Specifies the method that defines the estimator type and parameters to use for model training
     estimator_method: steps.train.estimator_fn
+    estimator_params:
+      alpha: 0.1
+      penalty: l1
     tuning:
-      enabled: False
+      enabled: True
       algorithm: "hyperopt.rand.suggest"
-      max_trials: 100
+      max_trials: 5
+      sample_fraction: 0.5
       parameters:
-        distribution: "uniform"
-        low: 0.0
-        high: 0.01
+        alpha:
+          distribution: "uniform"
+          low: 0.0
+          high: 0.01
   evaluate:
     # Sets performance thresholds that a trained model must meet in order to be eligible for
     # registration to the MLflow Model Registry
