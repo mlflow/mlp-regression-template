@@ -80,7 +80,7 @@ steps:
     model_name: "taxi_fare_regressor"
     # Indicates whether or not a model that fails to meet performance thresholds should still
     # be registered to the MLflow Model Registry
-    allow_non_validated_model: true
+    allow_non_validated_model: false
   predict:
     # Specifically define the model URI to use in batch scoring here or use the latest model
     # registered from the training DAG
