@@ -53,12 +53,16 @@ steps:
     estimator_method: steps.train.estimator_fn
     estimator_params:
       alpha: 0.1
-      penalty: l1
     tuning:
       enabled: True
       algorithm: "hyperopt.rand.suggest"
+      # Specify the maximum number of tuning trials and an optional early stopping function
       max_trials: 5
+      early_stop_fn: steps.train.my_early_stop_fn
+      # Tune with SparkTrials if parallelism > 1
+      parallelism: 2
       sample_fraction: 0.5
+      # Specifies the parameter space to use for model tuning
       parameters:
         alpha:
           distribution: "uniform"
