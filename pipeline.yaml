@@ -63,7 +63,8 @@ steps:
       # Tune with SparkTrials if parallelism > 1
       # Note that max_trials should be increased when parallelism > 1
       parallelism: 1
-      # Specify a sampling fraction of the train dataset to be used for model tuning.
+      # Specify a fraction of the training dataset to use for fitting estimators during 
+      # model tuning
       sample_fraction: 0.5
       # Specifies the parameter space to use for model tuning. If a parameter is also specified
       # in "estimator_params" above, the tuning will visit the hardcoded parameter as part of
