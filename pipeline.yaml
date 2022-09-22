@@ -49,25 +49,32 @@ steps:
     transformer_method: steps.transform.transformer_fn
   train:
     using: estimator_spec
-    # Specifies the method that defines the estimator type and parameters to use for model training
+    # Specifies the method that defines the estimator type
     estimator_method: steps.train.estimator_fn
+    # Specifies any hardcoded parameters to pass to the estimator
     estimator_params:
       alpha: 0.1
     tuning:
       enabled: True
       algorithm: "hyperopt.rand.suggest"
-      # Specify the maximum number of tuning trials and an optional early stopping function
+      # Specify the maximum number of tuning trials and an optional early stopping function 
       max_trials: 5
-      early_stop_fn: steps.train.my_early_stop_fn
+      early_stop_fn: "hyperopt.early_stop.no_progress_loss(10)"
       # Tune with SparkTrials if parallelism > 1
-      parallelism: 2
+      # Note that max_trials should be increased when parallelism > 1
+      parallelism: 1
+      # Specify a sampling fraction of the train dataset to be used for model tuning.
       sample_fraction: 0.5
-      # Specifies the parameter space to use for model tuning
+      # Specifies the parameter space to use for model tuning. If a parameter is also specified
+      # in "estimator_params" above, the tuning will visit the hardcoded parameter as part of
+      # the tuning space
       parameters:
         alpha:
           distribution: "uniform"
           low: 0.0
           high: 0.01
+        penalty:
+          values: ["l1", "l2", "elasticnet"]
   evaluate:
     # Sets performance thresholds that a trained model must meet in order to be eligible for
     # registration to the MLflow Model Registry
