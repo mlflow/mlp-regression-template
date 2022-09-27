@@ -56,7 +56,3 @@ p.run("evaluate")
 # COMMAND ----------
 
 p.run("register")
-
-# COMMAND ----------
-
-p.inspect("train")

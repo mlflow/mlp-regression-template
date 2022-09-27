@@ -2,7 +2,8 @@
 This module defines the following routines used by the 'split' step of the regression pipeline:
 
 - ``process_splits``: Defines customizable logic for processing & cleaning the training, validation,
-  and test datasets produced by the data splitting procedure.
+  and test datasets produced by the data splitting procedure. Note that arbitrary transformations
+  should go into the transform step.
 """
 
 from pandas import DataFrame

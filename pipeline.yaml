@@ -44,8 +44,8 @@ steps:
     # Train/validation/test split ratios
     split_ratios: [0.75, 0.125, 0.125]
     #
-    #  FIXME::OPTIONAL: Specifies the method to perform additional processing on split datasets.
-    #
+    #  FIXME::OPTIONAL: Specifies the method to use to "post-process" the split datasets. Note that
+    #                   arbitrary transformations should go into the transform step.
     post_split_method: steps.split.process_splits
   transform:
     #
