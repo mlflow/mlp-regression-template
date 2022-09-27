@@ -20,18 +20,6 @@ def process_splits(
     :return: A tuple containing, in order: the processed training dataset, the processed
              validation dataset, and the processed test dataset.
     """
+    # FIXME::OPTIONAL: implement post-split processing on the dataframes, such as data cleaning.
 
-    def process(df: DataFrame):
-        # Drop invalid data points
-        cleaned = df.dropna()
-        # Filter out invalid fare amounts and trip distance
-        cleaned = cleaned[
-            (cleaned["fare_amount"] > 0)
-            & (cleaned["trip_distance"] < 400)
-            & (cleaned["trip_distance"] > 0)
-            & (cleaned["fare_amount"] < 1000)
-        ]
-
-        return cleaned
-
-    return process(train_df), process(validation_df), process(test_df)
+    return train_df, validation_df, test_df
