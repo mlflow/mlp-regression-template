@@ -6,7 +6,8 @@ This module defines the following routines used by the 'split' step of the regre
   should go into the transform step.
 """
 
-from pandas import DataFrame
+from typing import Tuple
+from pandas import DataFrame, Series
 
 
 def process_splits(
@@ -35,4 +36,25 @@ def process_splits(
 
         return cleaned
 
-    return process(train_df), process(validation_df), process(test_df)
+    # return process(train_df), process(validation_df), process(test_df)
+    train_df['to_filter'] = mark_to_be_filtered(train_df)
+    validation_df['to_filter'] = mark_to_be_filtered(validation_df)
+    test_df['to_filter'] = mark_to_be_filtered(test_df)
+    return (
+        train_df[train_df.to_filter == True],
+        validation_df[validation_df.to_filter == True],
+        test_df[test_df.to_filter == True]
+    )
+
+
+def mark_to_be_filtered(dataset: DataFrame) -> Series(bool):
+    """
+    Mark rows of the split datasets to be additionally filtered. This function will be called on
+    the training, validation, and test datasets.
+
+    :param dataset: The {train,validation,test} dataset produced by the data splitting procedure.
+    :return: A Series indicating whether each row should be filtered
+    """
+    return (dataset["fare_amount"] > 0) & (dataset["trip_distance"] < 400) & (
+        dataset["trip_distance"] > 0
+    ) & (dataset["fare_amount"] < 1000) or dataset.isna().any(axis=1)
