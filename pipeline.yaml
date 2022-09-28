@@ -44,7 +44,7 @@ steps:
     split_ratios: {{SPLIT_RATIOS|default([0.75, 0.125, 0.125])}}
     # Specifies the method to use to perform additional cleaning on split datasets
     # Note that arbitrary transformations should go into the transform step
-    post_split_method: steps.split.process_splits
+    post_split_filter_method: steps.split.mark_to_be_filtered
   transform:
     # Specifies the method that defines the data transformations to apply during model inference
     transformer_method: steps.transform.transformer_fn
