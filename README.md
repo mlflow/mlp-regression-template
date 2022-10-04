@@ -41,6 +41,16 @@ cd mlp-regression-template
 pip install -r requirements.txt
 ```
 
+## Adapt the template to your ML problem
+This template is not directly runnable. For runnable examples,
+please checkout [this](https://github.com/mlflow/mlr-regression-example) repository.
+To adapt this template to your specific ML problem at hand,
+1. Find all **FIXME::REQUIRED** fields in *pipeline.yaml* and *profiles/\*.yaml*,
+follow the instructions inline to supply valid values to those fields.
+2. Run the pipeline via *notebooks/databricks.py* or *notebooks/jupyter.ipynb*.
+3. Improve the model quality by finding all **FIXME::OPTIONAL** fields,
+modifying them accordingly, and iterating through various pipeline steps in the notebook.
+
 ## Log to the designated MLflow Experiment
 To log pipeline runs to a particular MLflow experiment:
 1. Open `profiles/databricks.yaml` or `profiles/local.yaml`, depending on your environment.

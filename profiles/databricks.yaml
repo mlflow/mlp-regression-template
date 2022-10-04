@@ -1,27 +1,33 @@
-# [Recommended] Uncomment fields below to set an MLflow experiment to track the pipeline execution.
-# If unset, a default experiment based on runtime context will be created.
-# experiment:
-  # name: "/Shared/sklearn_regression_experiment"
-
-# Set the registry server URI. This property is especially useful if you have a registry
-# server that’s different from the tracking server.
-# Profile could be created using https://github.com/databricks/databricks-cli#installation
+#
+# FIXME::REQUIRED: set an MLflow experiment name to track pipeline executions and artifacts.
+#
+experiment:
+  name: ""
+#
+# FIXME::OPTIONAL: Set the registry server URI, useful if you have a registry server different
+#                  from the tracking server. First create a Databricks Profile, see
+#                  https://github.com/databricks/databricks-cli#installation
 # model_registry:
-#   uri: "databricks://PROFILE_NAME"
+#   uri: "databricks://DATABRICKS_PROFILE_NAME"
 
-# Use a section of the TLC Trip Record Dataset for model development
-# (https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
-INGEST_DATA_LOCATION: dbfs:/databricks-datasets/nyctaxi-with-zipcodes/subsampled
-# Specify the format of the dataset
-INGEST_DATA_FORMAT: spark_sql
-# Use a section of the TLC Trip Record Dataset for model development
-# (https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
-INGEST_SCORING_DATA_LOCATION: dbfs:/databricks-datasets/nyctaxi-with-zipcodes/subsampled
-# Specify the format of the dataset
-INGEST_SCORING_DATA_FORMAT: spark_sql
-# Override the default train / validation / test dataset split ratios
-SPLIT_RATIOS: [0.75, 0.125, 0.125]
-# Specify the output location of the batch scoring predict step
-SCORED_OUTPUT_DATA_LOCATION: "taxi_regression_batch_scoring"
-# Specify the output format of the batch scoring predict step
-SCORED_OUTPUT_DATA_FORMAT: table
+# FIXME::REQUIRED: Specify the training and evaluation data location. This is usually a DBFS
+# location ("dbfs:/...") or a SQL table ("SCHEMA.TABLE").
+INGEST_DATA_LOCATION: ""
+#
+# FIXME::OPTIONAL: Specify the format of the training and evaluation dataset. Natively supported
+#                  formats are: parquet, spark_sql, delta.
+# INGEST_DATA_FORMAT: parquet
+#
+# FIXME::OPTIONAL: Specify the scoring data location.
+# INGEST_SCORING_DATA_LOCATION: ""
+#
+# FIXME::OPTIONAL: Specify the format of the scoring dataset. Natively supported formats are:
+#                  parquet, spark_sql, delta.
+# INGEST_SCORING_DATA_FORMAT: parquet
+#
+# FIXME::OPTIONAL: Specify the output location of the batch scoring predict step.
+# SCORED_OUTPUT_DATA_LOCATION: ""
+#
+# FIXME::OPTIONAL: Specify the format of the scored dataset. Natively supported formats are:
+#                  parquet, spark_sql, delta.
+# SCORED_OUTPUT_DATA_FORMAT: parquet
