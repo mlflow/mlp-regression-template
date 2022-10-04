@@ -1,13 +1,13 @@
 # [Recommended] Uncomment fields below to set an MLflow experiment to track the pipeline execution.
 # If unset, a default experiment based on runtime context will be created.
-# experiment:
-  # name: "/Shared/sklearn_regression_experiment"
+experiment:
+  name: "/Users/marshall.carter@databricks.com/mlp_regression_template_mlc"
 
 # Set the registry server URI. This property is especially useful if you have a registry
 # server that’s different from the tracking server.
 # Profile could be created using https://github.com/databricks/databricks-cli#installation
-# model_registry:
-#   uri: "databricks://PROFILE_NAME"
+model_registry:
+   uri: "databricks://e2-demo-east"
 
 # Use a section of the TLC Trip Record Dataset for model development
 # (https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
