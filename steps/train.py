@@ -12,7 +12,7 @@ def estimator_fn():
     The estimator's input and output signatures should be compatible with scikit-learn
     estimators.
     """
-    # FIXME::OPTIONAL: returns a sklearn-compatible estimator with fine-tuned hyperparameters.
+    # FIXME::OPTIONAL: return a scikit-learn-compatible regression estimator with fine-tuned hyperparameters.
     from sklearn.linear_model import SGDRegressor
 
     return SGDRegressor(random_state=42)
