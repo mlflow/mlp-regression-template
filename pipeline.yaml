@@ -75,6 +75,19 @@ steps:
     # Indicates whether or not a model that fails to meet performance thresholds should still
     # be registered to the MLflow Model Registry
     allow_non_validated_model: false
+  predict:
+    #
+    # FIXME::OPTIONAL: specify the model URI in batch scoring. If empty, the latest model registered
+    #                  from the training step will be used.
+    # model_uri: "models/model.pkl"
+    #
+    # FIXME::OPTIONAL: Specify the output path of the scored data from predict.
+    #
+    # output_location: {{SCORED_OUTPUT_DATA_LOCATION}}
+    #
+    # FIXME::OPTIONAL: Specify the output format of the scored data from predict
+    #
+    # output_format: {{SCORED_OUTPUT_DATA_FORMAT|default('parquet')}}
 metrics:
   #
   # FIXME::REQUIRED: Sets the primary metric to use to evaluate model performance. This primary
