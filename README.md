@@ -70,15 +70,20 @@ it is recommended that you edit files on your local machine and
 use [dbx](https://docs.databricks.com/dev-tools/dbx.html) to sync them to Databricks Repos, as
 demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage)
 
+**Note**: data profiles display in step cards are not visually compatible with dark theme.
+Please avoid using the dark theme if possible.
+
 ### Accessing MLflow Pipeline Runs
 You can find MLflow Experiments and MLflow Runs created by the pipeline on the
 [Databricks ML Experiments page](https://docs.databricks.com/applications/machine-learning/experiments-page.html#experiments).
 
 ## Development Environment -- Local machine
 ### Jupyter
-
 1. Launch the Jupyter Notebook environment via the `jupyter notebook` command.
 2. Open and run the `notebooks/jupyter.ipynb` notebook in the Jupyter environment.
+
+**Note**: data profiles display in step cards are not visually compatible with dark theme.
+Please avoid using the dark theme if possible.
 
 ### Command-Line Interface (CLI)
 
