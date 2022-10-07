@@ -21,10 +21,6 @@ p = Pipeline(profile="databricks")
 
 # COMMAND ----------
 
-p.clean()
-
-# COMMAND ----------
-
 p.inspect()
 
 # COMMAND ----------
@@ -37,6 +33,11 @@ p.run("split")
 
 # COMMAND ----------
 
+training_data = p.get_artifact("training_data")
+training_data.describe()
+
+# COMMAND ----------
+
 p.run("transform")
 
 # COMMAND ----------
@@ -45,22 +46,13 @@ p.run("train")
 
 # COMMAND ----------
 
+trained_model = p.get_artifact("model")
+print(trained_model)
+
+# COMMAND ----------
+
 p.run("evaluate")
 
 # COMMAND ----------
 
 p.run("register")
-
-# COMMAND ----------
-
-p.inspect("train")
-
-# COMMAND ----------
-
-training_data = p.get_artifact("training_data")
-training_data.describe()
-
-# COMMAND ----------
-
-trained_model = p.get_artifact("model")
-print(trained_model)

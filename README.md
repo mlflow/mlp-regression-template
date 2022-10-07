@@ -41,6 +41,16 @@ cd mlp-regression-template
 pip install -r requirements.txt
 ```
 
+## Adapt the template to your ML problem
+This template is not directly runnable. For runnable examples,
+please checkout [this](https://github.com/mlflow/mlr-regression-example) repository.
+To adapt this template to your specific ML problem at hand,
+1. Find all **FIXME::REQUIRED** fields in *pipeline.yaml* and *profiles/\*.yaml*,
+follow the instructions inline to supply valid values to those fields.
+2. Run the pipeline via *notebooks/databricks.py* or *notebooks/jupyter.ipynb*.
+3. Improve the model quality by finding all **FIXME::OPTIONAL** fields,
+modifying them accordingly, and iterating through various pipeline steps in the notebook.
+
 ## Log to the designated MLflow Experiment
 To log pipeline runs to a particular MLflow experiment:
 1. Open `profiles/databricks.yaml` or `profiles/local.yaml`, depending on your environment.
@@ -60,15 +70,20 @@ it is recommended that you edit files on your local machine and
 use [dbx](https://docs.databricks.com/dev-tools/dbx.html) to sync them to Databricks Repos, as
 demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage)
 
+**Note**: data profiles display in step cards are not visually compatible with dark theme.
+Please avoid using the dark theme if possible.
+
 ### Accessing MLflow Pipeline Runs
 You can find MLflow Experiments and MLflow Runs created by the pipeline on the
 [Databricks ML Experiments page](https://docs.databricks.com/applications/machine-learning/experiments-page.html#experiments).
 
 ## Development Environment -- Local machine
 ### Jupyter
-
 1. Launch the Jupyter Notebook environment via the `jupyter notebook` command.
 2. Open and run the `notebooks/jupyter.ipynb` notebook in the Jupyter environment.
+
+**Note**: data profiles display in step cards are not visually compatible with dark theme.
+Please avoid using the dark theme if possible.
 
 ### Command-Line Interface (CLI)
 
