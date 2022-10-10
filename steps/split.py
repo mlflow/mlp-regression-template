@@ -1,7 +1,7 @@
 """
 This module defines the following routines used by the 'split' step of the regression pipeline:
 
-- ``mark_to_be_filtered``: Defines customizable logic for filtering the training, validation,
+- ``create_dataset_filter``: Defines customizable logic for filtering the training, validation,
   and test datasets produced by the data splitting procedure. Note that arbitrary transformations
   should go into the transform step.
 """
@@ -9,7 +9,7 @@ This module defines the following routines used by the 'split' step of the regre
 from pandas import DataFrame, Series
 
 
-def mark_to_be_filtered(dataset: DataFrame) -> Series(bool):
+def create_dataset_filter(dataset: DataFrame) -> Series(bool):
     """
     Mark rows of the split datasets to be additionally filtered. This function will be called on
     the training, validation, and test datasets.
