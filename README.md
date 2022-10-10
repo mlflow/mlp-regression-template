@@ -1,10 +1,16 @@
 # MLflow Pipelines Regression Template
-This repository serves as a customizable template for the
-[MLflow Regression Pipeline](https://mlflow.org/docs/latest/pipelines.html#regression-pipeline)
-to develop high-quality production-ready regression models.
+The MLflow Regression Pipeline is an [MLflow Pipeline](https://mlflow.org/docs/latest/pipelines.html) for developing
+high-quality regression models. 
+It is designed for developing models using scikit-learn and frameworks that integrate with scikit-learn, 
+such as the `XGBRegressor` API from XGBoost.
 
-Currently supported ML models are limited to scikit-learn and frameworks that
-integrate with scikit-learn, such as the ``XGBRegressor`` API from XGBoost.
+This repository is a template for developing production-ready regression models with the MLflow Regression Pipeline.
+It provides a pipeline structure for creating models, and pointers to configurations and code files that should
+be filled in to produce a working pipeline.
+
+Code developed with this template should be run with [MLflow Pipelines](https://mlflow.org/docs/latest/pipelines.html). 
+An example implementation of this template can be found in the [MLP Regression Example repo](https://github.com/mlflow/mlp-regression-example), 
+which targets the NYC taxi dataset for its training problem.
 
 **Note**: [MLflow Pipelines](https://mlflow.org/docs/latest/pipelines.html)
 is an experimental feature in [MLflow](https://mlflow.org).
@@ -14,32 +20,105 @@ For suggestions on improvements,
 please file a discussion topic [here](https://github.com/mlflow/mlflow/discussions).
 Your contribution to MLflow Pipelines is greatly appreciated by the community!
 
-## Installation instructions
-(Optional) Create a clean Python environment either via
-[virtualenv](https://pypi.org/project/virtualenv) or
-[conda](https://pypi.org/project/conda) for the best experience.
-Python 3.7 or higher is required.
+## Key Features
+- Deterministic data splitting
+- Reproducible data transformations
+- Hyperparameter tuning support
+- Model registration for use in production
+- Starter code for ingest, split, transform and train steps
+- Cards containing step results, including dataset profiles, model leaderboard, performance plots and more
 
-1. Install the latest MLflow with Pipelines:
+## Installation
+Follow the [MLflow Pipelines installation guide](https://mlflow.org/docs/latest/pipelines.html#installation). 
+You may need to install additional libraries for extra features:
+- [Hyperopt](https://pypi.org/project/hyperopt/)  is required for hyperparameter tuning.
+- [PySpark](https://pypi.org/project/pyspark/)  is required for distributed training or to ingest Spark tables.
+- [Delta](https://pypi.org/project/delta-spark/) is required to ingest Delta tables.
+These libraries are available natively in the [Databricks Runtime for Machine Learning](https://docs.databricks.com/runtime/mlruntime.html).
+
+## Get started
+After installing MLflow Pipelines, you can clone this repository to get started.  
+Simply fill in the required values in the [Pipeline configuration file](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml) 
+and in the appropriate profile configuration: [`local.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/profiles/local.yaml) 
+(if running locally) or [`databricks.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/profiles/databricks.yaml) 
+(if running on Databricks).  
+The Pipeline will then be in a runnable state, and when run completely, will produce a trained model ready for batch
+scoring, along with cards containing detailed information about the results of each step. 
+The model will also be registered to the MLflow Model Registry if it meets registration thresholds. 
+To iterate and improve your model, follow the [MLflow Pipelines usage guide](https://mlflow.org/docs/latest/pipelines.html#usage). 
+Note that iteration will likely involve filling in the FIXMEs in the 
+step code files with your own code, in addition to the configuration keys.
+
+## Reference
+TODO INSERT IMAGE
+
+This is a visual overview of the MLflow Regression Pipeline's information flow.
+
+Model develompent consists of the following sequential steps:
 ```
-pip install "mlflow[pipelines]"  # for pip
-conda install -c conda-forge mlflow-pipelines  # for conda
+ingest -> split -> transform -> train -> evaluate -> register
 ```
 
-2. Clone this MLflow Regression Pipeline template repository locally:
+The batch scoring workflow consists of the following sequential steps:
 ```
-git clone https://github.com/mlflow/mlp-regression-template.git
+ingest -> predict
+```
+A detailed reference for each step follows.
+### Step artifacts
+Each of the steps in the pipeline produces artifacts after completion. These artifacts consist of cards containing
+detailed execution information, as well as other step-specific information.
+The [`Pipeline.inspect()`](https://mlflow.org/docs/latest/python_api/mlflow.pipelines.html#mlflow.pipelines.regression.v1.pipeline.RegressionPipeline.inspect)
+API is used to view step cards. The [`get_artifact`](https://mlflow.org/docs/latest/python_api/mlflow.pipelines.html#mlflow.pipelines.regression.v1.pipeline.RegressionPipeline.get_artifact)
+API is used to load all other step artifacts by name.  
+Per-step artifacts are further detailed in the following step references.
+
+### Ingest step
+The ingest step resolves the dataset specified by the `data` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml)
+and converts it to parquet format, leveraging the custom loader code specified in the `data` section if necessary.  
+**Note**: If you make changes to the dataset referenced by the ingest step (e.g. by adding new records or columns), 
+you must manually re-run the ingest step in order to use the updated dataset in the pipeline. 
+The ingest step does not automatically detect changes in the dataset.
+
+The custom loader function allows use of datasets in other formats, such as `csv`. 
+The function should be defined in [`steps/ingest.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/ingest.py),
+and should accept two parameters:
+- `file_path`: `str`. Path to the dataset file.
+- `file_format`: `str`. The file format string, such as `"csv"`.
+
+It should return a Pandas DataFrame representing the content of the specified file. [`steps/ingest.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/ingest.py) contains an example placeholder function.
+
+#### Data
+The input dataset is specified by the `data` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml). 
+The reference for the keys under `data` is as follows:
+<details>
+<summary>Reference</summary>
+
+- `location`: string. Required, unless `format` is `spark_sql`.  
+Dataset locations on the local filesystem are supported, as 
+well as HTTP(S) URLs and any other remote locations [resolvable by MLflow](https://mlflow.org/docs/latest/tracking.html#artifact-stores).  
+Examples: 
+```
+location: ./data/sample.parquet
+```
+```
+location: https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet
+```
+- `format`: string. Required.  
+One of `parquet`, `spark_sql` and `delta`.  
+
+
+- `custom_loader_method`: string. Optional.  
+Fully qualified name of the custom loader function.  
+Example using the default placeholder method in `steps/ingest.py`: 
+```
+custom_loader_method: steps.ingest.load_file_as_dataframe
 ```
 
-3. Enter the root directory of the cloned pipeline template:
-```
-cd mlp-regression-template
-```
+- `sql`: string. Required if format is `spark_sql`. In that case, this key specifies a SparkSQL statement that identifies the dataset to use.
+- `version`: int. Optional. If the `delta` format is specified, use this to specify the Delta table version to read from.
+- `timestamp`: timestamp. Optional. If the `delta` format is specified, use this to specify the timestamp at which to read data.
+</details>
 
-4. Install the template dependencies:
-```
-pip install -r requirements.txt
-```
 
 ## Adapt the template to your ML problem
 This template is not directly runnable. For runnable examples,
