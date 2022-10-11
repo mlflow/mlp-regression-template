@@ -108,7 +108,7 @@ It should return a Pandas DataFrame representing the content of the specified fi
 #### Data
 The input dataset is specified by the `data` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml) as follows: 
 <details>
-<summary>Full configuration reference</summary>
+<summary><strong><u>Full configuration reference</u></strong></summary>
 
 - `location`: string. Required, unless `format` is `spark_sql`.  
 Dataset locations on the local filesystem are supported, as 
@@ -167,7 +167,7 @@ It should return a triple representing the processed train, validation and test 
 
 The split step is configured by the `steps.split` section in `pipeline.yaml` as follows:
 <details>
-<summary>Full configuration reference</summary>
+<summary><strong><u>Full configuration reference</u></strong></summary>
 
 - `split_ratios`: list. Optional.  
 A YAML list specifying the ratios by which to split the dataset into training, validation and test sets.  
@@ -202,7 +202,7 @@ and should return an unfitted estimator that is sklearn-compatible; that is, the
 
 The transform step is configured by the `steps.transform` section in pipeline.yaml:
 <details>
-<summary>Full configuration reference</summary>
+<summary><strong><u>Full configuration reference</u></strong></summary>
 
 - `transformer_method`: string. Optional.  
 Fully qualified name of the method that returns an `sklearn`-compatible transformer which applies feature 
@@ -236,7 +236,7 @@ and should return an unfitted estimator that is `sklearn`-compatible; that is, t
 
 The train step is configured by the `steps.train` section in pipeline.yaml:
 <details>
-<summary>Full configuration reference</summary>
+<summary><strong><u>Full configuration reference</u></strong></summary>
 
 - `estimator_method`: string. Required.  
 Fully qualified name of the method that returns an `sklearn`-compatible estimator used for model training.  
@@ -267,7 +267,7 @@ Model performance metrics and explanations are logged to the same MLflow Trackin
 
 The evaluate step is configured by the `steps.evaluate` section in pipeline.yaml:
 <details>
-<summary>Full configuration reference</summary>
+<summary><strong><u>Full configuration reference</u></strong></summary>
 
 - `validation_criteria`: list. Optional.  
 A list of validation thresholds, each of which a trained model must meet in order to be eligible for 
@@ -298,7 +298,7 @@ the model name and the model version.
 
 The register step is configured by the `steps.register` section in pipeline.yaml:
 <details>
-<summary>Full configuration reference</summary>
+<summary><strong><u>Full configuration reference</u></strong></summary>
 
 - `model_name`: string. Required.  
 Specifies the name to use when registering the trained model to the model registry.
@@ -324,7 +324,7 @@ Configuring a tracking server is optional. If this configuration is absent, the 
 
 Tracking information is configured with the `experiment` section in the profile configuration:
 <details>
-<summary>Full configuration reference</summary>
+<summary><strong><u>Full configuration reference</u></strong></summary>
 
 - `name`: string. Required, if configuring tracking.  
 Name of the experiment to log MLflow runs to.
@@ -343,7 +343,7 @@ To register trained models to the MLflow Model Registry, further configuration m
 
 To register models to a different server, specify the desired server in the `model_registry` section in the profile configuration:
 <details>
-<summary>Full configuration reference</summary>
+<summary><strong><u>Full configuration reference</u></strong></summary>
 
 - `uri`: string. Required, if this section is present.  
 URI of the model registry server to which to register trained models.
@@ -363,7 +363,7 @@ Models are ranked by this primary metric.
 
 Metrics are configured under the `metrics` section of pipeline.yaml, according to the following specification:
 <details>
-<summary>Full configuration reference</summary>
+<summary><strong><u>Full configuration reference</u></strong></summary>
 
 - `primary`: string. Required.  
 The name of the primary evaluation metric.
@@ -443,7 +443,7 @@ Once a scoring dataset is ingested, the `predict` step uses the model produced b
 against the scoring dataset.
 The predict step is configured by the `steps.predict` section in pipeline.yaml:
 <details>
-<summary>Full configuration reference</summary>
+<summary><strong><u>Full configuration reference</u></strong></summary>
 
 - `model_uri`: string. Optional.  
 Specifies the URI of the model to use in batch scoring. If empty, the latest model registered from the training step will be used.  
