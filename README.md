@@ -88,139 +88,182 @@ and should accept two parameters:
 It should return a Pandas DataFrame representing the content of the specified file. [`steps/ingest.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/ingest.py) contains an example placeholder function.
 
 #### Data
-The input dataset is specified by the `data` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml). 
-The reference for the keys under `data` is as follows:
+The input dataset is specified by the `data` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml) as follows: 
 <details>
 <summary>Reference</summary>
 
 - `location`: string. Required, unless `format` is `spark_sql`.  
 Dataset locations on the local filesystem are supported, as 
 well as HTTP(S) URLs and any other remote locations [resolvable by MLflow](https://mlflow.org/docs/latest/tracking.html#artifact-stores).  
-Examples: 
-```
-location: ./data/sample.parquet
-```
-```
-location: https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet
-```
+<u>Examples</u>:
+  ```
+  location: ./data/sample.parquet
+  ```
+  ```
+  location: https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet
+  ```
 - `format`: string. Required.  
 One of `parquet`, `spark_sql` and `delta`.  
 
 
 - `custom_loader_method`: string. Optional.  
 Fully qualified name of the custom loader function.  
-Example using the default placeholder method in `steps/ingest.py`: 
-```
-custom_loader_method: steps.ingest.load_file_as_dataframe
-```
+<u>Example</u>: 
+  ```
+  custom_loader_method: steps.ingest.load_file_as_dataframe
+  ```
 
-- `sql`: string. Required if format is `spark_sql`. In that case, this key specifies a SparkSQL statement that identifies the dataset to use.
-- `version`: int. Optional. If the `delta` format is specified, use this to specify the Delta table version to read from.
-- `timestamp`: timestamp. Optional. If the `delta` format is specified, use this to specify the timestamp at which to read data.
+- `sql`: string. Required if format is `spark_sql`.  
+Specifies a SparkSQL statement that identifies the dataset to use.
+
+
+- `version`: int. Optional.  
+If the `delta` format is specified, use this to specify the Delta table version to read from.
+
+
+- `timestamp`: timestamp. Optional.  
+If the `delta` format is specified, use this to specify the timestamp at which to read data.
 </details>
 
+**Step artifacts**
+- `ingested_data`: The ingested data as a Pandas DataFrame.
 
-## Adapt the template to your ML problem
-This template is not directly runnable. For runnable examples,
-please checkout [this](https://github.com/mlflow/mlr-regression-example) repository.
-To adapt this template to your specific ML problem at hand,
-1. Find all **FIXME::REQUIRED** fields in *pipeline.yaml* and *profiles/\*.yaml*,
-follow the instructions inline to supply valid values to those fields.
-2. Run the pipeline via *notebooks/databricks.py* or *notebooks/jupyter.ipynb*.
-3. Improve the model quality by finding all **FIXME::OPTIONAL** fields,
-modifying them accordingly, and iterating through various pipeline steps in the notebook.
+### Split step
 
-## Log to the designated MLflow Experiment
-To log pipeline runs to a particular MLflow experiment:
-1. Open `profiles/databricks.yaml` or `profiles/local.yaml`, depending on your environment.
-2. Edit (and uncomment, if necessary) the `experiment` section, specifying the name of the
-   desired experiment for logging.
+The split step splits the ingested dataset produced by the ingest step into:
+- a training dataset for model training
+- a validation dataset for model performance evaluation & tuning, and 
+- a test dataset for model performance evaluation.  
 
-## Development Environment -- Databricks
-[Sync](https://docs.databricks.com/repos.html) this repository with
-[Databricks Repos](https://docs.databricks.com/repos.html) and run the `notebooks/databricks`
-notebook on a Databricks Cluster running version 11.0 or greater of the
-[Databricks Runtime](https://docs.databricks.com/runtime/dbr.html) or the
-[Databricks Runtime for Machine Learning](https://docs.databricks.com/runtime/mlruntime.html)
-with [workspace files support enabled](https://docs.databricks.com/repos.html#work-with-non-notebook-files-in-a-databricks-repo).
+The fraction of records allocated to each dataset is defined by the `split_ratios` attribute of the `split` step
+definition in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml). 
+The split step also preprocesses the datasets using logic defined in [`steps/split.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/split.py).
+Subsequent steps use these datasets to develop a model and measure its performance.
 
-**Note**: When making changes to pipelines on Databricks,
-it is recommended that you edit files on your local machine and
-use [dbx](https://docs.databricks.com/dev-tools/dbx.html) to sync them to Databricks Repos, as
-demonstrated [here](https://mlflow.org/docs/latest/pipelines.html#usage)
+The post-split method should be written in `steps/split.py` and should accept three parameters:
+- `train_df`: DataFrame. The unprocessed train dataset.
+- `validation_df`: DataFrame. The unprocessed validation dataset.
+- `test_df`: DataFrame. The unprocessed test dataset.
 
-**Note**: data profiles display in step cards are not visually compatible with dark theme.
-Please avoid using the dark theme if possible.
+It should return a triple representing the processed train, validation and test datasets. `steps/split.py` contains an example placeholder function.
 
-### Accessing MLflow Pipeline Runs
-You can find MLflow Experiments and MLflow Runs created by the pipeline on the
-[Databricks ML Experiments page](https://docs.databricks.com/applications/machine-learning/experiments-page.html#experiments).
+The split step is configured by the `steps.split` section in `pipeline.yaml` as follows:
+<details>
+<summary>Reference</summary>
 
-## Development Environment -- Local machine
-### Jupyter
-1. Launch the Jupyter Notebook environment via the `jupyter notebook` command.
-2. Open and run the `notebooks/jupyter.ipynb` notebook in the Jupyter environment.
+- `split_ratios`: list. Optional.  
+A YAML list specifying the ratios by which to split the dataset into training, validation and test sets.  
+<u>Example</u>: 
+  ```
+  split_ratios: [0.75, 0.125, 0.125] # Defaults to this ratio if unspecified
+  ```
+- `post_split_method`: string. Optional.   
+Fully qualified name of the method to use to "post-process" the split datasets. 
+This procedure is meant for removing/filtering records, or other cleaning processes. Arbitrary data transformations 
+should be done in the transform step.  
+<u>Example</u>:
+  ```
+  post_split_method: steps.split.process_splits
+  ```
+</details>
 
-**Note**: data profiles display in step cards are not visually compatible with dark theme.
-Please avoid using the dark theme if possible.
+**Step artifacts**:
+- `training_data`: the training dataset as a Pandas DataFrame.
+- `validation_data`: the validation dataset as a Pandas DataFrame.
+- `test_data`: the test dataset as a Pandas DataFrame.
 
-### Command-Line Interface (CLI)
+### Transform step
 
-First, enter the template root directory and set the profile via environment variable
-```
-cd mlp-regression-template
-```
-```
-export MLFLOW_PIPELINES_PROFILE=local
-```
+The transform step uses the training dataset created by the split step to fit a transformer that performs the 
+user-defined transformations. The transformer is then applied to the training dataset and the validation dataset, 
+creating transformed datasets that are used by subsequent steps for estimator training and model performance evaluation.
 
-Then, try running the
-following [MLflow Pipelines CLI](https://mlflow.org/docs/latest/cli.html#mlflow-pipelines)
-commands to get started.
-Note that the `--step` argument is optional.
-Pipeline commands without a `--step` specified act on the entire pipeline instead.
+The user-defined transformation function should be written in [`steps/transform.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/transform.py), 
+and should return an unfitted estimator that is sklearn-compatible; that is, the returned object should define 
+`fit()` and `transform()` methods. `steps/transform.py` contains an example placeholder function.
 
-Available step names are: `ingest`, `split`, `transform`, `train`, `evaluate` and `register`.
+The transform step is configured by the `steps.transform` section in pipeline.yaml:
+<details>
+<summary>Reference</summary>
 
-- Display the help message:
-```
-mlflow pipelines --help
-```
+- `transformer_method`: string. Optional.  
+Fully qualified name of the method that returns an `sklearn`-compatible transformer which applies feature 
+transformation during model training and inference. If absent, the identity transformer will be used.  
+<u>Example</u>:
+  ```
+  transformer_method: steps.split.transformer_fn
+  ```
 
-- Run a pipeline step or the entire pipeline:
-```
-mlflow pipelines run --step step_name
-```
+</details>
 
-- Inspect a step card or the pipeline dependency graph:
-```
-mlflow pipelines inspect --step step_name
-```
+**Step artifacts**:
+- `transformed_training_data`: transformed training dataset as a Pandas DataFrame.
+- `transformed_validation_data`: transformed validation dataset as a Pandas DataFrame.
+- `transformer`: the sklearn transformer.
 
-- Clean a step cache or all step caches:
-```
-mlflow pipelines clean --step step_name
-```
 
-**Note**: a short cut to `mlflow pipelines` is installed as `mlp`.
-For example, to run the ingest step,
-instead of issuing `mlflow pipelines run --step ingest`, you may type
-```
-mlp -s ingest
-```
+### Train step
+The train step uses the transformed training dataset output from the transform step to fit an user-defined estimator. 
+The estimator is then joined with the fitted transformer output from the transform step to create a model pipeline. 
+Finally, this model pipeline is evaluated against the transformed training and validation datasets to compute performance metrics.  
 
-### Accessing MLflow Pipeline Runs
-To view MLflow Experiments and MLflow Runs created by the pipeline:
+Custom evaluation metrics are computed according to definitions in [`steps/custom_metrics.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/custom_metrics.py)
+and the `metrics` section of `pipeline.yaml`; see [Custom Metrics](#custom-metrics) section for reference. 
 
-1. Enter the template root directory: `cd mlp-regression-template`
+The model pipeline and its associated parameters, performance metrics, and lineage information are logged to [MLflow Tracking](https://www.mlflow.org/docs/latest/tracking.html), producing an MLflow Run.
 
-2. Start the MLflow UI
+The user-defined estimator function should be written in [`steps/train.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/train.py), 
+and should return an unfitted estimator that is `sklearn`-compatible; that is, the returned object should define 
+`fit()` and `transform()` methods. `steps/train.py` contains an example placeholder function.
 
-```sh
-mlflow ui \
-   --backend-store-uri sqlite:///metadata/mlflow/mlruns.db \
-   --default-artifact-root ./metadata/mlflow/mlartifacts \
-   --host localhost
-```
+The train step is configured by the `steps.train` section in pipeline.yaml:
+<details>
+<summary>Reference</summary>
 
-3. Open a browser tab pointing to [http://127.0.0.1:5000](http://127.0.0.1:5000)
+- `estimator_method`: string. Required.  
+Fully qualified name of the method that returns an `sklearn`-compatible estimator used for model training.  
+<u>Example</u>:
+  ```
+  estimator_method: steps.train.estimator_fn
+  ```
+</details>
+
+**Step artifacts**:
+- `model`: the [MLflow Model](https://www.mlflow.org/docs/latest/models.html) pipeline created in the train step 
+as a [PyFuncModel](https://www.mlflow.org/docs/latest/python_api/mlflow.pyfunc.html#mlflow.pyfunc.PyFuncModel) instance.
+
+
+### Evaluate step
+The evaluate step evaluates the model pipeline created by the train step on the test dataset output from the 
+split step, computing performance metrics and model explanations. 
+
+Performance metrics are compared against configured thresholds to produce a `model_validation_status`, which indicates 
+whether or not a model is validated to be registered to the [MLflow Model Registry](https://www.mlflow.org/docs/latest/model-registry.html) 
+by the subsequent [register step](#register-step).  
+These model performance thresholds are defined in the 
+`validation_criteria` section of the `evaluate` step definition in `pipeline.yaml`. 
+Custom evaluation metrics are computed according to definitions in [`steps/custom_metrics.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/custom_metrics.py)
+and the `metrics` section of `pipeline.yaml`; see the [custom metrics section](#custom-metrics) for reference. 
+
+Model performance metrics and explanations are logged to the same MLflow Tracking Run used by the train step.
+
+The evaluate step is configured by the `steps.evaluate` section in pipeline.yaml:
+<details>
+<summary>Reference</summary>
+
+- `validation_criteria`: list. Optional.  
+A list of validation thresholds, each of which a trained model must meet in order to be eligible for 
+registration in the [register step](#register-step).
+A definition for a validation threshold consists of a metric name
+(either a [built-in metric](#built-in-metrics) or a [custom metric](#custom-metrics)), and a threshold value.  
+<u>Example</u>:
+  ```
+  validation_critera:
+    - metric: root_mean_squared_error
+      threshold: 10
+  ```
+</details>
+
+**Step artifacts**:
+- `run`: the MLflow Tracking Run containing the model pipeline, as well as performance and metrics created during 
+the train and evaluate steps.
