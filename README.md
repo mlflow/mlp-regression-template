@@ -267,3 +267,185 @@ A definition for a validation threshold consists of a metric name
 **Step artifacts**:
 - `run`: the MLflow Tracking Run containing the model pipeline, as well as performance and metrics created during 
 the train and evaluate steps.
+
+
+### Register step
+The register step checks the `model_validation_status` output of the preceding [evaluate step](#evaluate-step) and, 
+if model validation was successful (if model_validation_status is `'VALIDATED'`), registers the model pipeline created
+by the train step to the MLflow Model Registry. If the `model_validation_status` does not indicate that the model 
+passed validation checks (if model_validation_status is `'REJECTED'`), the model pipeline is **not** registered to the 
+MLflow Model Registry.  
+If the model pipeline is registered to the MLflow Model Registry, a `registered_model_version` is produced containing 
+the model name and the model version.
+
+The register step is configured by the `steps.register` section in pipeline.yaml:
+<details>
+<summary>Reference</summary>
+
+- `model_name`: string. Required.  
+Specifies the name to use when registering the trained model to the model registry.
+
+
+- `allow_non_validated_model`: boolean. Required.  
+Whether to allow registration of models that fail to meet performance thresholds.
+
+</details>
+
+**Step artifacts**:
+- `registered_model_version`: the MLflow Model Registry [ModelVersion](https://mlflow.org/docs/latest/model-registry.html#concepts)
+registered in this step.
+
+
+### MLflow Tracking / Model Registry configuration
+The MLflow Tracking server can be configured to log MLflow runs to a specific server. Tracking information is specified
+in the profile configuration files - [`profiles/local.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/profiles/local.yaml)
+if running locally and [`profiles/databricks.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/profiles/databricks.yaml) 
+if running on Databricks.  
+
+Configuring a tracking server is optional. If this configuration is absent, the default experiment will be used.
+
+Tracking information is configured with the `experiment` section in the profile configuration:
+<details>
+<summary>Reference</summary>
+
+- `name`: string. Required, if configuring tracking.  
+Name of the experiment to log MLflow runs to.
+
+
+- `tracking_uri`: string. Required, if configuring tracking.  
+URI of the MLflow tracking server to log runs to. Alternatively, the `MLFLOW_TRACKING_URI` environment variable can be [set to point to a valid tracking server](https://www.mlflow.org/docs/latest/python_api/mlflow.html#mlflow.set_tracking_uri).
+
+
+- `artifact_location`: string. Optional. 
+URI of the location to log run artifacts to.
+
+</details>
+
+To register trained models to the MLflow Model Registry, further configuration may be required. If unspecified, models will be logged to the same server as specified in the tracking URI. 
+
+To register models to a different server, specify the desired server in the `model_registry` section in the profile configuration:
+<details>
+<summary>Reference</summary>
+
+- `uri`: string. Required, if this section is present.  
+URI of the model registry server to which to register trained models.
+
+</details>
+
+### Metrics
+Evaluation metrics calculate model performance against different datasets. The metrics defined in the pipeline 
+will be calculated as part of the training and evaluation steps, and calculated values will be recorded in each 
+step’s information card.
+
+This regression pipeline features a set of built-in metrics, and supports user-defined metrics as well.
+
+The **primary evaluation metric** is the one that will be used to select the best performing model in the MLflow UI as
+well as in the train and evaluation steps. This can be either a built-in metric or a custom metric (see below).  
+Models are ranked by this primary metric.
+
+Metrics are configured under the `metrics` section of pipeline.yaml, according to the following specification:
+<details>
+<summary>Reference</summary>
+
+- `primary`: string. Required.  
+The name of the primary evaluation metric.
+
+
+- `custom`: string. Optional.  
+A list of custom metric configurations.
+
+</details>
+
+Note that each metric specifies a boolean value `greater_is_better`, which indicates whether a higher value for that 
+metric is associated with better model performance.
+
+#### Built-in metrics
+The following metrics are built-in. Note that `greater_is_better = False` for all these metrics:
+
+- `mean_absolute_error`
+- `mean_squared_error`
+- `root_mean_squared_error`
+- `max_error`
+- `mean_absolute_percentage_error`
+
+#### Custom metrics
+Custom evaluation metrics define how trained models should be evaluated against custom criteria not captured by 
+built-in `sklearn` evaluation metrics.
+
+Custom evaluation metric functions should be defined in [`steps/custom_metrics.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/custom_metrics.py). 
+Each should accept two parameters:
+- `eval_df`: DataFrame.  
+A Pandas DataFrame containing two columns:
+  - `prediction`: Predictions produced by submitting input data to the model.
+  - `target`: Corresponding target truth values.
+
+
+- `builtin_metrics`: `Dict[str, int]`.  
+The built-in metrics calculated during model evaluation. Maps metric names to corresponding scalar values.
+
+The custom metric function should return a `Dict[str, int]`, mapping custom metric names to corresponding scalar metric values.
+
+Custom metrics are specified as a list under the `metrics.custom` key in pipeline.yaml, specified as follows:
+- `name`: string. Required.  
+Name of the custom metric. This will be the name by which you refer to this metric when including it in model evaluation or model training.
+
+
+- `function`: string. Required. Specifies the function this custom metric refers to.
+
+
+- `greater_is_better`: boolean. Required. Boolean indicating whether a higher metric value indicates better model 
+performance.
+
+An example custom metric configuration is as follows:
+```
+custom:
+ - name: weighted_mean_square_error
+   function: steps.custom_metrics.get_custom_metrics
+   greater_is_better: True
+```
+
+## Scoring
+After model training, the regression pipeline provides a capability for performing model inference against new data.
+
+### Ingest step (scoring)
+The dataset to perform inference against is defined in the profile configuration (`profiles/local.yaml` and `profiles/databricks.yaml`)
+according to the following specification:
+- `INGEST_SCORING_DATA_LOCATION`: string. Required for inference.  
+Location of the dataset to perform inference against.
+
+
+- `INGEST_SCORING_DATA_FORMAT`: string. Required for inference.  
+One of `parquet`, `spark_sql` and `delta`.
+
+**Step artifacts**:
+- `ingested_scoring_data`: the scoring dataset as a Pandas DataFrame
+
+### Predict step
+Once a scoring dataset is ingested, the `predict` step uses the model produced by the regression pipeline to predict 
+against the scoring dataset.
+The predict step is configured by the `steps.predict` section in pipeline.yaml:
+<details>
+<summary>Reference</summary>
+
+- `model_uri`: string. Optional.  
+Specifies the URI of the model to use in batch scoring. If empty, the latest model registered from the training step will be used.  
+<u>Example</u>: 
+  ```
+  model_uri: models/model.pkl
+  ```
+
+
+- `output_location`: string. Optional.  
+Specifies the output path of the scored data from the predict step.  
+<u>Example</u>: 
+  ```
+  output_location: ./outputs/predictions
+  ```
+
+
+- `output_format`: string. Optional.  
+Specifies the output path of the scored data from the predict step. One of `parquet`, `delta` and `spark_sql`. Defaults to `parquet`.
+</details>
+
+**Step artifacts**:
+- `ingested_scoring_data`: the dataset of predictions made in this step, as a Pandas DataFrame.
