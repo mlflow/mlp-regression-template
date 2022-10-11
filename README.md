@@ -5,7 +5,7 @@ It is designed for developing models using scikit-learn and frameworks that inte
 such as the `XGBRegressor` API from XGBoost.
 
 This repository is a template for developing production-ready regression models with the MLflow Regression Pipeline.
-It provides a pipeline structure for creating models, and pointers to configurations and code files that should
+It provides a pipeline structure for creating models as well as pointers to configurations and code files that should
 be filled in to produce a working pipeline.
 
 Code developed with this template should be run with [MLflow Pipelines](https://mlflow.org/docs/latest/pipelines.html). 
@@ -37,11 +37,11 @@ You may need to install additional libraries for extra features:
 These libraries are available natively in the [Databricks Runtime for Machine Learning](https://docs.databricks.com/runtime/mlruntime.html).
 
 ## Get started
-After installing MLflow Pipelines, you can clone this repository to get started.  
-Simply fill in the required values in the [Pipeline configuration file](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml) 
+After installing MLflow Pipelines, you can clone this repository to get started. Simply fill in the required values in the [Pipeline configuration file](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml) 
 and in the appropriate profile configuration: [`local.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/profiles/local.yaml) 
 (if running locally) or [`databricks.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/profiles/databricks.yaml) 
-(if running on Databricks).  
+(if running on Databricks).
+
 The Pipeline will then be in a runnable state, and when run completely, will produce a trained model ready for batch
 scoring, along with cards containing detailed information about the results of each step. 
 The model will also be registered to the MLflow Model Registry if it meets registration thresholds. 
@@ -64,6 +64,24 @@ The batch scoring workflow consists of the following sequential steps:
 ingest -> predict
 ```
 A detailed reference for each step follows.
+
+ * [Reference](#reference)
+    + [Step artifacts](#step-artifacts)
+    + [Ingest step](#ingest-step)
+      - [Data](#data)
+    + [Split step](#split-step)
+    + [Transform step](#transform-step)
+    + [Train step](#train-step)
+    + [Evaluate step](#evaluate-step)
+    + [Register step](#register-step)
+    + [MLflow Tracking / Model Registry configuration](#mlflow-tracking--model-registry-configuration)
+    + [Metrics](#metrics)
+      - [Built-in metrics](#built-in-metrics)
+      - [Custom metrics](#custom-metrics)
+  * [Scoring](#scoring)
+    + [Ingest step (scoring)](#ingest-step-scoring)
+    + [Predict step](#predict-step)
+
 ### Step artifacts
 Each of the steps in the pipeline produces artifacts after completion. These artifacts consist of cards containing
 detailed execution information, as well as other step-specific information.
@@ -90,7 +108,7 @@ It should return a Pandas DataFrame representing the content of the specified fi
 #### Data
 The input dataset is specified by the `data` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml) as follows: 
 <details>
-<summary>Reference</summary>
+<summary>Full configuration reference</summary>
 
 - `location`: string. Required, unless `format` is `spark_sql`.  
 Dataset locations on the local filesystem are supported, as 
@@ -149,7 +167,7 @@ It should return a triple representing the processed train, validation and test 
 
 The split step is configured by the `steps.split` section in `pipeline.yaml` as follows:
 <details>
-<summary>Reference</summary>
+<summary>Full configuration reference</summary>
 
 - `split_ratios`: list. Optional.  
 A YAML list specifying the ratios by which to split the dataset into training, validation and test sets.  
@@ -157,13 +175,13 @@ A YAML list specifying the ratios by which to split the dataset into training, v
   ```
   split_ratios: [0.75, 0.125, 0.125] # Defaults to this ratio if unspecified
   ```
-- `post_split_method`: string. Optional.   
+- `post_split_filter_method`: string. Optional.   
 Fully qualified name of the method to use to "post-process" the split datasets. 
 This procedure is meant for removing/filtering records, or other cleaning processes. Arbitrary data transformations 
 should be done in the transform step.  
 <u>Example</u>:
   ```
-  post_split_method: steps.split.process_splits
+  post_split_filter_method: steps.split.process_splits
   ```
 </details>
 
@@ -184,7 +202,7 @@ and should return an unfitted estimator that is sklearn-compatible; that is, the
 
 The transform step is configured by the `steps.transform` section in pipeline.yaml:
 <details>
-<summary>Reference</summary>
+<summary>Full configuration reference</summary>
 
 - `transformer_method`: string. Optional.  
 Fully qualified name of the method that returns an `sklearn`-compatible transformer which applies feature 
@@ -218,7 +236,7 @@ and should return an unfitted estimator that is `sklearn`-compatible; that is, t
 
 The train step is configured by the `steps.train` section in pipeline.yaml:
 <details>
-<summary>Reference</summary>
+<summary>Full configuration reference</summary>
 
 - `estimator_method`: string. Required.  
 Fully qualified name of the method that returns an `sklearn`-compatible estimator used for model training.  
@@ -249,7 +267,7 @@ Model performance metrics and explanations are logged to the same MLflow Trackin
 
 The evaluate step is configured by the `steps.evaluate` section in pipeline.yaml:
 <details>
-<summary>Reference</summary>
+<summary>Full configuration reference</summary>
 
 - `validation_criteria`: list. Optional.  
 A list of validation thresholds, each of which a trained model must meet in order to be eligible for 
@@ -280,7 +298,7 @@ the model name and the model version.
 
 The register step is configured by the `steps.register` section in pipeline.yaml:
 <details>
-<summary>Reference</summary>
+<summary>Full configuration reference</summary>
 
 - `model_name`: string. Required.  
 Specifies the name to use when registering the trained model to the model registry.
@@ -306,7 +324,7 @@ Configuring a tracking server is optional. If this configuration is absent, the 
 
 Tracking information is configured with the `experiment` section in the profile configuration:
 <details>
-<summary>Reference</summary>
+<summary>Full configuration reference</summary>
 
 - `name`: string. Required, if configuring tracking.  
 Name of the experiment to log MLflow runs to.
@@ -325,7 +343,7 @@ To register trained models to the MLflow Model Registry, further configuration m
 
 To register models to a different server, specify the desired server in the `model_registry` section in the profile configuration:
 <details>
-<summary>Reference</summary>
+<summary>Full configuration reference</summary>
 
 - `uri`: string. Required, if this section is present.  
 URI of the model registry server to which to register trained models.
@@ -345,7 +363,7 @@ Models are ranked by this primary metric.
 
 Metrics are configured under the `metrics` section of pipeline.yaml, according to the following specification:
 <details>
-<summary>Reference</summary>
+<summary>Full configuration reference</summary>
 
 - `primary`: string. Required.  
 The name of the primary evaluation metric.
@@ -425,7 +443,7 @@ Once a scoring dataset is ingested, the `predict` step uses the model produced b
 against the scoring dataset.
 The predict step is configured by the `steps.predict` section in pipeline.yaml:
 <details>
-<summary>Reference</summary>
+<summary>Full configuration reference</summary>
 
 - `model_uri`: string. Optional.  
 Specifies the URI of the model to use in batch scoring. If empty, the latest model registered from the training step will be used.  
