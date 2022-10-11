@@ -37,7 +37,7 @@ You may need to install additional libraries for extra features:
 These libraries are available natively in the [Databricks Runtime for Machine Learning](https://docs.databricks.com/runtime/mlruntime.html).
 
 ## Get started
-After installing MLflow Pipelines, you can clone this repository to get started. Simply fill in the required values in the [Pipeline configuration file](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml) 
+After installing MLflow Pipelines, you can clone this repository to get started. Simply fill in the required values annotated by `FIXME::REQUIRED` comments in the [Pipeline configuration file](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml) 
 and in the appropriate profile configuration: [`local.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/profiles/local.yaml) 
 (if running locally) or [`databricks.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/profiles/databricks.yaml) 
 (if running on Databricks).
@@ -46,7 +46,7 @@ The Pipeline will then be in a runnable state, and when run completely, will pro
 scoring, along with cards containing detailed information about the results of each step. 
 The model will also be registered to the MLflow Model Registry if it meets registration thresholds. 
 To iterate and improve your model, follow the [MLflow Pipelines usage guide](https://mlflow.org/docs/latest/pipelines.html#usage). 
-Note that iteration will likely involve filling in the FIXMEs in the 
+Note that iteration will likely involve filling in the optional `FIXME`s in the 
 step code files with your own code, in addition to the configuration keys.
 
 ## Reference
@@ -78,9 +78,9 @@ A detailed reference for each step follows.
     + [Metrics](#metrics)
       - [Built-in metrics](#built-in-metrics)
       - [Custom metrics](#custom-metrics)
-  * [Scoring](#scoring)
-    + [Ingest step (scoring)](#ingest-step-scoring)
-    + [Predict step](#predict-step)
+    + [Scoring](#scoring)
+      - [Ingest step (scoring)](#ingest-step-scoring)
+      - [Predict step](#predict-step)
 
 ### Step artifacts
 Each of the steps in the pipeline produces artifacts after completion. These artifacts consist of cards containing
@@ -422,10 +422,10 @@ custom:
    greater_is_better: True
 ```
 
-## Scoring
+### Batch scoring
 After model training, the regression pipeline provides a capability for performing model inference against new data.
 
-### Ingest step (scoring)
+#### Ingest step (scoring)
 The dataset to perform inference against is defined in the profile configuration (`profiles/local.yaml` and `profiles/databricks.yaml`)
 according to the following specification:
 - `INGEST_SCORING_DATA_LOCATION`: string. Required for inference.  
@@ -438,7 +438,7 @@ One of `parquet`, `spark_sql` and `delta`.
 **Step artifacts**:
 - `ingested_scoring_data`: the scoring dataset as a Pandas DataFrame
 
-### Predict step
+#### Predict step
 Once a scoring dataset is ingested, the `predict` step uses the model produced by the regression pipeline to predict 
 against the scoring dataset.
 The predict step is configured by the `steps.predict` section in pipeline.yaml:
