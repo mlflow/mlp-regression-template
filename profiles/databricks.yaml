@@ -1,5 +1,6 @@
 #
-# FIXME::REQUIRED: set an MLflow experiment name to track pipeline executions and artifacts.
+# FIXME::REQUIRED: set an MLflow experiment name to track pipeline executions and artifacts. On Databricks, an
+#                  experiment name must be a valid path in the workspace.
 #
 experiment:
   name: ""
