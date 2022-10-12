@@ -50,7 +50,7 @@ Note that iteration will likely involve filling in the optional `FIXME`s in the
 step code files with your own code, in addition to the configuration keys.
 
 ## Reference
-TODO INSERT IMAGE
+![image](https://user-images.githubusercontent.com/51172624/195406309-0acf2d6b-19ad-4023-b631-833d4febfc8d.png)
 
 This is a visual overview of the MLflow Regression Pipeline's information flow.
 
