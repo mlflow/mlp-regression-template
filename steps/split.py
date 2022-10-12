@@ -17,6 +17,6 @@ def create_dataset_filter(dataset: DataFrame) -> Series(bool):
     :param dataset: The {train,validation,test} dataset produced by the data splitting procedure.
     :return: A Series indicating whether each row should be filtered
     """
-    # FIXME::OPTIONAL: implement post-split processing on the dataframes, such as data cleaning.
+    # FIXME::OPTIONAL: implement post-split filtering on the dataframes, such as data cleaning.
 
     return Series(True, index=dataset.index)
