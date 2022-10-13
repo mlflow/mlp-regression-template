@@ -196,7 +196,9 @@ The transform step uses the training dataset created by the split step to fit a 
 user-defined transformations. The transformer is then applied to the training dataset and the validation dataset, 
 creating transformed datasets that are used by subsequent steps for estimator training and model performance evaluation.
 
-The user-defined transformation function should be written in [`steps/transform.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/transform.py), 
+The user-defined transformation function is not required. If absent, an **identity transformer** will be used.
+The user-defined function should be written in
+[`steps/transform.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/transform.py), 
 and should return an unfitted estimator that is sklearn-compatible; that is, the returned object should define 
 `fit()` and `transform()` methods. `steps/transform.py` contains an example placeholder function.
 
@@ -206,7 +208,7 @@ The transform step is configured by the `steps.transform` section in pipeline.ya
 
 - `transformer_method`: string. Optional.  
 Fully qualified name of the method that returns an `sklearn`-compatible transformer which applies feature 
-transformation during model training and inference. If absent, the identity transformer will be used.  
+transformation during model training and inference. If absent, an identity transformer with will be used.
 <u>Example</u>:
   ```
   transformer_method: steps.split.transformer_fn
