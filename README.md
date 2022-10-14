@@ -324,7 +324,7 @@ trained model.
 The ingest scoring step, defined in the `data_scoring` section of the pipeline.yaml, specifies the dataset used for batch scoring and has the same API as the [ingest step](#ingest-step).
 
 **Step artifacts**:
-- `ingested_scoring_data`: the scoring dataset as a Pandas DataFrame
+- `ingested_scoring_data`: the ingested scoring data as a Pandas DataFrame
 
 #### Predict step
 The 'predict' step uses the model produced by the [register step](#register-step) to score the ingested dataset produced by the [ingest scoring step](#ingest-scoring-step) and writes the resulting dataset to the specified output format and location. Namely, it uses the latest version of the registered model specified by the `model_name` attribute of the pipeline.yaml [register step](#register-step) definition. To fix a specific model for use in the 'predict' step, provide its model URI as the 'model_uri' attribute of the pipeline.yaml 'predict' step definition.
@@ -362,7 +362,7 @@ Specifies the save mode used by Spark for writing data. See the [PySpark save mo
 </details>
 
 **Step artifacts**:
-- `ingested_scoring_data`: the dataset of predictions made in this step, as a Pandas DataFrame.
+- `scored_data`: the scoring dataset augment with model predictions as the `prediction` column, as a Pandas DataFrame.
 
 
 ### MLflow Tracking / Model Registry configuration
