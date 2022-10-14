@@ -30,5 +30,5 @@ INGEST_DATA_LOCATION: ""
 # SCORED_OUTPUT_DATA_LOCATION: ""
 #
 # FIXME::OPTIONAL: Specify the format of the scored dataset. Natively supported formats are:
-#                  parquet, spark_sql, delta.
+#                  parquet, delta, table.
 # SCORED_OUTPUT_DATA_FORMAT: parquet
