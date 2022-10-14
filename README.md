@@ -50,7 +50,7 @@ Note that iteration will likely involve filling in the optional `FIXME`s in the
 step code files with your own code, in addition to the configuration keys.
 
 ## Reference
-![image](https://user-images.githubusercontent.com/51172624/195406309-0acf2d6b-19ad-4023-b631-833d4febfc8d.png)
+![image](https://user-images.githubusercontent.com/66143562/195912433-f1e44829-dea5-4fb2-a034-b197c2cebf71.png)
 
 This is a visual overview of the MLflow Regression Pipeline's information flow.
 
