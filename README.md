@@ -202,7 +202,7 @@ The user-defined function should be written in
 and should return an unfitted estimator that is sklearn-compatible; that is, the returned object should define 
 `fit()` and `transform()` methods. `steps/transform.py` contains an example placeholder function.
 
-The transform step is configured by the `steps.transform` section in pipeline.yaml:
+The transform step is configured by the `steps.transform` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml):
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
@@ -236,7 +236,7 @@ The user-defined estimator function should be written in [`steps/train.py`](http
 and should return an unfitted estimator that is `sklearn`-compatible; that is, the returned object should define 
 `fit()` and `transform()` methods. `steps/train.py` contains an example placeholder function.
 
-The train step is configured by the `steps.train` section in pipeline.yaml:
+The train step is configured by the `steps.train` section in `pipeline.yaml`:
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
@@ -267,7 +267,7 @@ and the `metrics` section of `pipeline.yaml`; see the [custom metrics section](#
 
 Model performance metrics and explanations are logged to the same MLflow Tracking Run used by the train step.
 
-The evaluate step is configured by the `steps.evaluate` section in pipeline.yaml:
+The evaluate step is configured by the `steps.evaluate` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml):
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
@@ -298,7 +298,7 @@ MLflow Model Registry.
 If the model pipeline is registered to the MLflow Model Registry, a `registered_model_version` is produced containing 
 the model name and the model version.
 
-The register step is configured by the `steps.register` section in pipeline.yaml:
+The register step is configured by the `steps.register` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml):
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
@@ -321,15 +321,15 @@ After model training, the regression pipeline provides the capability to score n
 trained model.
 
 #### Ingest Scoring step
-The ingest scoring step, defined in the `data_scoring` section of the pipeline.yaml, specifies the dataset used for batch scoring and has the same API as the [ingest step](#ingest-step).
+The ingest scoring step, defined in the `data_scoring` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml), specifies the dataset used for batch scoring and has the same API as the [ingest step](#ingest-step).
 
 **Step artifacts**:
 - `ingested_scoring_data`: the ingested scoring data as a Pandas DataFrame.
 
 #### Predict step
-The 'predict' step uses the model registered by the [register step](#register-step) to score the ingested dataset produced by the [ingest scoring step](#ingest-scoring-step) and writes the resulting dataset to the specified output format and location. Namely, it uses the latest version of the registered model specified by the `model_name` attribute of the pipeline.yaml [register step](#register-step) definition. To fix a specific model for use in the 'predict' step, provide its model URI as the 'model_uri' attribute of the pipeline.yaml 'predict' step definition.
+The 'predict' step uses the model registered by the [register step](#register-step) to score the ingested dataset produced by the [ingest scoring step](#ingest-scoring-step) and writes the resulting dataset to the specified output format and location. Namely, it uses the latest version of the registered model specified by the `model_name` attribute of the `pipeline.yaml` [register step](#register-step) definition. To fix a specific model for use in the 'predict' step, provide its model URI as the 'model_uri' attribute of the `pipeline.yaml` 'predict' step definition.
 
-The predict step is configured by the `steps.predict` section in pipeline.yaml:
+The predict step is configured by the `steps.predict` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml):
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
@@ -346,7 +346,7 @@ For the `parquet` and `delta` output formats, this attribute specifies the outpu
 
 
 - `model_uri`: string. Optional.  
-Specifies the URI of the model to use in batch scoring. If empty, the latest version of the registered model specified by the `model_name` attribute of the pipeline.yaml [register step](#register-step) will be used.  
+Specifies the URI of the model to use in batch scoring. If empty, the latest version of the registered model specified by the `model_name` attribute of the `pipeline.yaml` [register step](#register-step) will be used.  
 <u>Example</u>: 
   ```
   model_uri: models/model.pkl
@@ -412,7 +412,7 @@ The **primary evaluation metric** is the one that will be used to select the bes
 well as in the train and evaluation steps. This can be either a built-in metric or a custom metric (see below).  
 Models are ranked by this primary metric.
 
-Metrics are configured under the `metrics` section of pipeline.yaml, according to the following specification:
+Metrics are configured under the `metrics` section of [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml), according to the following specification:
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
@@ -454,7 +454,7 @@ The built-in metrics calculated during model evaluation. Maps metric names to co
 
 The custom metric function should return a `Dict[str, int]`, mapping custom metric names to corresponding scalar metric values.
 
-Custom metrics are specified as a list under the `metrics.custom` key in pipeline.yaml, specified as follows:
+Custom metrics are specified as a list under the `metrics.custom` key in `pipeline.yaml`, specified as follows:
 - `name`: string. Required.  
 Name of the custom metric. This will be the name by which you refer to this metric when including it in model evaluation or model training.
 
