@@ -86,7 +86,7 @@ steps:
     # Indicates whether or not a model that fails to meet performance thresholds should still
     # be registered to the MLflow Model Registry
     allow_non_validated_model: false
-  # FIXME::OPTIONAL: Configure the predict step for for batch scoring. See README.md for full 
+  # FIXME::OPTIONAL: Configure the predict step for batch scoring. See README.md for full 
   #                  configuration reference.
   # predict:
   #   output_format: {{SCORED_OUTPUT_DATA_FORMAT|default('parquet')}}
