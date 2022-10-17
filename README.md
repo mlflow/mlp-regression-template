@@ -236,7 +236,7 @@ The user-defined estimator function should be written in [`steps/train.py`](http
 and should return an unfitted estimator that is `sklearn`-compatible; that is, the returned object should define 
 `fit()` and `transform()` methods. `steps/train.py` contains an example placeholder function.
 
-The train step is configured by the `steps.train` section in `pipeline.yaml`:
+The train step is configured by the `steps.train` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml):
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
@@ -454,7 +454,7 @@ The built-in metrics calculated during model evaluation. Maps metric names to co
 
 The custom metric function should return a `Dict[str, int]`, mapping custom metric names to corresponding scalar metric values.
 
-Custom metrics are specified as a list under the `metrics.custom` key in `pipeline.yaml`, specified as follows:
+Custom metrics are specified as a list under the `metrics.custom` key in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml), specified as follows:
 - `name`: string. Required.  
 Name of the custom metric. This will be the name by which you refer to this metric when including it in model evaluation or model training.
 
