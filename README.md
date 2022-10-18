@@ -251,46 +251,46 @@ Fully qualified name of the method that returns an `sklearn`-compatible estimato
   estimator_method: steps.train.estimator_fn
   ```
 
-<summary><strong><u>Tuning configuration reference</u></strong></summary>
+- Tuning configuration reference
 
-- `enabled`: boolean. Required.  
-Indicates whether or not tuning is enabled.
+   - `enabled`: boolean. Required.  
+   Indicates whether or not tuning is enabled.
 
-- `max_trials`: int. Required.  
-Max tuning trials to run.
+   - `max_trials`: int. Required.  
+   Max tuning trials to run.
 
-- `algorithm`: string. Optional.  
-Indicates whether or not tuning is enabled.
+   - `algorithm`: string. Optional.  
+   Indicates whether or not tuning is enabled.
 
-- `early_stop_fn`: string. Optional.  
-Early stopping function to be passed to hyperopt
+   - `early_stop_fn`: string. Optional.  
+   Early stopping function to be passed to hyperopt
 
-- `parallelism`: int. Optional.
-Number of workers to run hyperopt across.
+   - `parallelism`: int. Optional.
+   Number of workers to run hyperopt across.
 
-- `sample_fraction`: float. Optional.  
-Sampling fraction in the range (0, 1.0] to indicate the amount of data used in tuning.
+   - `sample_fraction`: float. Optional.  
+   Sampling fraction in the range (0, 1.0] to indicate the amount of data used in tuning.
 
-- `parameters`: list. Required.  
-Hyperopt search space in yaml format.
+   - `parameters`: list. Required.  
+   Hyperopt search space in yaml format.
 
-<u>Example</u>:
-  ```
-  tuning:
-  enabled: True
-  algorithm: "hyperopt.rand.suggest"
-  max_trials: 5
-  early_stop_fn: "hyperopt.early_stop.no_progress_loss(10)"
-  parallelism: 1
-  sample_fraction: 0.5
-  parameters:
-    alpha:
-      distribution: "uniform"
-      low: 0.0
-      high: 0.01
-    penalty:
-      values: ["l1", "l2", "elasticnet"]
-  ```
+   <u>Example</u>:
+   ```
+   tuning:
+   enabled: True
+   algorithm: "hyperopt.rand.suggest"
+   max_trials: 5
+   early_stop_fn: "hyperopt.early_stop.no_progress_loss(10)"
+   parallelism: 1
+   sample_fraction: 0.5
+   parameters:
+      alpha:
+         distribution: "uniform"
+         low: 0.0
+         high: 0.01
+      penalty:
+         values: ["l1", "l2", "elasticnet"]
+   ```
 
 </details>
 
