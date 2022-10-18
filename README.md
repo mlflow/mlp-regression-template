@@ -334,10 +334,8 @@ specifies the dataset used for batch scoring and has the same API as the [ingest
 #### Predict step
 The predict step uses the model registered by the [register step](#register-step) to score the 
 ingested dataset produced by the [ingest scoring step](#ingest-scoring-step) and writes the resulting 
-dataset to the specified output format and location. Namely, it uses the latest version of the 
-registered model specified by the `model_name` attribute of the `pipeline.yaml` [register step](#register-step) 
-definition. To fix a specific model for use in the 'predict' step, provide its model URI as the 
-'model_uri' attribute of the `pipeline.yaml` 'predict' step definition.
+dataset to the specified output format and location. To fix a specific model for use in the predict 
+step, provide its model URI as the `model_uri` attribute of the `pipeline.yaml` predict step definition.
 
 The predict step is configured by the `steps.predict` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml):
 <details>
@@ -363,7 +361,8 @@ written delta table.
 
 
 - `model_uri`: string. Optional.  
-Specifies the URI of the model to use for batch scoring. If empty, the latest version of the 
+Specifies the URI of the model to use for batch scoring. If empty, the latest model version produced
+by the register step is used. If the register step was cleared, the latest version of the 
 registered model specified by the `model_name` attribute of the `pipeline.yaml` [register step](#register-step) 
 will be used.  
 <u>Example</u>: 
