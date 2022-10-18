@@ -112,13 +112,17 @@ The input dataset is specified by the `data` section in [`pipeline.yaml`](https:
 
 - `location`: string. Required, unless `format` is `spark_sql`.  
 Dataset locations on the local filesystem are supported, as 
-well as HTTP(S) URLs and any other remote locations [resolvable by MLflow](https://mlflow.org/docs/latest/tracking.html#artifact-stores).  
+well as HTTP(S) URLs and any other remote locations [resolvable by MLflow](https://mlflow.org/docs/latest/tracking.html#artifact-stores).
+One may specify multiple data locations by a list of locations as long as they have the same data format (see example below)
 <u>Examples</u>:
   ```
   location: ./data/sample.parquet
   ```
   ```
   location: https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet
+  ```
+  ```
+  location: ["./data/sample.parquet", "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet"]
   ```
 - `format`: string. Required.  
 One of `parquet`, `spark_sql` and `delta`.  
