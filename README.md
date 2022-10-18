@@ -263,16 +263,16 @@ Fully qualified name of the method that returns an `sklearn`-compatible estimato
    Indicates whether or not tuning is enabled.
 
    - `early_stop_fn`: string. Optional.  
-   Early stopping function to be passed to hyperopt
+   Early stopping function to be passed to `hyperopt`.
 
-   - `parallelism`: int. Optional.
-   Number of workers to run hyperopt across.
+   - `parallelism`: int. Optional.  
+   Number of workers to run `hyperopt` across.
 
    - `sample_fraction`: float. Optional.  
-   Sampling fraction in the range (0, 1.0] to indicate the amount of data used in tuning.
+   Sampling fraction in the range `(0, 1.0]` to indicate the amount of data used in tuning.
 
    - `parameters`: list. Required.  
-   Hyperopt search space in yaml format.
+   `hyperopt` search space in yaml format.
 
    <u>Example</u>:
    ```
