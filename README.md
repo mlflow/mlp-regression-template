@@ -276,7 +276,7 @@ Fully qualified name of the method that returns an `sklearn`-compatible estimato
 
   <u>Example</u>:
   ```
-    tuning:
+  tuning:
     enabled: True
     algorithm: "hyperopt.rand.suggest"
     max_trials: 5
