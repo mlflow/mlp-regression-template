@@ -274,8 +274,8 @@ Fully qualified name of the method that returns an `sklearn`-compatible estimato
    - `parameters`: list. Required.  
    `hyperopt` search space in yaml format.
 
-    <u>Example</u>:
-    ```
+  <u>Example</u>:
+  ```
     tuning:
     enabled: True
     algorithm: "hyperopt.rand.suggest"
@@ -290,7 +290,7 @@ Fully qualified name of the method that returns an `sklearn`-compatible estimato
           high: 0.01
         penalty:
           values: ["l1", "l2", "elasticnet"]
-    ```
+  ```
 
 </details>
 
