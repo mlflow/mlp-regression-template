@@ -90,9 +90,28 @@ API is used to view step cards. The [`get_artifact`](https://mlflow.org/docs/lat
 API is used to load all other step artifacts by name.  
 Per-step artifacts are further detailed in the following step references.
 
+### Problem statement
+Specifies the name of the column containing targets / labels for model training and evaluation
+- `target_col`: string. Required.  
+The name of the column set as the target for model training.
+<u>Example</u>: 
+  ```
+  target_col: "fare_amount"
+  ```
+
+The **primary evaluation metric** is the one that will be used to select the best performing model in the MLflow UI as
+well as in the train and evaluation steps. This can be either a built-in metric or a custom metric (see below).  
+Models are ranked by this primary metric.
+- `primary_metric`: string. Required.  
+The name of the primary evaluation metric.
+<u>Example</u>: 
+  ```
+  primary_metric: "root_mean_squared_error"
+  ```
+
 ### Ingest step
-The ingest step resolves the dataset specified by the `data` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml)
-and converts it to parquet format, leveraging the custom loader code specified in the `data` section if necessary.  
+The ingest step resolves the dataset specified by the `steps.ingest` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml)
+and converts it to parquet format, leveraging the custom loader code specified in the `steps.ingest` section if necessary.  
 **Note**: If you make changes to the dataset referenced by the ingest step (e.g. by adding new records or columns), 
 you must manually re-run the ingest step in order to use the updated dataset in the pipeline. 
 The ingest step does not automatically detect changes in the dataset.
@@ -105,8 +124,7 @@ and should accept two parameters:
 
 It should return a Pandas DataFrame representing the content of the specified file. [`steps/ingest.py`](https://github.com/mlflow/mlp-regression-template/blob/main/steps/ingest.py) contains an example placeholder function.
 
-#### Data
-The input dataset is specified by the `data` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml) as follows: 
+The input dataset is specified by the `steps.ingest` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml) as follows: 
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
@@ -124,7 +142,7 @@ One may specify multiple data locations by a list of locations as long as they h
   ```
   location: ["./data/sample.parquet", "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet"]
   ```
-- `format`: string. Required.  
+- `using`: string. Required.  
 One of `parquet`, `spark_sql` and `delta`.  
 
 
@@ -348,10 +366,6 @@ The register step is configured by the `steps.register` section in [`pipeline.ya
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
-- `model_name`: string. Required.  
-Specifies the name to use when registering the trained model to the model registry.
-
-
 - `allow_non_validated_model`: boolean. Required.  
 Whether to allow registration of models that fail to meet performance thresholds.
 
@@ -367,7 +381,7 @@ After model training, the regression pipeline provides the capability to score n
 trained model.
 
 #### Ingest Scoring step
-The ingest scoring step, defined in the `data_scoring` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml), 
+The ingest scoring step, defined in the `steps.ingest_scoring` section in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml), 
 specifies the dataset used for batch scoring and has the same API as the [ingest step](#ingest-step).
 
 **Step artifacts**:
@@ -383,35 +397,25 @@ The predict step is configured by the `steps.predict` section in [`pipeline.yaml
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
-- `output_format`: string. Required.  
-Specifies the output format of the scored data from the predict step. One of `parquet`, `delta`, and 
-`table`. The `parquet` format writes the scored data as parquet files under a specified path. The 
-`delta` format writes the scored data as a delta table under a specified path. The `table` format 
-writes the scored data as delta table and creates a metastore entry for this table with a specified name.
+- `output`: string. Required.
+Specifies where the output of the predict step is logged.
+  - `using`: string. Required.  
+  Specifies the output format of the scored data from the predict step. One of `parquet`, `delta`, and 
+  `table`. The `parquet` format writes the scored data as parquet files under a specified path. The 
+  `delta` format writes the scored data as a delta table under a specified path. The `table` format 
+  writes the scored data as delta table and creates a metastore entry for this table with a specified name.
 
 
-- `output_location`: string. Required.  
-For the `parquet` and `delta` output formats, this attribute specifies the output path for writing 
-the scored data. In Databricks, this path will be written to be under [DBFS](https://docs.databricks.com/dbfs/index.html), 
-e.g. the path `my/special/path` will be written under `/dbfs/my/special/path`. For the `table` output 
-format, this attribute specifies the table name that is used to create the metastore entry for the 
-written delta table.
-<u>Example</u>: 
-  ```
-  output_location: ./outputs/predictions
-  ```
-
-
-- `model_uri`: string. Optional.  
-Specifies the URI of the model to use for batch scoring. If empty, the latest model version produced
-by the register step is used. If the register step was cleared, the latest version of the 
-registered model specified by the `model_name` attribute of the `pipeline.yaml` [register step](#register-step) 
-will be used.  
-<u>Example</u>: 
-  ```
-  model_uri: models/model.pkl
-  ```
-
+  - `location`: string. Required.  
+  For the `parquet` and `delta` output formats, this attribute specifies the output path for writing 
+  the scored data. In Databricks, this path will be written to be under [DBFS](https://docs.databricks.com/dbfs/index.html), 
+  e.g. the path `my/special/path` will be written under `/dbfs/my/special/path`. For the `table` output 
+  format, this attribute specifies the table name that is used to create the metastore entry for the 
+  written delta table.
+  <u>Example</u>: 
+    ```
+    location: ./outputs/predictions
+    ```
 
 - `result_type`: string. Optional. Defaults to `double`.  
 Specifies the data type for predictions generated by the model. See the 
@@ -461,31 +465,36 @@ To register models to a different server, specify the desired server in the `mod
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
-- `uri`: string. Required, if this section is present.  
+- `registry_uri`: string. Required, if this section is present.  
 URI of the model registry server to which to register trained models.
+
+- `model_name`: string. Required.  
+Specifies the name to use when registering the trained model to the model registry.
+
+- `model_uri`: string. Optional.  
+Specifies the URI of the model to use for batch scoring. If empty, the latest model version produced
+by the register step is used. If the register step was cleared, the latest version of the 
+registered model specified by the `model_name` attribute of the `pipeline.yaml` [register step](#register-step) 
+will be used.  
+<u>Example</u>: 
+  ```
+  model_uri: models/model.pkl
+  ```
 
 </details>
 
-### Metrics
+### Custom Metrics
 Evaluation metrics calculate model performance against different datasets. The metrics defined in the pipeline 
 will be calculated as part of the training and evaluation steps, and calculated values will be recorded in each 
 step’s information card.
 
 This regression pipeline features a set of built-in metrics, and supports user-defined metrics as well.
 
-The **primary evaluation metric** is the one that will be used to select the best performing model in the MLflow UI as
-well as in the train and evaluation steps. This can be either a built-in metric or a custom metric (see below).  
-Models are ranked by this primary metric.
-
-Metrics are configured under the `metrics` section of [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml), according to the following specification:
+Metrics are configured under the `custom_metrics` section of [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml), according to the following specification:
 <details>
 <summary><strong><u>Full configuration reference</u></strong></summary>
 
-- `primary`: string. Required.  
-The name of the primary evaluation metric.
-
-
-- `custom`: string. Optional.  
+- `custom_metrics`: string. Optional.  
 A list of custom metric configurations.
 
 </details>
@@ -502,7 +511,6 @@ The following metrics are built-in. Note that `greater_is_better = False` for al
 - `max_error`
 - `mean_absolute_percentage_error`
 
-#### Custom metrics
 Custom evaluation metrics define how trained models should be evaluated against custom criteria not captured by 
 built-in `sklearn` evaluation metrics.
 
@@ -532,7 +540,7 @@ performance.
 
 An example custom metric configuration is as follows:
 ```
-custom:
+custom_metrics:
  - name: weighted_mean_square_error
    function: steps.custom_metrics.get_custom_metrics
    greater_is_better: True

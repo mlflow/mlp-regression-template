@@ -16,41 +16,18 @@
 #       files are properly formatted.
 
 template: "regression/v1"
-# Specifies the dataset to use for model development
-data:
-  # Dataset locations on the local filesystem are supported, as well as HTTP(S) URLs and
-  # any other remote locations resolvable by MLflow, such as those listed in
-  # https://mlflow.org/docs/latest/tracking.html#artifact-stores
-  location: {{INGEST_DATA_LOCATION}}
-  # Beyond `parquet` datasets, the `spark_sql` and `delta` formats are also natively supported for
-  # use with Spark
-  format: {{INGEST_DATA_FORMAT|default('parquet')}}
-  # Datasets with other formats, including `csv`, can be used by implementing and
-  # specifying a `custom_loader_method`
-  custom_loader_method: steps.ingest.load_file_as_dataframe
-  # If the `spark_sql` `format` is specified,
-  # And if the table location format is path-like, use the following sql command for Spark to read
-  # sub-columns from the table:
-  # sql: SELECT col1, col2 FROM delta.`{{INGEST_DATA_LOCATION}}`
-  # And if the table location format is table-like, use the following sql command for Spark to read
-  # sub-columns from the table:
-  # sql: SELECT col1, col2 FROM {{INGEST_DATA_LOCATION}}
-  # If the `delta` `format` is specified, you can also configure the Delta table `version` to read
-  # or the `timestamp` at which to read data
-  # version: 2
-  # timestamp: 2022-06-01T00:00:00.000Z
-# FIXME::OPTIONAL: Specify the dataset to use for batch scoring. All params serve the same function 
-#                  as in `data`
-# data_scoring:
-#   location: {{INGEST_SCORING_DATA_LOCATION}}
-#   format: {{INGEST_SCORING_DATA_FORMAT|default('parquet')}}
-#   custom_loader_method: steps.ingest.load_file_as_dataframe
-#   sql: SELECT * FROM delta.`{{INGEST_SCORING_DATA_LOCATION}}`
-#
 # FIXME::REQUIRED: Specifies the target column name for model training and evaluation.
-#
 target_col: ""
+# FIXME::REQUIRED: Sets the primary metric to use to evaluate model performance. This primary
+#                  metric is used to select best performing models in MLflow UI as well as in
+#                  train and evaluation step.
+#                  Built-in metrics are: example_count, mean_absolute_error, mean_squared_error,
+#                  root_mean_squared_error, sum_on_label, mean_on_label, r2_score, max_error,
+#                  mean_absolute_percentage_error
+primary_metric: ""
 steps:
+  # Specifies the dataset to use for model development
+  ingest: {{INGEST_CONFIG}}
   split:
     #
     # FIXME::OPTIONAL: Adjust the train/validation/test split ratios below.
@@ -78,36 +55,17 @@ steps:
     #   - metric: root_mean_squared_error
     #     threshold: 10
   register:
-    #
-    # FIXME::REQUIRED: Specifies the name of the Registered Model to use when registering a trained
-    #                  model to the MLflow Model Registry.
-    #
-    model_name: ""
     # Indicates whether or not a model that fails to meet performance thresholds should still
     # be registered to the MLflow Model Registry
     allow_non_validated_model: false
-  # FIXME::OPTIONAL: Configure the predict step for batch scoring. See README.md for full 
-  #                  configuration reference.
+  # FIXME::OPTIONAL: Specify the dataset to use for batch scoring. All params serve the same function
+  #                  as in `data`
+  # ingest_scoring: {{INGEST_SCORING_CONFIG}}
   # predict:
-  #   output_format: {{SCORED_OUTPUT_DATA_FORMAT|default('parquet')}}
-  #   output_location: {{SCORED_OUTPUT_DATA_LOCATION}}
-  #   model_uri: "models/model.pkl"
-  #   result_type: "double"
-  #   save_mode: "default
-metrics:
-  #
-  # FIXME::REQUIRED: Sets the primary metric to use to evaluate model performance. This primary
-  #                  metric is used to select best performing models in MLflow UI as well as in
-  #                  train and evaluation step.
-  #                  Built-in metrics are: example_count, mean_absolute_error, mean_squared_error,
-  #                  root_mean_squared_error, sum_on_label, mean_on_label, r2_score, max_error,
-  #                  mean_absolute_percentage_error
-  primary: ""
-  #
-  # FIXME::OPTIONAL: Defines custom performance metrics to compute during model development.
-  #
-  # custom:
-  #   - name: ""
-  #     function: get_custom_metrics
-  #     greater_is_better: False
+  #   output: {{PREDICT_OUTPUT_CONFIG}}
+# custom_metrics:
+#   FIXME::OPTIONAL: Defines custom performance metrics to compute during model development.
+#     - name: ""
+#       function: get_custom_metrics
+#       greater_is_better: False
 
