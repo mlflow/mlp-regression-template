@@ -31,7 +31,7 @@ def get_custom_metric(
                             metrics and the values are the scalar values of the metrics. For more
                             information, see
                             https://mlflow.org/docs/latest/python_api/mlflow.html#mlflow.evaluate.
-    :return: A scalar metric value.
+    :return: A numeric scalar value.
     """
     # FIXME::OPTIONAL: implement custom metric calculation here.
 
