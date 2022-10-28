@@ -517,7 +517,7 @@ A Pandas DataFrame containing two columns:
 - `builtin_metrics`: `Dict[str, int]`.  
 The built-in metrics calculated during model evaluation. Maps metric names to corresponding scalar values.
 
-The custom metric function should return a `Dict[str, int]`, mapping custom metric names to corresponding scalar metric values.
+The custom metric function should return a numeric scalar value.
 
 Custom metrics are specified as a list under the `metrics.custom` key in [`pipeline.yaml`](https://github.com/mlflow/mlp-regression-template/blob/main/pipeline.yaml), specified as follows:
 - `name`: string. Required.  

@@ -108,6 +108,6 @@ metrics:
   #
   # custom:
   #   - name: ""
-  #     function: get_custom_metrics
+  #     function: get_custom_metric
   #     greater_is_better: False
 
