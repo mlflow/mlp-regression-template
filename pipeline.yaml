@@ -63,6 +63,9 @@ steps:
   # ingest_scoring: {{INGEST_SCORING_CONFIG}}
   # predict:
   #   output: {{PREDICT_OUTPUT_CONFIG}}
+  #   model_uri: "models/model.pkl"
+  #   result_type: "double"
+  #   save_mode: "default
 # custom_metrics:
 #   FIXME::OPTIONAL: Defines custom performance metrics to compute during model development.
 #     - name: ""
