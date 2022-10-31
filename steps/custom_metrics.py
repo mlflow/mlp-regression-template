@@ -19,8 +19,8 @@ from pandas import DataFrame
 
 def get_custom_metric(
     eval_df: DataFrame,
-    builtin_metrics: Dict[str, int],  # pylint: disable=unused-argument
-) -> Dict[str, int]:
+    builtin_metrics: Dict[str, float],  # pylint: disable=unused-argument
+) -> float:
     """
     FIXME::OPTIONAL: provide function doc string.
     :param eval_df: A Pandas DataFrame containing the following columns:
