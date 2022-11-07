@@ -1,4 +1,7 @@
-# MLflow Pipelines Regression Template
+# [DEPRECATED] MLflow Pipelines Regression Template
+**NOTE**: This repo is deprecated as of 2022/11/07. If you are using MLflow 2.0,
+please refer to [MLflow Recipes Regression Template](https://github.com/mlflow/recipes-regression-template) instead.
+
 The MLflow Regression Pipeline is an [MLflow Pipeline](https://mlflow.org/docs/latest/pipelines.html) for developing
 high-quality regression models. 
 It is designed for developing models using scikit-learn and frameworks that integrate with scikit-learn, 
