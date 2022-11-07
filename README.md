@@ -1,5 +1,6 @@
 # [DEPRECATED] MLflow Pipelines Regression Template
-**NOTE**: This repo is deprecated as of 2022/11/07. If you are using MLflow 2.0,
+**NOTE**: This repository is deprecated as of 2022/11/07, and will be removed soon.
+If you are using MLflow 2.0,
 please refer to [MLflow Recipes Regression Template](https://github.com/mlflow/recipes-regression-template) instead.
 
 The MLflow Regression Pipeline is an [MLflow Pipeline](https://mlflow.org/docs/latest/pipelines.html) for developing
